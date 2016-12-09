@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 20:09:25 by jguyon           ###   ########.fr       *#
+#*   Updated: 2016/12/09 23:00:44 by jguyon           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -91,11 +91,36 @@ SRC_FILES = ft_memset.c														\
 			stream/ft_fputs.c												\
 			stream/ft_ferror.c												\
 			stream/ft_fclose.c												\
-			stream/ft_fflush.c
+			stream/ft_fflush.c												\
+																			\
+			printf/pf_arg_char.c											\
+			printf/pf_arg_fmt.c												\
+			printf/pf_arg_int.c												\
+			printf/pf_arg_ptr.c												\
+			printf/pf_arg_str.c												\
+			printf/pf_arg_uint.c											\
+			printf/pf_clean_str.c											\
+			printf/pf_del_convs.c											\
+			printf/pf_extract_args.c										\
+			printf/pf_format_int.c											\
+			printf/pf_format_ptr.c											\
+			printf/pf_format_str.c											\
+			printf/pf_get_format.c											\
+			printf/pf_get_info.c											\
+			printf/pf_parse_format.c										\
+			printf/pf_write_convs.c											\
+			printf/ft_printf.c												\
+			printf/ft_vprintf.c												\
+			printf/ft_dprintf.c												\
+			printf/ft_vdprintf.c											\
+			printf/ft_fprintf.c												\
+			printf/ft_vfprintf.c
 
 HDR_PATH = includes
 HDR_FILES = libft.h															\
-			libftstream.h
+			libftstream.h													\
+			libftprintf.h													\
+			priv/pf_utils.h
 
 TEST_NAME = test_libft
 TEST_PATH = tests
@@ -113,7 +138,7 @@ $(NAME): $(OBJ)
 	$(AR) rcs $@ $^
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
-	@mkdir -p $(OBJ_PATH)/stream
+	@mkdir -p $(OBJ_PATH)/stream $(OBJ_PATH)/printf
 	$(CC) $(CFLAGS) -I$(HDR_PATH) -o $@ -c $<
 
 clean:
