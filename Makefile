@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 19:36:56 by jguyon           ###   ########.fr       *#
+#*   Updated: 2016/12/09 20:09:25 by jguyon           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -83,10 +83,19 @@ SRC_FILES = ft_memset.c														\
 																			\
 			ft_wcconv.c														\
 			ft_wclen.c														\
-			ft_wstrlen.c
+			ft_wstrlen.c													\
+																			\
+			stream/ft_fopencookie.c											\
+			stream/ft_fwrite.c												\
+			stream/ft_fputc.c												\
+			stream/ft_fputs.c												\
+			stream/ft_ferror.c												\
+			stream/ft_fclose.c												\
+			stream/ft_fflush.c
 
 HDR_PATH = includes
-HDR_FILES = libft.h
+HDR_FILES = libft.h															\
+			libftstream.h
 
 TEST_NAME = test_libft
 TEST_PATH = tests
@@ -104,7 +113,7 @@ $(NAME): $(OBJ)
 	$(AR) rcs $@ $^
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
-	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/stream
 	$(CC) $(CFLAGS) -I$(HDR_PATH) -o $@ -c $<
 
 clean:
