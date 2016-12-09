@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:45:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:45:18 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/10 00:20:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_list			*pf_parse_format(const char *format)
 	convs = NULL;
 	next_el = &convs;
 	prev = NULL;
-	while ((next = ft_strchrnul(format, PF_FORMAT_START)))
+	while ((next = ft_strchrnul(format, (int)PF_FORMAT_START)))
 	{
 		if (!(el = create_conv(&next, format)) || !(check_args(prev, el)))
 		{

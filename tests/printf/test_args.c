@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
+/*   test_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 19:40:29 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 00:24:20 by jguyon           ###   ########.fr       */
+/*   Created: 2016/12/09 23:19:03 by jguyon            #+#    #+#             */
+/*   Updated: 2016/12/09 23:19:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "test_printf.h"
 
-char	*ft_strchrnul(const char *str, int c)
+void	tp_test_args(void)
 {
-	char	cc;
-
-	cc = (char)c;
-	while (*str && *str != cc)
-		++str;
-	return ((char *)str);
+	TP_PRINTF("%2$d // %1$d // %1$#x", 42, 21);
+	TP_PRINTF("%*u // %.*u", 4, 42, 8, 21);
+	TP_PRINTF("%3$*1$.*2$u // %4$*2$.*1$u", 4, 8, 42, 21);
+	TP_PRINTF("%2$*1$u // %2$.*1$u", -4, 42);
+	TP_PRINTF("%1$d // %% // %1$d", 42);
 }

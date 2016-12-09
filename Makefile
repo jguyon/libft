@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 23:00:44 by jguyon           ###   ########.fr       *#
+#*   Updated: 2016/12/09 23:33:50 by jguyon           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -33,6 +33,7 @@ SRC_FILES = ft_memset.c														\
 			ft_strlcat.c													\
 			ft_strchr.c														\
 			ft_strrchr.c													\
+			ft_strchrnul.c													\
 			ft_strstr.c														\
 			ft_strnstr.c													\
 			ft_strcmp.c														\
@@ -62,6 +63,7 @@ SRC_FILES = ft_memset.c														\
 			ft_strtrim.c													\
 			ft_strsplit.c													\
 			ft_itoa.c														\
+			ft_uimtoa_base.c												\
 			ft_putchar_fd.c													\
 			ft_putstr_fd.c													\
 			ft_putendl_fd.c													\
@@ -74,6 +76,7 @@ SRC_FILES = ft_memset.c														\
 			ft_lstnew.c														\
 			ft_lstdelone.c													\
 			ft_lstdel.c														\
+			ft_lstdelcnt.c													\
 			ft_lstadd.c														\
 			ft_lstiter.c													\
 			ft_lstmap.c														\
@@ -149,8 +152,14 @@ fclean: clean
 
 re: fclean all
 
-test: all
+test: test_lib test_printf
+
+test_lib: all
 	@make NAME=$(TEST_NAME) -C $(TEST_PATH)
 	./$(TEST_PATH)/$(TEST_NAME)
+
+test_printf: all
+	@make NAME=$(TEST_NAME) -C $(TEST_PATH)/printf
+	./$(TEST_PATH)/printf/$(TEST_NAME)
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:09:26 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 19:22:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/09 23:56:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void	test_lists(void)
 	TFT_RUN(test_list_fold_empty);
 	TFT_RUN(test_list_fold_iter);
 	TFT_RUN(test_list_fold_err);
+	TFT_RUN(test_list_sort);
 }

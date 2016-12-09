@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:19:48 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:34:58 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/10 00:47:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ static int	create_arg(t_list **args, size_t n, t_pf_conv *conv, int type)
 
 static void	*create_conv_args(t_list *el, void *acc)
 {
-	t_list		*args;
+	t_list		**args;
 	t_pf_conv	*conv;
 
-	args = (t_list *)acc;
+	args = (t_list **)acc;
 	conv = (t_pf_conv *)(el->content);
 	if (conv->format)
 	{
 		if ((conv->info->width_arg >= 0
-					&& !(create_arg(&args, conv->info->width_arg, conv, -1)))
+					&& !(create_arg(args, conv->info->width_arg, conv, -1)))
 				|| (conv->info->prec_arg >= 0
-					&& !(create_arg(&args, conv->info->prec_arg, conv, 1)))
-				|| !(create_arg(&args, conv->info->arg, conv, 0)))
+					&& !(create_arg(args, conv->info->prec_arg, conv, 1)))
+				|| !(create_arg(args, conv->info->arg, conv, 0)))
 			return (NULL);
 	}
 	return (args);
@@ -57,7 +57,7 @@ static int	arg_order(t_list *e1, t_list *e2)
 
 	arg1 = (t_pf_arg *)(e1->content);
 	arg2 = (t_pf_arg *)(e2->content);
-	return (((int)arg1->n) - ((int)arg2->n));
+	return (arg1->n > arg2->n);
 }
 
 static int	do_extract_args(t_list *args, va_list ap)
@@ -96,7 +96,7 @@ int			pf_extract_args(t_list *convs, va_list ap)
 
 	args = NULL;
 	res = 0;
-	if ((args = ft_lstfoldl(convs, args, &create_conv_args)))
+	if (ft_lstfoldl(convs, &args, &create_conv_args))
 	{
 		ft_lstsort(&args, &arg_order);
 		if (do_extract_args(args, ap))

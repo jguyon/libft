@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 19:40:29 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 00:24:20 by jguyon           ###   ########.fr       */
+/*   Created: 2016/12/09 23:18:01 by jguyon            #+#    #+#             */
+/*   Updated: 2016/12/09 23:18:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "test_printf.h"
 
-char	*ft_strchrnul(const char *str, int c)
+int		main(void)
 {
-	char	cc;
-
-	cc = (char)c;
-	while (*str && *str != cc)
-		++str;
-	return ((char *)str);
+	tp_test_basics();
+	tp_test_ints();
+	tp_test_strings();
+	tp_test_ptr();
+	tp_test_args();
+	tp_test_err();
+	return (0);
 }

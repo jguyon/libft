@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
+/*   test_basics.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 19:40:29 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 00:24:20 by jguyon           ###   ########.fr       */
+/*   Created: 2016/12/09 23:19:42 by jguyon            #+#    #+#             */
+/*   Updated: 2016/12/09 23:19:58 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "test_printf.h"
 
-char	*ft_strchrnul(const char *str, int c)
+void	tp_test_basics(void)
 {
-	char	cc;
-
-	cc = (char)c;
-	while (*str && *str != cc)
-		++str;
-	return ((char *)str);
+	TP_PRINTF("");
+	TP_PRINTF("hello");
+	TP_PRINTF("I\nhave\tescaped\vchars");
+	TP_PRINTF("%% // %% // %%");
 }
