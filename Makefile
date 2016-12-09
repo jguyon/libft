@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 18:42:57 by jguyon           ###   ########.fr       *#
+#*   Updated: 2016/12/09 19:36:56 by jguyon           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -79,7 +79,11 @@ SRC_FILES = ft_memset.c														\
 			ft_lstmap.c														\
 			ft_lstfoldl.c													\
 			ft_lstfoldr.c													\
-			ft_lstsort.c
+			ft_lstsort.c													\
+																			\
+			ft_wcconv.c														\
+			ft_wclen.c														\
+			ft_wstrlen.c
 
 HDR_PATH = includes
 HDR_FILES = libft.h

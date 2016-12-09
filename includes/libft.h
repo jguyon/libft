@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 17:01:51 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/09 19:45:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <string.h>
+# include <wchar.h>
+# include <inttypes.h>
 
 void				*ft_memset(void *str, int c, size_t len);
 void				ft_bzero(void *str, size_t n);
@@ -36,6 +38,7 @@ size_t				ft_strlcat(char *restrict dst, const char *restrict src,
 								size_t size);
 char				*ft_strchr(const char *str, int c);
 char				*ft_strrchr(const char *str, int c);
+char				*ft_strchrnul(const char *str, int c);
 char				*ft_strstr(const char *big, const char *little);
 char				*ft_strnstr(const char *big, const char *little,
 									size_t len);
@@ -68,6 +71,8 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *str);
 char				**ft_strsplit(char const *str, char c);
 char				*ft_itoa(int n);
+char				*ft_uimtoa_base(uintmax_t n, unsigned int base,
+									int upper, int prec);
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
@@ -96,5 +101,9 @@ void				*ft_lstfoldl(t_list *lst, void *acc,
 void				*ft_lstfoldr(t_list *lst, void *acc,
 									void *(*f)(t_list *elem, void *acc));
 void				ft_lstsort(t_list **lst, int (*f)(t_list *e1, t_list *e2));
+
+size_t				ft_wcconv(char *dst, wchar_t wc);
+size_t				ft_wclen(wchar_t wc);
+size_t				ft_wstrlen(const wchar_t *ws);
 
 #endif
