@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 17:03:40 by jguyon           ###   ########.fr       *#
+#*   Updated: 2016/12/09 18:42:57 by jguyon           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -84,6 +84,9 @@ SRC_FILES = ft_memset.c														\
 HDR_PATH = includes
 HDR_FILES = libft.h
 
+TEST_NAME = test_libft
+TEST_PATH = tests
+
 OBJ_PATH = objs
 OBJ_FILES = $(SRC_FILES:%.c=%.o)
 
@@ -107,5 +110,9 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+test: all
+	@make NAME=$(TEST_NAME) -C $(TEST_PATH)
+	./$(TEST_PATH)/$(TEST_NAME)
 
 .PHONY: all clean fclean re

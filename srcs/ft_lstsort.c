@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:01:58 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 17:05:23 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/09 19:16:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	sort_list(t_list **list, int is_sorted,
 
 	if (!(*list) || !((*list)->next))
 		return (is_sorted);
-	if (order((*list)->next->content, (*list)->content) < 0)
+	if (order((*list)->next->content, (*list)->content))
 	{
 		t1 = *list;
 		t2 = (*list)->next;
