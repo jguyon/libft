@@ -6,13 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 21:36:50 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 21:54:23 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/10 11:43:29 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	isspace(int c)
+static int	is_space(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n'
 			|| c == '\v' || c == '\f' || c == '\r');
@@ -35,7 +35,7 @@ int			ft_atoi(const char *str)
 {
 	int				sign;
 
-	while (isspace(*str))
+	while (is_space(*str))
 		++str;
 	sign = *str == '-' ? -1 : 1;
 	if (sign == -1 || *str == '+')
