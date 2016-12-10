@@ -6,12 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:01:58 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 23:57:43 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/10 12:33:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int	sort_list(t_list **list, int is_sorted,
 						int (*order)(t_list *, t_list *))
