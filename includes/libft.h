@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 00:23:15 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/18 16:55:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void				*ft_lstfoldl(t_list *lst, void *acc,
 void				*ft_lstfoldr(t_list *lst, void *acc,
 									void *(*f)(t_list *elem, void *acc));
 void				ft_lstsort(t_list **lst, int (*f)(t_list *e1, t_list *e2));
+void				ft_lstmsort(t_list **lst, int (*f)(t_list *e1, t_list *e2));
 void				ft_lstdelcnt(void *content, size_t size);
 
 size_t				ft_wcconv(char *dst, wchar_t wc);

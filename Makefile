@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 23:33:50 by jguyon           ###   ########.fr       *#
+#    Updated: 2016/12/18 17:35:14 by jguyon           ###   ########.fr        #
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -83,6 +83,7 @@ SRC_FILES = ft_memset.c														\
 			ft_lstfoldl.c													\
 			ft_lstfoldr.c													\
 			ft_lstsort.c													\
+			ft_lstmsort.c													\
 																			\
 			ft_wcconv.c														\
 			ft_wclen.c														\
