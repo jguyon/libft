@@ -6,33 +6,32 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:32:40 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/19 14:48:47 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/27 22:48:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#define FT_LOMAGIC 0x0101010101010101L
-#define FT_HIMAGIC 0x8080808080808080L
+#define MISALIGNED(s)	((uintptr_t)(s) & 7)
+#define WORDS(s)		((uint64_t *)(s))
+#define LOW_BITS		0x0101010101010101
+#define HIGH_BITS		0x8080808080808080
+#define NONEMPTY(w)		((((w) - LOW_BITS) & ~(w) & HIGH_BITS) == 0)
 
 size_t	ft_strlen(const char *str)
 {
-	const char			*start;
-	unsigned long int	*words;
-	const char			*last;
+	const char	*end;
 
-	start = str;
-	while ((ptrdiff_t)start & 7)
+	end = str;
+	while (MISALIGNED(str))
 	{
-		if (!(*start))
-			return (start - str);
-		++start;
+		if (!(*end))
+			return (end - str);
+		++end;
 	}
-	words = (unsigned long int *)start;
-	while (((*words - FT_LOMAGIC) & FT_HIMAGIC) == 0)
-		++words;
-	last = (const char *)words;
-	while (*last)
-		++last;
-	return (last - str);
+	while (NONEMPTY(*WORDS(end)))
+		end += 8;
+	while (*end)
+		++end;
+	return (end - str);
 }
