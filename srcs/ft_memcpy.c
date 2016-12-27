@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 16:39:23 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/07 17:25:17 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/27 23:48:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
 {
-	size_t			i;
-	unsigned char	*udst;
-	unsigned char	*usrc;
+	size_t	align;
+	size_t	i;
 
-	udst = (unsigned char *)dst;
-	usrc = (unsigned char *)src;
+	align = n & 7;
 	i = 0;
+	while (i < align)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		++i;
+	}
 	while (i < n)
 	{
-		udst[i] = usrc[i];
-		++i;
+		*((uint64_t *)((unsigned char *)dst + i))
+			= *((uint64_t *)((unsigned char *)src + i));
+		i += 8;
 	}
 	return (dst);
 }
