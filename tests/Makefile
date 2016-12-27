@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/12/09 17:07:08 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 18:33:08 by jguyon           ###   ########.fr       *#
+#    Updated: 2016/12/27 17:07:21 by jguyon           ###   ########.fr        #
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -24,6 +24,7 @@ LIB_INC_PATH = $(LIB_PATH)/includes
 LIB_INC_NAMES = libft.h
 
 SRC = main.c																\
+		test_strings.c													\
 	  test_lists.c
 INC = test_libft.h $(LIB_INC_NAMES:%.h=$(LIB_INC_PATH)/%.h)
 OBJ = $(SRC:%.c=%.o)
