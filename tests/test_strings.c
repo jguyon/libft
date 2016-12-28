@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 10:58:50 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 12:51:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,33 @@ TFT_TEST(test_strlen)
 	TFT_ASSERT(ft_strlen(str) == strlen(str));
 }
 
+TFT_TEST(test_memccpy)
+{
+	char	mem_ft[256] = {0};
+	char	mem_lc[256] = {0};
+	char	src[256] = {0};
+
+	TFT_ASSERT(strcmp(ft_memccpy(mem_ft, "hello world", 'o', 12),
+					  memccpy(mem_lc, "hello world", 'o', 12)) == 0);
+	TFT_ASSERT(strcmp(mem_ft, mem_lc) == 0);
+	bzero(mem_ft, 256);
+	bzero(mem_lc, 256);
+	TFT_ASSERT(ft_memccpy(mem_ft, "hello world", 'o', 3)
+			   == memccpy(mem_lc, "hello world", 'o', 3));
+	TFT_ASSERT(strcmp(mem_ft, mem_lc) == 0);
+	bzero(mem_ft, 256);
+	bzero(mem_lc, 256);
+	memset(src, 'a', 256);
+	src[197] = 'b';
+	TFT_ASSERT(strcmp(ft_memccpy(mem_ft, src, 'b', 243),
+					  memccpy(mem_lc, src, 'b', 243)) == 0);
+	TFT_ASSERT(strcmp(mem_ft, mem_lc) == 0);
+}
+
 void	test_strings(void)
 {
 	TFT_RUN(test_memset);
 	TFT_RUN(test_memcpy);
 	TFT_RUN(test_strlen);
+	TFT_RUN(test_memccpy);
 }
