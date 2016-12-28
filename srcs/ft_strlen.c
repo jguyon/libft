@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:32:40 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/27 22:48:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 19:02:14 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define WORDS(s)		((uint64_t *)(s))
 #define LOW_BITS		0x0101010101010101
 #define HIGH_BITS		0x8080808080808080
-#define NONEMPTY(w)		((((w) - LOW_BITS) & ~(w) & HIGH_BITS) == 0)
+#define HASZERO(w)		(((w) - LOW_BITS) & ~(w) & HIGH_BITS)
 
 size_t	ft_strlen(const char *str)
 {
@@ -29,7 +29,7 @@ size_t	ft_strlen(const char *str)
 			return (end - str);
 		++end;
 	}
-	while (NONEMPTY(*WORDS(end)))
+	while (!HASZERO(*WORDS(end)))
 		end += 8;
 	while (*end)
 		++end;
