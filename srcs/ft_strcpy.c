@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:42:42 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 20:26:22 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 20:28:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ char	*ft_strcpy(char *dst, const char *src)
 	ret = dst;
 	while (MISALIGNED(src))
 	{
-		if (!(*dst = *src))
+		if (!(*(dst++) = *(src++)))
 			return (ret);
-		++src;
-		++dst;
 	}
 	while (!HASZERO(*WORDS(src)))
 	{
