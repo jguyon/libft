@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 20:12:53 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 23:03:03 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,23 @@ TFT_TEST(test_strcpy)
 	TFT_ASSERT(strcmp(ft_strcpy(str_ft, src + 36), strcpy(str_lc, src + 36)) == 0);
 }
 
+TFT_TEST(test_strncpy)
+{
+	char	str_ft[256];
+	char	str_lc[256];
+	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
+
+	memset(str_ft, 'a', 256);
+	memset(str_lc, 'a', 256);
+	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src, 30), strncpy(str_lc, src, 30), 256) == 0);
+	memset(str_ft, 'a', 256);
+	memset(str_lc, 'a', 256);
+	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src + 30, 6), strncpy(str_lc, src + 30, 6), 256) == 0);
+	memset(str_ft, 'a', 256);
+	memset(str_lc, 'a', 256);
+	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src + 36, 3), strncpy(str_lc, src + 36, 3), 256) == 0);
+}
+
 void	test_strings(void)
 {
 	TFT_RUN(test_memset);
@@ -149,4 +166,5 @@ void	test_strings(void)
 	TFT_RUN(test_strlen);
 	TFT_RUN(test_strdup);
 	TFT_RUN(test_strcpy);
+	TFT_RUN(test_strncpy);
 }
