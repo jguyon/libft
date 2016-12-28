@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 16:50:47 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 13:33:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 17:06:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	*ft_memccpy(void *restrict dst, const void *restrict src,
 	if (n > 8)
 	{
 		word = LOW_BITS * c;
-		while (n > 8)
+		while (n > 8 && !HASZERO(*((uint64_t *)src) ^ word))
 		{
-			if (HASZERO(*((uint64_t *)src) ^ word))
-				break ;
 			*((uint64_t *)dst) = *((uint64_t *)src);
 			dst = ((uint64_t *)dst) + 1;
 			src = ((uint64_t *)src) + 1;
