@@ -6,32 +6,35 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 15:57:32 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/27 20:48:25 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/28 18:37:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *str, int c, size_t len)
-{
-	size_t			align;
-	size_t			i;
-	uint64_t		word;
+#define LOW_BITS	0x0101010101010101
 
-	align = len & 7;
-	i = 0;
-	while (i < align)
+void	*ft_memset(void *str, int c, size_t n)
+{
+	uint64_t	word;
+	void		*ret;
+
+	ret = str;
+	if (n >= 8)
 	{
-		((unsigned char *)str)[i] = c;
-		++i;
+		word = LOW_BITS * (unsigned char)c;
+		while (n >= 8)
+		{
+			*((uint64_t *)str) = word;
+			str = ((uint64_t *)str) + 1;
+			n -= 8;
+		}
 	}
-	if (i == len)
-		return (str);
-	word = 0x0101010101010101 * (unsigned char)c;
-	while (i < len)
+	while (n)
 	{
-		*((uint64_t *)((unsigned char *)str + i)) = word;
-		i += 8;
+		*((unsigned char *)str) = c;
+		str = ((unsigned char *)str) + 1;
+		--n;
 	}
-	return (str);
+	return (ret);
 }
