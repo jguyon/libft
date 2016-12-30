@@ -6,13 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:33:39 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 15:56:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 16:48:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_LIBFT_H
 # define TEST_LIBFT_H
 
+# define _GNU_SOURCE
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>

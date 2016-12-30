@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:32:40 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 19:02:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 16:58:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_strlen(const char *str)
 	const char	*end;
 
 	end = str;
-	while (MISALIGNED(str))
+	while (MISALIGNED(end))
 	{
 		if (!(*end))
 			return (end - str);
