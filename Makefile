@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#             *#
-#    Updated: 2016/12/18 17:35:14 by jguyon           ###   ########.fr        #
+#    Updated: 2016/12/30 16:23:50 by jguyon           ###   ########.fr        #
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -25,6 +25,7 @@ SRC_FILES = ft_memset.c														\
 			ft_memchr.c														\
 			ft_memcmp.c														\
 			ft_strlen.c														\
+			ft_strnlen.c													\
 			ft_strdup.c														\
 			ft_strcpy.c														\
 			ft_strncpy.c													\

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/29 00:32:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 16:44:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ TFT_TEST(test_strlen)
 	TFT_ASSERT(ft_strlen(str) == strlen(str));
 	strcpy(str, "hello world");
 	TFT_ASSERT(ft_strlen(str) == strlen(str));
+}
+
+TFT_TEST(test_strnlen)
+{
+	char	str[256] = {0};
+
+	strcpy(str, "hello world hello world hello world hello world hello world");
+	TFT_ASSERT(ft_strnlen(str, 256) == strnlen(str, 256));
+	TFT_ASSERT(ft_strnlen(str + 1, 17) == strnlen(str + 1, 17));
 }
 
 TFT_TEST(test_memccpy)
@@ -176,6 +185,20 @@ TFT_TEST(test_strncat)
 	TFT_ASSERT(strcmp(ft_strncat(str_ft, src, 30), strncat(str_lc, src, 30)) == 0);
 }
 
+TFT_TEST(test_strlcat)
+{
+	char	str_ft[256] = {0};
+	char	str_lc[256] = {0};
+	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
+
+	TFT_ASSERT(ft_strlcat(str_ft, src, 37) == strlcat(str_lc, src, 37));
+	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	TFT_ASSERT(ft_strlcat(str_ft, src, 47) == strlcat(str_lc, src, 47));
+	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	TFT_ASSERT(ft_strlcat(str_ft, src, 256) == strlcat(str_lc, src, 256));
+	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+}
+
 void	test_strings(void)
 {
 	TFT_RUN(test_memset);
@@ -185,9 +208,11 @@ void	test_strings(void)
 	TFT_RUN(test_memchr);
 	TFT_RUN(test_memcmp);
 	TFT_RUN(test_strlen);
+	TFT_RUN(test_strnlen);
 	TFT_RUN(test_strdup);
 	TFT_RUN(test_strcpy);
 	TFT_RUN(test_strncpy);
 	TFT_RUN(test_strcat);
 	TFT_RUN(test_strncat);
+	TFT_RUN(test_strlcat);
 }

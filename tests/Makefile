@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/12/09 17:07:08 by jguyon            #+#    #+#             *#
-#    Updated: 2016/12/27 17:07:21 by jguyon           ###   ########.fr        #
+#    Updated: 2016/12/30 16:02:29 by jguyon           ###   ########.fr        #
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -32,7 +32,7 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
-	$(LD) $(LDFLAGS) -o $@ $(filter %.o,$^) -L$(LIB_PATH) -l$(LIB_NAME)
+	$(LD) $(LDFLAGS) -o $@ $(filter %.o,$^) -L$(LIB_PATH) -l$(LIB_NAME) -lbsd
 
 %.o: %.c $(INC)
 	$(CC) $(CFLAGS) -I$(LIB_INC_PATH) -o $@ -c $<

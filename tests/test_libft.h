@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:33:39 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/27 16:58:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 15:56:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>
+# ifdef linux
+#  include <bsd/string.h>
+# endif
 
 void	test_lists(void);
 void	test_strings(void);
