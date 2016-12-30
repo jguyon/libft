@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 16:51:32 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 17:45:22 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,27 @@ TFT_TEST(test_strchrnul)
 	TFT_ASSERT(ft_strchrnul(str, '$') == strchrnul(str, '$'));
 }
 
+TFT_TEST(test_strchr)
+{
+	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
+
+	TFT_ASSERT(ft_strchr(str, 't') == strchr(str, 't'));
+	TFT_ASSERT(ft_strchr(str, '7') == strchr(str, '7'));
+	TFT_ASSERT(ft_strchr(str, '\0') == strchr(str, '\0'));
+	TFT_ASSERT(ft_strchr(str, '$') == strchr(str, '$'));
+}
+
+TFT_TEST(test_strrchr)
+{
+	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789q";
+
+	TFT_ASSERT(ft_strrchr(str, 't') == strrchr(str, 't'));
+	TFT_ASSERT(ft_strrchr(str, '7') == strrchr(str, '7'));
+	TFT_ASSERT(ft_strrchr(str, '\0') == strrchr(str, '\0'));
+	TFT_ASSERT(ft_strrchr(str, '$') == strrchr(str, '$'));
+	TFT_ASSERT(ft_strrchr(str, 'q') == strrchr(str, 'q'));
+}
+
 void	test_strings(void)
 {
 	TFT_RUN(test_memset);
@@ -226,4 +247,6 @@ void	test_strings(void)
 	TFT_RUN(test_strncat);
 	TFT_RUN(test_strlcat);
 	TFT_RUN(test_strchrnul);
+	TFT_RUN(test_strchr);
+	TFT_RUN(test_strrchr);
 }
