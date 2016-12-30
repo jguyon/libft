@@ -6,24 +6,42 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 22:34:19 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 15:52:16 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 19:09:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+#define MISALIGNED(s)	((uintptr_t)(s) & 7)
+#define WORDS(s)		((uint64_t *)(s))
+#define LOW_BITS		0x0101010101010101
+#define HIGH_BITS		0x8080808080808080
+#define HASZERO(w)		(((w) - LOW_BITS) & ~(w) & HIGH_BITS)
+
 int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-
-	if (n < 1)
-		return (0);
-	i = 0;
-	while (i < (n - 1) && *s1 && *s1 == *s2)
+	if (MISALIGNED(s1) == MISALIGNED(s1))
+	{
+		while (MISALIGNED(s1))
+		{
+			if (!n || !(*s1) || *s1 != *s2)
+				return (n ? *s1 - *s2 : 0);
+			++s1;
+			++s2;
+			--n;
+		}
+		while (n > 8 && !HASZERO(*WORDS(s1)) && *WORDS(s1) == *WORDS(s2))
+		{
+			s1 += 8;
+			s2 += 8;
+			n -= 8;
+		}
+	}
+	while (n && *s1 && *s1 == *s2)
 	{
 		++s1;
 		++s2;
-		++i;
+		--n;
 	}
-	return (((unsigned char)*s1) - ((unsigned char)*s2));
+	return (n ? *s1 - *s2 : 0);
 }
