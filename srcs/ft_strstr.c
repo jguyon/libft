@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:38:34 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/07 17:52:40 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 19:41:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,15 @@
 
 char	*ft_strstr(const char *big, const char *little)
 {
-	size_t	i;
-	size_t	j;
+	size_t	len;
 
-	if (!(*little))
+	if ((len = ft_strlen(little)) == 0)
 		return ((char *)big);
-	i = 0;
-	while (big[i])
+	while (*big && (big = ft_strchr(big, *little)))
 	{
-		j = 0;
-		while (little[j] && little[j] == big[i + j])
-			++j;
-		if (little[j] == '\0')
-			return ((char *)(big + i));
-		++i;
+		if (ft_strncmp(big, little, len) == 0)
+			return ((char *)big);
+		++big;
 	}
 	return (NULL);
 }

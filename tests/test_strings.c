@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 18:47:26 by jguyon           ###   ########.fr       */
+/*   Updated: 2016/12/30 20:31:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,26 @@ TFT_TEST(test_strncmp)
 	TFT_ASSERT(ft_strncmp(str, cpy, 5) == strncmp(str, cpy, 5));
 }
 
+TFT_TEST(test_strstr)
+{
+	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789q";
+
+	TFT_ASSERT(ft_strstr(str, "012") == strstr(str, "012"));
+	TFT_ASSERT(ft_strstr(str, "0124") == strstr(str, "0124"));
+	TFT_ASSERT(ft_strstr(str, "qz") == strstr(str, "qz"));
+	TFT_ASSERT(ft_strstr(str, "") == strstr(str, ""));
+	TFT_ASSERT(ft_strstr(str, "qw") == strstr(str, "qw"));
+}
+
+TFT_TEST(test_strnstr)
+{
+	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789";
+
+	TFT_ASSERT(ft_strnstr(str, "0123456789", 36) == strnstr(str, "0123456789", 36));
+	TFT_ASSERT(ft_strnstr(str, "0123456789", 35) == strnstr(str, "0123456789", 35));
+	TFT_ASSERT(ft_strnstr(str, "0123456789", 25) == strnstr(str, "0123456789", 25));
+}
+
 void	test_strings(void)
 {
 	TFT_RUN(test_memset);
@@ -280,4 +300,6 @@ void	test_strings(void)
 	TFT_RUN(test_strrchr);
 	TFT_RUN(test_strcmp);
 	TFT_RUN(test_strncmp);
+	TFT_RUN(test_strstr);
+	TFT_RUN(test_strnstr);
 }
