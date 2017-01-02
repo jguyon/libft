@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftstream.h                                      :+:      :+:    :+:   */
+/*   ft_streams.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 19:50:17 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 19:59:43 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 03:19:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTSTREAM_H
-# define LIBFTSTREAM_H
+#ifndef FT_STREAMS_H
+# define FT_STREAMS_H
 
-# include "libft.h"
+# include <stddef.h>
 
-# define FT_BUFF_SIZE 4096
+# ifndef FT_BUFF_SIZE
+#  define FT_BUFF_SIZE 4096
+# endif
 
 typedef struct	s_stream_type {
 	size_t	(*write)(void *cookie, const char *buff, size_t size);

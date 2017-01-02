@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 20:02:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 03:22:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftstream.h"
+#include "libft/ft_streams.h"
 
 size_t	ft_fwrite(const char *s, size_t count, t_stream *stream)
 {

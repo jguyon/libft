@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fputc.c                                         :+:      :+:    :+:   */
+/*   ft_fopencookie.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 20:03:38 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 20:04:01 by jguyon           ###   ########.fr       */
+/*   Created: 2016/12/09 19:56:27 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 03:21:50 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftstream.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_streams.h"
 
-int		ft_fputc(int c, t_stream *stream)
+t_stream	*ft_fopencookie(void *cookie, t_stream_type type)
 {
-	char	uc;
+	t_stream	*stream;
 
-	uc = (unsigned char)c;
-	if (ft_fwrite(&uc, 1, stream) != 1)
-		return (-1);
-	return (uc);
+	if (!(stream = ft_memalloc(sizeof(*stream))))
+		return (NULL);
+	stream->cookie = cookie;
+	stream->type = type;
+	stream->curr = stream->buff;
+	return (stream);
 }

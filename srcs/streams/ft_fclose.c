@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 20:08:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 03:24:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftstream.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_streams.h"
 
 int		ft_fclose(t_stream *stream)
 {
