@@ -6,14 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 23:17:08 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 23:17:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:13:52 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_PRINTF_H
 # define TEST_PRINTF_H
 
-# include "libftprintf.h"
+# include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>

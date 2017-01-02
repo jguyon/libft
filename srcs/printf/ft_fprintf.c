@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:59:28 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 23:02:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:11:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_printf.h"
 
 int		ft_fprintf(t_stream *stream, const char *format, ...)
 {

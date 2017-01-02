@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_utils.h                                         :+:      :+:    :+:   */
+/*   pf_info.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 21:55:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 23:05:58 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/02 03:49:48 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 03:51:32 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PF_UTILS_H
-# define PF_UTILS_H
+#ifndef PF_INFO_H
+# define PF_INFO_H
 
-# include "libftprintf.h"
-# include <unistd.h>
-
-/*
-** FORMAT PARSING
-*/
+# include <stdlib.h>
 
 # define PF_FORMAT_START '%'
 
@@ -81,69 +76,5 @@ typedef struct	s_pf_info {
 	int				mod;
 	int				count;
 }				t_pf_info;
-
-typedef struct	s_pf_format {
-	char	spec;
-	void	*(*get_arg)(t_pf_info *info, va_list ap);
-	int		(*format)(t_stream *stream, t_pf_info *info, void *arg);
-	void	(*clean_arg)(void **arg);
-}				t_pf_format;
-
-typedef struct	s_pf_conv {
-	const char			*prev;
-	size_t				len;
-	t_pf_info			*info;
-	t_pf_format			*format;
-	void				*arg;
-}				t_pf_conv;
-
-typedef struct	s_pf_conv_acc {
-	int			count;
-	t_stream	*stream;
-}				t_pf_conv_acc;
-
-typedef struct	s_pf_arg {
-	size_t		n;
-	t_pf_conv	*conv;
-	int			type;
-}				t_pf_arg;
-
-t_list			*pf_parse_format(const char *format);
-int				pf_extract_args(t_list *convs, va_list ap);
-int				pf_write_convs(t_stream *stream, t_list *convs);
-void			pf_del_convs(t_list **convs);
-
-t_pf_info		*pf_get_info(char **format);
-t_pf_format		*pf_get_format(t_pf_info *info);
-
-/*
-** ARG FORMATTING
-*/
-
-typedef struct	s_pf_int {
-	uintmax_t		n;
-	char			prefix[3];
-	unsigned int	base;
-	int				upper_base;
-}				t_pf_int;
-
-void			*pf_arg_int(t_pf_info *info, va_list ap);
-void			*pf_arg_uint(t_pf_info *info, va_list ap);
-int				pf_format_int(t_stream *stream, t_pf_info *info, void *arg);
-
-typedef struct	s_pf_str {
-	char		*str;
-	wchar_t		*wstr;
-	size_t		len;
-}				t_pf_str;
-
-void			*pf_arg_str(t_pf_info *info, va_list ap);
-void			*pf_arg_char(t_pf_info *info, va_list ap);
-void			*pf_arg_fmt(t_pf_info *info, va_list ap);
-int				pf_format_str(t_stream *stream, t_pf_info *info, void *arg);
-void			pf_clean_str(void **arg);
-
-void			*pf_arg_ptr(t_pf_info *info, va_list ap);
-int				pf_format_ptr(t_stream *stream, t_pf_info *info, void *arg);
 
 #endif

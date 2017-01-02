@@ -6,11 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:45:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 00:20:17 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 03:55:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
+#include "priv/pf_parse.h"
 
 static t_list	*create_conv(char **next, const char *prev)
 {

@@ -6,7 +6,7 @@
 #*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/12/09 23:23:22 by jguyon            #+#    #+#             *#
-#*   Updated: 2016/12/09 23:29:28 by jguyon           ###   ########.fr       *#
+#    Updated: 2017/01/02 04:18:32 by jguyon           ###   ########.fr        #
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -22,7 +22,7 @@ LIB_NAME = ft
 LIB = $(LIB_PATH)/lib$(LIB_NAME).a
 LIB_INCLUDES = $(LIB_PATH)/includes
 
-HDR = test_printf.h $(LIB_INCLUDES)/libftprintf.h
+HDR = test_printf.h $(LIB_INCLUDES)/libft.h
 SRC = main.c																\
 	  test_basics.c															\
 	  test_ints.c															\
@@ -38,7 +38,7 @@ $(NAME): $(LIB) $(OBJ)
 	$(LD) $(LDFLAGS) $(filter %.o,$^) -o $@ -L$(LIB_PATH) -l$(LIB_NAME)
 
 %.o: %.c $(HDR)
-	$(CC) $(CFLAGS) -o $@ -c $< -I$(LIB_INCLUDES)
+	$(CC) $(CFLAGS) -I$(LIB_INCLUDES) -o $@ -c $<
 
 clean:
 	rm -f $(OBJ)

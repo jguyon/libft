@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 23:02:10 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:10:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include <unistd.h>
+#include "libft/ft_printf.h"
 
 static size_t			fd_write(void *cookie, const char *buff, size_t count)
 {

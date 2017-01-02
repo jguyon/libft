@@ -6,11 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:36:24 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:36:40 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:03:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
+#include "libft/ft_numbers.h"
+#include "priv/pf_convert.h"
 
 static int	write_padding(t_stream *stream, t_pf_info *info,
 							t_pf_int *arg, char *nbr)

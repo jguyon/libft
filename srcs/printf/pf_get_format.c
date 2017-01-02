@@ -6,11 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:41:33 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:42:31 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 03:59:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "priv/pf_convert.h"
+#include "priv/pf_parse.h"
 
 static t_pf_format	g_formats[PF_SPEC_COUNT] = {
 	{PF_SPEC_INT, &pf_arg_int, &pf_format_int, &ft_memdel},

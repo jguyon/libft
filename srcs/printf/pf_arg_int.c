@@ -6,11 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:09:27 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:09:56 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:01:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
+#include "priv/pf_convert.h"
 
 static intmax_t	cast_arg(t_pf_int *arg, t_pf_info *info, va_list ap)
 {

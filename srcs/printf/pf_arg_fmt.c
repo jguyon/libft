@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:06:39 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:07:21 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:05:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "priv/pf_convert.h"
 
 void	*pf_arg_fmt(t_pf_info *info, va_list ap)
 {

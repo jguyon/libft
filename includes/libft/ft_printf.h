@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 21:46:47 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:27:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/02 03:31:40 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 03:32:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "libft.h"
+# include "libft/ft_streams.h"
 
 int		ft_printf(const char *format, ...);
 int		ft_vprintf(const char *format, va_list ap);

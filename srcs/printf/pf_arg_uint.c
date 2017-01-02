@@ -6,11 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:15:09 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/10 12:33:59 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:01:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
+#include "priv/pf_convert.h"
 
 void	cast_arg(t_pf_int *arg, t_pf_info *info, va_list ap)
 {

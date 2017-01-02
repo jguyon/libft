@@ -6,11 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:13:51 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:14:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 04:04:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "priv/pf_utils.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
+#include "libft/ft_unicode.h"
+#include "priv/pf_convert.h"
 
 static char		*g_null_str = "(null)";
 
