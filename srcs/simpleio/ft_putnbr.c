@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 22:21:42 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 16:50:55 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 23:28:47 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:34:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
+#include "libft/ft_simpleio.h"
 
-void	ft_putstr_fd(const char *str, int fd)
+void	ft_putnbr(int n)
 {
-	if (str)
-		write(fd, str, ft_strlen(str));
+	ft_putnbr_fd(n, 1);
 }

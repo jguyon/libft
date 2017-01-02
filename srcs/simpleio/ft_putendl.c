@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 23:26:58 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 23:27:27 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 23:28:07 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:33:59 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_simpleio.h"
 
-void	ft_putchar(char c)
+void	ft_putendl(char const *str)
 {
-	ft_putchar_fd(c, 1);
+	ft_putendl_fd(str, 1);
 }

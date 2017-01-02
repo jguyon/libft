@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 23:28:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 23:28:39 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 22:20:38 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:34:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include "libft/ft_chars.h"
+#include "libft/ft_simpleio.h"
 
-void	ft_putendl(char const *str)
+void	ft_putchar_fd(char c, int fd)
 {
-	ft_putendl_fd(str, 1);
+	unsigned char	utf[2];
+	unsigned char	uc;
+
+	uc = (unsigned char)c;
+	if (!ft_isascii(uc))
+	{
+		utf[0] = 0xC0 | (uc >> 6);
+		utf[1] = 0x80 | (0x3F & uc);
+		write(fd, utf, 2);
+	}
+	else
+		write(fd, &uc, 1);
 }
