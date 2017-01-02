@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 20:58:22 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 21:34:10 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 02:27:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
+#include "libft/ft_numbers.h"
 
 char	*ft_itoa(int n)
 {

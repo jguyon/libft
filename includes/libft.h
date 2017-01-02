@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 02:19:46 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 02:25:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 # include "libft/ft_memory.h"
 # include "libft/ft_strings.h"
 # include "libft/ft_chars.h"
-
-int					ft_atoi(const char *str);
-char				*ft_itoa(int n);
-char				*ft_uimtoa_base(uintmax_t n, unsigned int base,
-									int upper, int prec);
+# include "libft/ft_numbers.h"
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
