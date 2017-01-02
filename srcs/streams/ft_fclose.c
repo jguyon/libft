@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:24:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 22:11:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		ft_fclose(t_stream *stream)
 	ft_fflush(stream);
 	res = stream->type.close ? stream->type.close(stream->cookie) : 0;
 	res = ft_ferror(stream) ? -1 : res;
+	ft_memdel((void **)&(stream->buff));
 	ft_memdel((void **)&stream);
 	return (res);
 }
