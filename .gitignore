@@ -1,3 +1,4 @@
 objs
 deps
 libft.a
+run_tests
