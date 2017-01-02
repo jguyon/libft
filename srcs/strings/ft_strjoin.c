@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 15:36:08 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 19:41:45 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 16:38:31 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:30:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strdup(const char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dup;
-	size_t	len;
+	char	*join;
+	size_t	head;
 
-	len = ft_strlen(str) + 1;
-	if (!(dup = (char *)malloc(len * sizeof(*dup))))
-		return (NULL);
-	return (ft_memcpy(dup, str, len));
+	join = NULL;
+	head = ft_strlen(s1);
+	if (s1 && s2 && (join = ft_strnew(head + ft_strlen(s2))))
+	{
+		ft_strcpy(join, s1);
+		ft_strcpy(join + head, s2);
+	}
+	return (join);
 }

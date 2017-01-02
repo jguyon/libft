@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 16:16:45 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 16:46:28 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 20:38:34 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:47:13 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-int		ft_strequ(char const *s1, char const *s2)
+char	*ft_strstr(const char *big, const char *little)
 {
-	if (s1 && s2 && ft_strcmp(s1, s2) == 0)
-		return (1);
-	return (0);
+	size_t	len;
+
+	if ((len = ft_strlen(little)) == 0)
+		return ((char *)big);
+	while (*big && (big = ft_strchr(big, *little)))
+	{
+		if (ft_strncmp(big, little, len) == 0)
+			return ((char *)big);
+		++big;
+	}
+	return (NULL);
 }

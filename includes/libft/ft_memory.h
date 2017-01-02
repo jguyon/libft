@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 00:20:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:08:27 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:35:22 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define FT_MEM_LOBITS		0x0101010101010101
 # define FT_MEM_HIBITS		0x8080808080808080
 # define FT_MEM_WORD(c)		((c) * FT_MEM_LOBITS)
-# define FT_MEM_ALIGN(p)	((p) & 7)
+# define FT_MEM_ALIGN(p)	((uintptr_t)(p) & 7)
 # define FT_MEM_HASZERO(w)	(((w) - FT_MEM_LOBITS) & ~(w) & FT_MEM_HIBITS)
 
 typedef uint64_t	t_mem_word;

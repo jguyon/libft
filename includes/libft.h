@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:08:43 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:20:14 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,8 @@
 # include <wchar.h>
 # include <inttypes.h>
 # include "libft/ft_memory.h"
+# include "libft/ft_strings.h"
 
-size_t				ft_strlen(const char *str);
-size_t				ft_strnlen(const char *str, size_t max);
-char				*ft_strdup(const char *str);
-char				*ft_strcpy(char *dst, const char *src);
-char				*ft_strncpy(char *dst, const char *src, size_t len);
-char				*ft_strcat(char *restrict dst, const char *restrict src);
-char				*ft_strncat(char *restrict dst, const char *restrict src,
-								size_t n);
-size_t				ft_strlcat(char *restrict dst, const char *restrict src,
-								size_t size);
-char				*ft_strchr(const char *str, int c);
-char				*ft_strrchr(const char *str, int c);
-char				*ft_strchrnul(const char *str, int c);
-char				*ft_strstr(const char *big, const char *little);
-char				*ft_strnstr(const char *big, const char *little,
-									size_t len);
-int					ft_strcmp(const char *s1, const char *s2);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 
 int					ft_isalpha(int c);
@@ -48,19 +31,6 @@ int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 
-char				*ft_strnew(size_t size);
-void				ft_strdel(char **as);
-void				ft_strclr(char *str);
-void				ft_striter(char *s, void (*f)(char *));
-void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-char				*ft_strmap(char const *s, char (*f)(char));
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int					ft_strequ(char const *s1, char const *s2);
-int					ft_strnequ(char const *s1, char const *s2, size_t n);
-char				*ft_strsub(char const *str, unsigned int start, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strtrim(char const *str);
-char				**ft_strsplit(char const *str, char c);
 char				*ft_itoa(int n);
 char				*ft_uimtoa_base(uintmax_t n, unsigned int base,
 									int upper, int prec);

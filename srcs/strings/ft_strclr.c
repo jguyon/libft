@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:33:57 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:42:41 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:22:59 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:00:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
-void	ft_striteri(char *str, void (*f)(unsigned int, char *))
+void	ft_strclr(char *str)
 {
-	unsigned int	i;
-
-	if (str && f)
+	if (!str)
+		return ;
+	while (FT_MEM_ALIGN(str))
 	{
-		i = 0;
-		while (*str)
-			f(i++, str++);
+		if (!(*str))
+			return ;
+		*(str++) = 0;
 	}
+	while (!FT_MEM_HASZERO(*((t_mem_word *)str)))
+	{
+		*((t_mem_word *)str) = 0;
+		str += FT_MEM_WORDLEN;
+	}
+	while (*str)
+		*(str++) = 0;
 }

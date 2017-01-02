@@ -6,23 +6,18 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 22:34:19 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 19:09:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:58:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-#define MISALIGNED(s)	((uintptr_t)(s) & 7)
-#define WORDS(s)		((uint64_t *)(s))
-#define LOW_BITS		0x0101010101010101
-#define HIGH_BITS		0x8080808080808080
-#define HASZERO(w)		(((w) - LOW_BITS) & ~(w) & HIGH_BITS)
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (MISALIGNED(s1) == MISALIGNED(s1))
+	if (FT_MEM_ALIGN(s1) == FT_MEM_ALIGN(s1))
 	{
-		while (MISALIGNED(s1))
+		while (FT_MEM_ALIGN(s1))
 		{
 			if (!n || !(*s1) || *s1 != *s2)
 				return (n ? *s1 - *s2 : 0);
@@ -30,11 +25,12 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 			++s2;
 			--n;
 		}
-		while (n > 8 && !HASZERO(*WORDS(s1)) && *WORDS(s1) == *WORDS(s2))
+		while (n > 8 && !FT_MEM_HASZERO(*((t_mem_word *)s1))
+			   && *((t_mem_word *)s1) == *((t_mem_word *)s2))
 		{
-			s1 += 8;
-			s2 += 8;
-			n -= 8;
+			s1 += FT_MEM_WORDLEN;
+			s2 += FT_MEM_WORDLEN;
+			n -= FT_MEM_WORDLEN;
 		}
 	}
 	while (n && *s1 && *s1 == *s2)

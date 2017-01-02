@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:33:22 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/29 00:13:20 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:07:18 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:27:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strcat(char *restrict dst, const char *restrict src)
+char	*ft_strnew(size_t size)
 {
-	ft_strcpy(dst + ft_strlen(dst), src);
-	return (dst);
+	return ((char *)ft_memalloc(sizeof(char) * (size + 1)));
 }

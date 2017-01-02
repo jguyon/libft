@@ -6,37 +6,31 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 21:07:33 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 20:31:38 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:51:00 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-#define MISALIGNED(s)	((uintptr_t)(s) & 7)
-#define WORDS(s)		((uint64_t *)(s))
-#define LOW_BITS		0x0101010101010101
-#define HIGH_BITS		0x8080808080808080
-#define	CTOW(c)			(c * LOW_BITS)
-#define HASZERO(w)		(((w) - LOW_BITS) & ~(w) & HIGH_BITS)
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
 static char	*next_char(const char *str, char c, size_t n)
 {
-	uint64_t	word;
+	t_mem_word	word;
 
-	while (MISALIGNED(str) || n <= 8)
+	while (FT_MEM_ALIGN(str) || n <= FT_MEM_WORDLEN)
 	{
 		if (*str == c && n)
 			return ((char *)str);
-		if (!(*str) || !n)
+		if (!(*(str++)) || !(n--))
 			return (NULL);
-		--n;
-		++str;
 	}
-	word = CTOW(c);
-	while (n > 8 && !HASZERO(*WORDS(str) & (*WORDS(str) ^ word)))
+	word = FT_MEM_WORD(c);
+	while (n > FT_MEM_WORDLEN
+		   && !FT_MEM_HASZERO(*((t_mem_word *)str)
+							  & (*((t_mem_word *)str) ^ word)))
 	{
-		n -= 8;
-		str += 8;
+		n -= FT_MEM_WORDLEN;
+		str += FT_MEM_WORDLEN;
 	}
 	while (n && *str)
 	{

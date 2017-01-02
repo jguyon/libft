@@ -6,12 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 17:06:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 20:42:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:33:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
 static char	const	*next_word(char const *str, char c, size_t *word_len)
 {

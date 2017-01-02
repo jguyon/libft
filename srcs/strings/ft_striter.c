@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:12:20 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/05 15:14:21 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:32:34 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:09:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-void	ft_strdel(char **as)
+void	ft_striter(char *str, void (*f)(char *))
 {
-	ft_memdel((void **)as);
+	if (str && f)
+	{
+		while (*str)
+			f(str++);
+	}
 }

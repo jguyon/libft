@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnequ.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 16:18:29 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 16:46:57 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 15:36:08 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:29:23 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
-int		ft_strnequ(char const *s1, char const *s2, size_t n)
+char	*ft_strdup(const char *str)
 {
-	if (s1 && s2 && ft_strncmp(s1, s2, n) == 0)
-		return (1);
-	return (0);
+	char	*dup;
+	size_t	len;
+
+	len = ft_strlen(str) + 1;
+	if (!(dup = (char *)malloc(len * sizeof(*dup))))
+		return (NULL);
+	return (ft_memcpy(dup, str, len));
 }

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striter.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:32:34 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:42:21 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 19:33:22 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:11:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-void	ft_striter(char *str, void (*f)(char *))
+char	*ft_strcat(char *dst, const char *src)
 {
-	if (str && f)
-	{
-		while (*str)
-			f(str++);
-	}
+	ft_strcpy(dst + ft_strlen(dst), src);
+	return (dst);
 }

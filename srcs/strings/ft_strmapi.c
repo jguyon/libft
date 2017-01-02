@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 16:38:31 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 21:40:43 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:40:17 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:09:47 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strmapi(char const *str, char (*f)(unsigned int, char))
 {
-	char	*join;
-	size_t	head;
+	char			*res;
+	char			*ite;
+	unsigned int	i;
 
-	join = NULL;
-	head = ft_strlen(s1);
-	if (s1 && s2 && (join = ft_strnew(head + ft_strlen(s2))))
+	res = NULL;
+	if (str && f && (res = ft_strnew(ft_strlen(str))))
 	{
-		ft_strcpy(join, s1);
-		ft_strcpy(join + head, s2);
+		ite = res;
+		i = 0;
+		while (*str)
+			*(ite++) = f(i++, *(str++));
 	}
-	return (join);
+	return (res);
 }

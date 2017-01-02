@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 20:38:34 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 19:41:12 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:12:20 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:28:38 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strstr(const char *big, const char *little)
+void	ft_strdel(char **as)
 {
-	size_t	len;
-
-	if ((len = ft_strlen(little)) == 0)
-		return ((char *)big);
-	while (*big && (big = ft_strchr(big, *little)))
-	{
-		if (ft_strncmp(big, little, len) == 0)
-			return ((char *)big);
-		++big;
-	}
-	return (NULL);
+	ft_memdel((void **)as);
 }

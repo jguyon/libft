@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:40:17 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:43:31 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 15:33:57 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:09:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strmapi(char const *str, char (*f)(unsigned int, char))
+void	ft_striteri(char *str, void (*f)(unsigned int, char *))
 {
-	char			*res;
-	char			*ite;
 	unsigned int	i;
 
-	res = NULL;
-	if (str && f && (res = ft_strnew(ft_strlen(str))))
+	if (str && f)
 	{
-		ite = res;
 		i = 0;
 		while (*str)
-			*(ite++) = f(i++, *(str++));
+			f(i++, str++);
 	}
-	return (res);
 }

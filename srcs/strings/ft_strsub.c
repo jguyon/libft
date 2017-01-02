@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:07:18 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/07 18:39:07 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 16:34:35 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:30:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
+#include "libft/ft_strings.h"
 
-char	*ft_strnew(size_t size)
+char	*ft_strsub(char const *str, unsigned int start, size_t len)
 {
-	return ((char *)ft_memalloc(sizeof(char) * (size + 1)));
+	char	*sub;
+
+	sub = NULL;
+	if (str && (sub = ft_strnew(len)))
+		ft_memcpy(sub, str + start, len);
+	sub[len] = 0;
+	return (sub);
 }
