@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:19:34 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 21:09:05 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 # include <stddef.h>
 
-# ifndef FT_BUFF_SIZE
-#  define FT_BUFF_SIZE 4096
-# endif
+# define FT_BUFF_SIZE 4096
 
 typedef struct	s_stream_type {
 	size_t	(*write)(void *cookie, const char *buff, size_t size);
