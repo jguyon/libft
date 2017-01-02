@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 15:57:32 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 18:37:17 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 16:15:07 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:12:39 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
 
-#define LOW_BITS	0x0101010101010101
-
-void	*ft_memset(void *str, int c, size_t n)
+void	ft_bzero(void *str, size_t n)
 {
-	uint64_t	word;
-	void		*ret;
-
-	ret = str;
-	if (n >= 8)
-	{
-		word = LOW_BITS * (unsigned char)c;
-		while (n >= 8)
-		{
-			*((uint64_t *)str) = word;
-			str = ((uint64_t *)str) + 1;
-			n -= 8;
-		}
-	}
-	while (n)
-	{
-		*((unsigned char *)str) = c;
-		str = ((unsigned char *)str) + 1;
-		--n;
-	}
-	return (ret);
+	ft_memset(str, 0, n);
 }

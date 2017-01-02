@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 16:26:20 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:08:43 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,7 @@
 # include <string.h>
 # include <wchar.h>
 # include <inttypes.h>
-
-void				*ft_memset(void *str, int c, size_t len);
-void				ft_bzero(void *str, size_t n);
-void				*ft_memcpy(void *restrict dst, const void *restrict src,
-								size_t n);
-void				*ft_memccpy(void *restrict dst, const void *restrict src,
-								int c, size_t n);
-void				*ft_memmove(void *dst, const void *src, size_t len);
-void				*ft_memchr(const void *str, int c, size_t n);
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
+# include "libft/ft_memory.h"
 
 size_t				ft_strlen(const char *str);
 size_t				ft_strnlen(const char *str, size_t max);
@@ -56,9 +47,6 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
-
-void				*ft_memalloc(size_t size);
-void				ft_memdel(void **ap);
 
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);

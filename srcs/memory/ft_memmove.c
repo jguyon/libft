@@ -6,29 +6,29 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 17:24:14 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 18:49:52 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 01:11:29 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
 
 static void	*cpy_left(void *dst, const void *src, size_t n)
 {
 	void	*ret;
 
 	ret = dst;
-	while (n >= 8)
+	while (n >= FT_MEM_WORDLEN)
 	{
-		*((uint64_t *)dst) = *((uint64_t *)src);
-		dst = ((uint64_t *)dst) + 1;
-		src = ((uint64_t *)src) + 1;
-		n -= 8;
+		*((t_mem_word *)dst) = *((t_mem_word *)src);
+		dst += FT_MEM_WORDLEN;
+		src += FT_MEM_WORDLEN;
+		n -= FT_MEM_WORDLEN;
 	}
 	while (n)
 	{
 		*((unsigned char *)dst) = *((unsigned char *)src);
-		dst = ((unsigned char *)dst) + 1;
-		src = ((unsigned char *)src) + 1;
+		++dst;
+		++src;
 		--n;
 	}
 	return (ret);
@@ -38,17 +38,17 @@ static void	*cpy_right(void *dst, const void *src, size_t n)
 {
 	dst += n;
 	src += n;
-	while (n >= 8)
+	while (n >= FT_MEM_WORDLEN)
 	{
-		dst = ((uint64_t *)dst) - 1;
-		src = ((uint64_t *)src) - 1;
-		*((uint64_t *)dst) = *((uint64_t *)src);
-		n -= 8;
+		dst -= FT_MEM_WORDLEN;
+		src -= FT_MEM_WORDLEN;
+		*((t_mem_word *)dst) = *((t_mem_word *)src);
+		n -= FT_MEM_WORDLEN;
 	}
 	while (n)
 	{
-		dst = ((unsigned char *)dst) - 1;
-		src = ((unsigned char *)src) - 1;
+		--dst;
+		--src;
 		*((unsigned char *)dst) = *((unsigned char *)src);
 		--n;
 	}

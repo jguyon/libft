@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 16:15:07 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:25:10 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/05 14:57:35 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:12:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include "libft/ft_memory.h"
 
-void	ft_bzero(void *str, size_t n)
+void	ft_memdel(void **ap)
 {
-	ft_memset(str, 0, n);
+	if (ap)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 }

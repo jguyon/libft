@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 16:39:23 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/28 18:45:05 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 18:09:42 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 01:12:06 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_memory.h"
 
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	void	*ret;
-
-	ret = dst;
-	while (n >= 8)
+	while (n > FT_MEM_WORDLEN && *((t_mem_word *)s1) == *((t_mem_word *)s2))
 	{
-		*((uint64_t *)dst) = *((uint64_t *)src);
-		dst = ((uint64_t *)dst) + 1;
-		src = ((uint64_t *)src) + 1;
-		n -= 8;
+		s1 += FT_MEM_WORDLEN;
+		s2 += FT_MEM_WORDLEN;
+		n -= FT_MEM_WORDLEN;
 	}
 	while (n)
 	{
-		*((unsigned char *)dst) = *((unsigned char *)src);
-		dst = ((unsigned char *)dst) + 1;
-		src = ((unsigned char *)src) + 1;
+		if (*((unsigned char *)s1) != *((unsigned char *)s2))
+			return ((int)(*((unsigned char *)s1) - *((unsigned char *)s2)));
+		++s1;
+		++s2;
 		--n;
 	}
-	return (ret);
+	return (0);
 }
