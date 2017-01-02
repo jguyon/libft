@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 02:31:31 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 02:39:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "libft/ft_chars.h"
 # include "libft/ft_numbers.h"
 # include "libft/ft_simpleio.h"
+# include "libft/ft_unicode.h"
 
 typedef struct		s_list
 {
@@ -44,9 +45,5 @@ void				*ft_lstfoldr(t_list *lst, void *acc,
 void				ft_lstsort(t_list **lst, int (*f)(t_list *e1, t_list *e2));
 void				ft_lstmsort(t_list **lst, int (*f)(t_list *e1, t_list *e2));
 void				ft_lstdelcnt(void *content, size_t size);
-
-size_t				ft_wcconv(char *dst, wchar_t wc);
-size_t				ft_wclen(wchar_t wc);
-size_t				ft_wstrlen(const wchar_t *ws);
 
 #endif
