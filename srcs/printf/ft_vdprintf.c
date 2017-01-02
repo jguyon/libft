@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 04:10:30 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 21:19:03 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static size_t			fd_write(void *cookie, const char *buff, size_t count)
 }
 
 static t_stream_type	g_fd_type = {
+	FT_BUFF_SIZE,
 	&fd_write,
 	NULL
 };

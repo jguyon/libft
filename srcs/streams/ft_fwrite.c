@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:22:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 21:18:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ size_t	ft_fwrite(const char *s, size_t count, t_stream *stream)
 	i = 0;
 	while (i < count)
 	{
-		if (stream->curr - stream->buff >= FT_BUFF_SIZE)
+		if ((size_t)(stream->curr - stream->buff) >= stream->type.buff_size)
 		{
-			if (stream->type.write(stream->cookie, stream->buff, FT_BUFF_SIZE)
-					!= FT_BUFF_SIZE)
+			if (stream->type.write(stream->cookie, stream->buff,
+								   stream->type.buff_size)
+				!= stream->type.buff_size)
 			{
 				stream->curr = NULL;
 				break ;

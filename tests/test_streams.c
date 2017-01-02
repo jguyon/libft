@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 20:36:37 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 21:08:58 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 21:20:06 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int		close_str(void *cookie)
 }
 
 static t_stream_type	g_output_type = {
+	4,
 	&write_to_str,
 	&close_str
 };
