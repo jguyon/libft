@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelcnt.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 22:34:08 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/09 22:34:43 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/06 00:11:25 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:50:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_lists.h"
 
-void	ft_lstdelcnt(void *content, size_t size)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	(void)size;
-	free(content);
+	if (alst)
+	{
+		new->next = *alst;
+		*alst = new;
+	}
 }

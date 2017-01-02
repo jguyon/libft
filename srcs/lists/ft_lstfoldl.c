@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstfoldl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 23:56:16 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:44:58 by jguyon           ###   ########.fr       */
+/*   Created: 2016/12/09 16:51:35 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:51:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "libft/ft_lists.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	*ft_lstfoldl(t_list *lst, void *acc, void *(*f)(t_list *el, void *acc))
 {
-	if (del)
-		del((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	if (!lst || !(acc = f(lst, acc)))
+		return (acc);
+	return (ft_lstfoldl(lst->next, acc, f));
 }

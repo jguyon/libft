@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/06 00:41:15 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/06 21:43:56 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/06 00:43:19 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:51:36 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_lists.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	if (!lst || !f)
-		return ;
-	f(lst);
-	return (ft_lstiter(lst->next, f));
+	t_list	*new;
+
+	if (!lst || !f || !(new = f(lst)))
+		return (NULL);
+	new->next = ft_lstmap(lst->next, f);
+	return (new);
 }
