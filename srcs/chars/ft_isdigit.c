@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 23:05:19 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/04 23:06:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 02:20:38 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_chars.h"
 
 int		ft_isdigit(int c)
 {

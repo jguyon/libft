@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 23:30:24 by jguyon            #+#    #+#             */
-/*   Updated: 2016/11/04 23:32:41 by jguyon           ###   ########.fr       */
+/*   Created: 2016/11/04 23:09:38 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/02 02:20:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/ft_chars.h"
 
-int		ft_toupper(int c)
+int		ft_isalnum(int c)
 {
-	return ((c >= 'a' && c <= 'z') ? (c + 'A' - 'a') : c);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
