@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:15:02 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/27 17:08:03 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 05:50:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ int		main(void)
 	TFT_START;
 	test_strings();
 	test_lists();
+	test_printf();
 	TFT_SUMUP;
 }

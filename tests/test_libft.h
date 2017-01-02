@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:33:39 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 16:48:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/02 05:49:40 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 void	test_lists(void);
 void	test_strings(void);
+void	test_printf(void);
 
 int		g_tft_run;
 int		g_tft_fail;

@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/01/02 05:11:42 by jguyon           ###   ########.fr        #
+#    Updated: 2017/01/02 05:50:18 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -36,7 +36,7 @@ TST_DEP = $(TST_SRC:$(TST_PATH)/%.c=$(DEP_PATH)/$(TST_PATH)/%.d)
 
 all: $(NAME)
 
-test: CFLAGS += -g
+test: CFLAGS += -g -Wno-format
 test: LDFLAGS += -g
 test: LIBS += -lbsd
 test: $(TST_NAME)
