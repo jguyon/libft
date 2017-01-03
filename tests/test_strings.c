@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/03 12:16:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 18:59:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,27 @@ TFT_TEST(test_strstr)
 	TFT_ASSERT(ft_strstr(str, "qz") == strstr(str, "qz"));
 	TFT_ASSERT(ft_strstr(str, "") == strstr(str, ""));
 	TFT_ASSERT(ft_strstr(str, "qw") == strstr(str, "qw"));
+}
+
+static char	*strnstr(const char *s, const char *find, size_t slen)
+{
+	char	c;
+	char	sc;
+	size_t	len;
+
+	if ((c = *find++) != '\0') {
+		len = strlen(find);
+		do {
+			do {
+				if ((sc = *s++) == '\0' || slen-- < 1)
+					return (NULL);
+			} while (sc != c);
+			if (len > slen)
+				return (NULL);
+		} while (strncmp(s, find, len) != 0);
+		s--;
+	}
+	return ((char *)s);
 }
 
 TFT_TEST(test_strnstr)
