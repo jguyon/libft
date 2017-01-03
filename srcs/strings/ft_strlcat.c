@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 19:54:36 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 02:07:39 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:23:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	if (*src)
 	{
 		while (!FT_MEM_HASZERO(*((t_mem_word *)src))
-			   && (size_t)(dst - start + FT_MEM_WORDLEN) <= (size - 1))
+				&& (size_t)(dst - start + FT_MEM_WORDLEN) <= (size - 1))
 		{
 			*((t_mem_word *)dst) = *((t_mem_word *)src);
 			src += FT_MEM_WORDLEN;

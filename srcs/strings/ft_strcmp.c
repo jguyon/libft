@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 22:22:38 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:56:45 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:22:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 			++s2;
 		}
 		while (!FT_MEM_HASZERO(*((t_mem_word *)s1))
-			   && *((t_mem_word *)s1) == *((t_mem_word *)s2))
+				&& *((t_mem_word *)s1) == *((t_mem_word *)s2))
 		{
 			s1 += FT_MEM_WORDLEN;
 			s2 += FT_MEM_WORDLEN;

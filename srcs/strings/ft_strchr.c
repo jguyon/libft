@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:13:06 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:42:22 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:21:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strchr(const char *str, int c)
 	}
 	word = FT_MEM_WORD(c);
 	while (!FT_MEM_HASZERO(*((t_mem_word *)str)
-						   & (*((t_mem_word *)str) ^ word)))
+							& (*((t_mem_word *)str) ^ word)))
 		str += FT_MEM_WORDLEN;
 	while (*str != c)
 	{

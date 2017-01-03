@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 16:50:47 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:11:41 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:20:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	{
 		word = FT_MEM_WORD(c);
 		while (n > FT_MEM_WORDLEN
-			   && !FT_MEM_HASZERO(*((t_mem_word *)src) ^ word))
+				&& !FT_MEM_HASZERO(*((t_mem_word *)src) ^ word))
 		{
 			*((t_mem_word *)dst) = *((t_mem_word *)src);
 			dst += FT_MEM_WORDLEN;

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 21:07:33 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:51:00 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:24:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static char	*next_char(const char *str, char c, size_t n)
 	}
 	word = FT_MEM_WORD(c);
 	while (n > FT_MEM_WORDLEN
-		   && !FT_MEM_HASZERO(*((t_mem_word *)str)
-							  & (*((t_mem_word *)str) ^ word)))
+			&& !FT_MEM_HASZERO(*((t_mem_word *)str)
+								& (*((t_mem_word *)str) ^ word)))
 	{
 		n -= FT_MEM_WORDLEN;
 		str += FT_MEM_WORDLEN;
@@ -50,7 +50,7 @@ char		*ft_strnstr(const char *big, const char *little, size_t n)
 	if ((len = ft_strlen(little)) == 0)
 		return ((char *)big);
 	while (*big && (next = next_char(big, *little, n))
-		   && (n = n - (next - big)) >= len)
+			&& (n = n - (next - big)) >= len)
 	{
 		if (ft_strncmp(next, little, len) == 0)
 			return (next);

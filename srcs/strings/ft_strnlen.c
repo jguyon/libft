@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/30 16:17:56 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 01:39:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:23:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strnlen(const char *str, size_t max)
 		++end;
 	}
 	while (!FT_MEM_HASZERO(*((t_mem_word *)end))
-		   && (size_t)(end - str + FT_MEM_WORDLEN) <= max)
+			&& (size_t)(end - str + FT_MEM_WORDLEN) <= max)
 		end += FT_MEM_WORDLEN;
 	while (*end && (size_t)(end - str) < max)
 		++end;
