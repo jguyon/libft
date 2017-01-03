@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/03 18:59:34 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 19:05:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,11 +278,11 @@ TFT_TEST(test_strcmp)
 	char	cpy[256];
 
 	strcpy(cpy, str);
-	TFT_ASSERT(ft_strcmp(str, cpy) == strcmp(str, cpy));
-	cpy[28] = '$';
-	TFT_ASSERT(ft_strcmp(str, cpy) == strcmp(str, cpy));
+	TFT_ASSERT(ft_strcmp(str, cpy) == 0 && strcmp(str, cpy) == 0);
+	cpy[28] = '~';
+	TFT_ASSERT(ft_strcmp(str, cpy) < 0 && strcmp(str, cpy) < 0);
 	cpy[4] = '\0';
-	TFT_ASSERT(ft_strcmp(str, cpy) == strcmp(str, cpy));
+	TFT_ASSERT(ft_strcmp(str, cpy) > 0 && strcmp(str, cpy) > 0);
 }
 
 TFT_TEST(test_strncmp)
@@ -291,14 +291,14 @@ TFT_TEST(test_strncmp)
 	char	cpy[256];
 
 	strcpy(cpy, str);
-	TFT_ASSERT(ft_strncmp(str, cpy, 256) == strncmp(str, cpy, 256));
-	TFT_ASSERT(ft_strncmp(str, cpy, 5) == strncmp(str, cpy, 5));
-	cpy[28] = '$';
-	TFT_ASSERT(ft_strncmp(str, cpy, 28) == strncmp(str, cpy, 28));
-	TFT_ASSERT(ft_strncmp(str, cpy, 29) == strncmp(str, cpy, 29));
+	TFT_ASSERT(ft_strncmp(str, cpy, 256) == 0 && strncmp(str, cpy, 256) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy, 5) == 0 && strncmp(str, cpy, 5) == 0);
+	cpy[28] = '~';
+	TFT_ASSERT(ft_strncmp(str, cpy, 28) == 0 && strncmp(str, cpy, 28) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy, 29) < 0 && strncmp(str, cpy, 29) < 0);
 	cpy[4] = '\0';
-	TFT_ASSERT(ft_strncmp(str, cpy, 4) == strncmp(str, cpy, 4));
-	TFT_ASSERT(ft_strncmp(str, cpy, 5) == strncmp(str, cpy, 5));
+	TFT_ASSERT(ft_strncmp(str, cpy, 4) == 0 && strncmp(str, cpy, 4) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy, 5) > 0 && strncmp(str, cpy, 5) > 0);
 }
 
 TFT_TEST(test_strstr)
