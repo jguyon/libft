@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/03 19:05:49 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 21:37:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,8 +274,8 @@ TFT_TEST(test_strrchr)
 
 TFT_TEST(test_strcmp)
 {
-	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789q";
-	char	cpy[256];
+	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
+	char	cpy[38];
 
 	strcpy(cpy, str);
 	TFT_ASSERT(ft_strcmp(str, cpy) == 0 && strcmp(str, cpy) == 0);
@@ -283,15 +283,21 @@ TFT_TEST(test_strcmp)
 	TFT_ASSERT(ft_strcmp(str, cpy) < 0 && strcmp(str, cpy) < 0);
 	cpy[4] = '\0';
 	TFT_ASSERT(ft_strcmp(str, cpy) > 0 && strcmp(str, cpy) > 0);
+	strcpy(cpy + 1, str);
+	TFT_ASSERT(ft_strcmp(str, cpy + 1) == 0 && strcmp(str, cpy + 1) == 0);
+	cpy[29] = '~';
+	TFT_ASSERT(ft_strcmp(str, cpy + 1) < 0 && strcmp(str, cpy + 1) < 0);
+	cpy[5] = '\0';
+	TFT_ASSERT(ft_strcmp(str, cpy + 1) > 0 && strcmp(str, cpy + 1) > 0);
 }
 
 TFT_TEST(test_strncmp)
 {
-	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789q";
-	char	cpy[256];
+	char	str[37] = "qwertyuiopasdfghjklzxcvbnm0123456789";
+	char	cpy[38];
 
 	strcpy(cpy, str);
-	TFT_ASSERT(ft_strncmp(str, cpy, 256) == 0 && strncmp(str, cpy, 256) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy, 38) == 0 && strncmp(str, cpy, 38) == 0);
 	TFT_ASSERT(ft_strncmp(str, cpy, 5) == 0 && strncmp(str, cpy, 5) == 0);
 	cpy[28] = '~';
 	TFT_ASSERT(ft_strncmp(str, cpy, 28) == 0 && strncmp(str, cpy, 28) == 0);
@@ -299,6 +305,15 @@ TFT_TEST(test_strncmp)
 	cpy[4] = '\0';
 	TFT_ASSERT(ft_strncmp(str, cpy, 4) == 0 && strncmp(str, cpy, 4) == 0);
 	TFT_ASSERT(ft_strncmp(str, cpy, 5) > 0 && strncmp(str, cpy, 5) > 0);
+	strcpy(cpy + 1, str);
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 37) == 0 && strncmp(str, cpy + 1, 37) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 5) == 0 && strncmp(str, cpy + 1, 5) == 0);
+	cpy[29] = '~';
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 28) == 0 && strncmp(str, cpy + 1, 28) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 29) < 0 && strncmp(str, cpy + 1, 29) < 0);
+	cpy[5] = '\0';
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 4) == 0 && strncmp(str, cpy + 1, 4) == 0);
+	TFT_ASSERT(ft_strncmp(str, cpy + 1, 5) > 0 && strncmp(str, cpy + 1, 5) > 0);
 }
 
 TFT_TEST(test_strstr)
