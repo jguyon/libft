@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:30:39 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 05:58:02 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:05:18 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/stat.h>
+# include <string.h>
 
 # define TP_TEST_FILE "/tmp/test_ft_printf"
 

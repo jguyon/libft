@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2016/12/30 21:52:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:16:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,38 @@ TFT_TEST(test_strncat)
 	TFT_ASSERT(strcmp(ft_strncat(str_ft, src, 30), strncat(str_lc, src, 30)) == 0);
 }
 
+#ifdef linux
+static size_t	strlcat(char *dst, const char *src, size_t size)
+{
+	char		*d;
+	const char	*s;
+	size_t		n;
+	size_t		dlen;
+
+	d = dst;
+	s = src;
+	n = size;
+	while (n-- != 0 && *d != '\0')
+		d++;
+	dlen = d - dst;
+	n = size - dlen;
+
+	if (n == 0)
+		return (dlen + strlen(s));
+	while (*s != '\0')
+	{
+		if (n != 1)
+		{
+			*(d++) = *s;
+			n--;
+		}
+		s++;
+	}
+	*d = '\0';
+	return (dlen + (s - src));
+}
+#endif
+
 TFT_TEST(test_strlcat)
 {
 	char	str_ft[256] = {0};
@@ -198,6 +230,16 @@ TFT_TEST(test_strlcat)
 	TFT_ASSERT(ft_strlcat(str_ft, src, 256) == strlcat(str_lc, src, 256));
 	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
 }
+
+#ifdef __APPLE__
+static char	*strchrnul(const char *s, int c)
+{
+	c = (unsigned char)c;
+	while (*s && *s != c)
+		++s;
+	return ((char *)s);
+}
+#endif
 
 TFT_TEST(test_strchrnul)
 {

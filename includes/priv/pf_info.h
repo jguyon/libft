@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:49:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:51:32 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/03 12:04:47 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PF_INFO_H
 
 # include <stdlib.h>
+# include <unistd.h>
 
 # define PF_FORMAT_START '%'
 

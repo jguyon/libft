@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/01/02 05:50:18 by jguyon           ###   ########.fr        #
+#    Updated: 2017/01/03 12:16:59 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -38,7 +38,6 @@ all: $(NAME)
 
 test: CFLAGS += -g -Wno-format
 test: LDFLAGS += -g
-test: LIBS += -lbsd
 test: $(TST_NAME)
 	./$<
 
