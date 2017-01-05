@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_first.c                                   :+:      :+:    :+:   */
+/*   ft_dlst_insertr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 13:10:08 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 13:11:31 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 11:55:07 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:28:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-t_dlist_node	*ft_dlist_first(t_dlist *list)
+void	ft_dlst_insertr(t_dlist_node *node, t_dlist_node *new)
 {
-	if (list->head.next == &(list->head))
-		return (NULL);
-	return (list->head.next);
+	new->prev = node;
+	new->next = node->next;
+	new->prev->next = new;
+	new->next->prev = new;
 }

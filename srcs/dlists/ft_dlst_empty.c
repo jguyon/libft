@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_init.c                                    :+:      :+:    :+:   */
+/*   ft_dlst_empty.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 11:01:19 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 11:28:11 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 13:18:14 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:37:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-void	ft_dlist_init(t_dlist *list, size_t offset)
+int		ft_dlst_empty(t_dlist *list)
 {
-	list->offset = offset;
-	list->head.prev = &(list->head);
-	list->head.next = &(list->head);
+	return (list->head.next == &(list->head));
 }

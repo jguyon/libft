@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_pop_back.c                                :+:      :+:    :+:   */
+/*   ft_dlst_last.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 12:37:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 12:39:32 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 13:12:09 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:36:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-t_dlist_node	*ft_dlist_pop_back(t_dlist *list)
+t_dlist_node	*ft_dlst_last(t_dlist *list)
 {
-	t_dlist_node	*node;
-
 	if (list->head.prev == &(list->head))
 		return (NULL);
-	node = list->head.prev;
-	list->head.prev = node->prev;
-	list->head.prev->next = &(list->head);
-	return (node);
+	return (list->head.prev);
 }

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 16:53:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 23:56:40 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/06 00:44:31 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ TFT_TEST(test_dlist_traverse_left)
 	t_dlist_node	*curr;
 
 	i = 0;
-	FT_DLIST_INIT(&list, t_num, node);
+	FT_DLST_INIT(&list, t_num, node);
 	while (i < 64)
 	{
 		nums[i].n = i;
-		ft_dlist_push_back(&list, FT_DLIST_NODE(&list, &(nums[i])));
+		ft_dlst_pushr(&list, FT_DLST_NODE(&list, &(nums[i])));
 		++i;
 	}
-	curr = ft_dlist_first(&list);
+	curr = ft_dlst_first(&list);
 	i = 0;
 	while (curr)
 	{
-		TFT_ASSERT(FT_DLIST_ENTRY(&list, curr) == &(nums[i]));
-		curr = ft_dlist_next(&list, curr);
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
+		curr = ft_dlst_next(&list, curr);
 		++i;
 	}
 	i = 0;
-	while ((curr = ft_dlist_pop_front(&list)))
+	while ((curr = ft_dlst_popl(&list)))
 	{
-		TFT_ASSERT(!!ft_dlist_singular(&list) == !!(i == 62));
-		TFT_ASSERT(!!ft_dlist_empty(&list) == !!(i == 63));
-		TFT_ASSERT(FT_DLIST_ENTRY(&list, curr) == &(nums[i]));
+		TFT_ASSERT(!!ft_dlst_singular(&list) == !!(i == 62));
+		TFT_ASSERT(!!ft_dlst_empty(&list) == !!(i == 63));
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
 		++i;
 	}
 }
@@ -58,27 +58,27 @@ TFT_TEST(test_dlist_traverse_right)
 	t_dlist_node	*curr;
 
 	i = 0;
-	FT_DLIST_INIT(&list, t_num, node);
+	FT_DLST_INIT(&list, t_num, node);
 	while (i < 64)
 	{
 		nums[i].n = i;
-		ft_dlist_push_front(&list, FT_DLIST_NODE(&list, &(nums[i])));
+		ft_dlst_pushl(&list, FT_DLST_NODE(&list, &(nums[i])));
 		++i;
 	}
-	curr = ft_dlist_last(&list);
+	curr = ft_dlst_last(&list);
 	i = 0;
 	while (curr)
 	{
-		TFT_ASSERT(FT_DLIST_ENTRY(&list, curr) == &(nums[i]));
-		curr = ft_dlist_prev(&list, curr);
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
+		curr = ft_dlst_prev(&list, curr);
 		++i;
 	}
 	i = 0;
-	while ((curr = ft_dlist_pop_back(&list)))
+	while ((curr = ft_dlst_popr(&list)))
 	{
-		TFT_ASSERT(!!ft_dlist_singular(&list) == !!(i == 62));
-		TFT_ASSERT(!!ft_dlist_empty(&list) == !!(i == 63));
-		TFT_ASSERT(FT_DLIST_ENTRY(&list, curr) == &(nums[i]));
+		TFT_ASSERT(!!ft_dlst_singular(&list) == !!(i == 62));
+		TFT_ASSERT(!!ft_dlst_empty(&list) == !!(i == 63));
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
 		++i;
 	}
 }

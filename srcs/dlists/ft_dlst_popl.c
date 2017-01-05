@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_pop_front.c                               :+:      :+:    :+:   */
+/*   ft_dlst_popl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 12:30:59 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 12:36:15 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/06 00:32:18 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-t_dlist_node	*ft_dlist_pop_front(t_dlist *list)
+t_dlist_node	*ft_dlst_popl(t_dlist *list)
 {
 	t_dlist_node	*node;
 

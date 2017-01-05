@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_push_front.c                              :+:      :+:    :+:   */
+/*   ft_dlst_popr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 12:16:30 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 12:18:45 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 12:37:02 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:34:06 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-void	ft_dlist_push_front(t_dlist *list, t_dlist_node *new)
+t_dlist_node	*ft_dlst_popr(t_dlist *list)
 {
-	new->prev = &(list->head);
-	new->next = list->head.next;
-	new->prev->next = new;
-	new->next->prev = new;
+	t_dlist_node	*node;
+
+	if (list->head.prev == &(list->head))
+		return (NULL);
+	node = list->head.prev;
+	list->head.prev = node->prev;
+	list->head.prev->next = &(list->head);
+	return (node);
 }

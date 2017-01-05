@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_next.c                                    :+:      :+:    :+:   */
+/*   ft_dlst_pushl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 13:03:52 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 13:04:59 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 12:16:30 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:29:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-t_dlist_node	*ft_dlist_next(t_dlist *list, t_dlist_node *node)
+void	ft_dlst_pushl(t_dlist *list, t_dlist_node *new)
 {
-	if (node->next == &(list->head))
-		return (NULL);
-	return (node->next);
+	new->prev = &(list->head);
+	new->next = list->head.next;
+	new->prev->next = new;
+	new->next->prev = new;
 }

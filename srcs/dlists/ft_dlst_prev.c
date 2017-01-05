@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_empty.c                                   :+:      :+:    :+:   */
+/*   ft_dlst_prev.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 13:18:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 13:19:08 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/05 13:02:08 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/06 00:34:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/ft_dlists.h"
 
-int		ft_dlist_empty(t_dlist *list)
+t_dlist_node	*ft_dlst_prev(t_dlist *list, t_dlist_node *node)
 {
-	return (list->head.next == &(list->head));
+	if (node->prev == &(list->head))
+		return (NULL);
+	return (node->prev);
 }
