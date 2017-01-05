@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 00:33:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/06 00:53:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct	s_dlist {
 ** @type: type of the entry struct
 ** @mbr: name of the member containing the list node
 */
-# define FT_DLST_OFFSET(type, mbr) ((size_t)(char *)&(((type *)0)->mbr))
+# define FT_DLST_OFFSET(type, mbr) ((size_t)(void *)&(((type *)0)->mbr))
 
 /*
 ** FT_DLST_NODE - retrieve the node corresponding to an entry
@@ -117,6 +117,20 @@ t_dlist_node	*ft_dlst_popl(t_dlist *list);
 ** @list: list to remove from
 */
 t_dlist_node	*ft_dlst_popr(t_dlist *list);
+
+/*
+** ft_dlst_replace - replaces a node by an orphan one
+** @node: node to replace
+** @new: node to insert
+*/
+void			ft_dlst_replace(t_dlist_node *node, t_dlist_node *new);
+
+/*
+** ft_dlst_swap - swaps two nodes
+** @n1: first node
+** @n2: second node
+*/
+void			ft_dlst_swap(t_dlist_node *n1, t_dlist_node *n2);
 
 /*
 ** ft_dlst_prev - retrieve the previous node in a list
