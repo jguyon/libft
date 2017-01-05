@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/05 13:17:41 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/06 00:04:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_dlist {
 ** @lst: list containing @e
 ** @e: entry corresponding to the node
 */
-# define FT_DLIST_NODE(lst, e) ((t_dlist_node *)(((char *)(e)) + (lst)->offset))
+# define FT_DLIST_NODE(lst, e) ((t_dlist_node *)(((void *)(e)) + (lst)->offset))
 
 /*
 ** FT_DLIST_ENTRY - retrieve the entry corresponding to a node
@@ -55,7 +55,7 @@ typedef struct	s_dlist {
 ** @n: node corresponding to the entry
 ** @type: type of the entry
 */
-# define FT_DLIST_ENTRY(lst, n, type) ((type *)(((char *)(n)) - (lst)->offset))
+# define FT_DLIST_ENTRY(lst, n) (((void *)(n)) - (lst)->offset)
 
 /*
 ** ft_dlist_init - initialize a list

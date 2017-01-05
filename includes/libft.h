@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:30:18 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 04:19:01 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/05 16:54:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "libft/ft_simpleio.h"
 # include "libft/ft_unicode.h"
 # include "libft/ft_lists.h"
+# include "libft/ft_dlists.h"
 # include "libft/ft_streams.h"
 # include "libft/ft_printf.h"
 
