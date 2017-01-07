@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:24:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 18:28:52 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 19:13:35 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,37 @@ static t_dlist_node	*merge_lists(t_dlist *list,
 }
 
 /*
-** Rebuild a circular doubly-linked list from the sorted null-terminated list
+** Merge the next node and iteratively merge resulting list parts
 */
-static void			restore_list(t_dlist *list, t_dlist_node *merged)
+static void			merge_parts(t_dlist *list, t_dlist_node **parts,
+								t_dlist_node *node, t_dlist_compare cmp)
 {
-	if (!merged)
+	size_t	i;
+
+	i = 0;
+	while (i < FT_DLST_SORT_PARTS && parts[i])
 	{
-		list->head.prev = &(list->head);
-		list->head.next = &(list->head);
-		return ;
+		node = merge_lists(list, parts[i], node, cmp);
+		parts[i++] = NULL;
 	}
+	if (i > FT_DLST_SORT_PARTS)
+		--i;
+	parts[i] = node;
+}
+
+/*
+** Merge all remaining list parts and restore missing links
+*/
+static void			merge_all_parts(t_dlist *list, t_dlist_node **parts,
+									t_dlist_compare cmp)
+{
+	t_dlist_node	*merged;
+	size_t			i;
+
+	i = 0;
+	merged = NULL;
+	while (i < FT_DLST_SORT_PARTS)
+		merged = merge_lists(list, parts[i++], merged, cmp);
 	list->head.next = merged;
 	merged->prev = &(list->head);
 	while (merged->next)
@@ -74,11 +95,12 @@ static void			restore_list(t_dlist *list, t_dlist_node *merged)
 */
 void				ft_dlst_sort(t_dlist *list, t_dlist_compare cmp)
 {
-	t_dlist_node	*parts[FT_DLST_SORT_PARTS + 1];
+	t_dlist_node	*parts[FT_DLST_SORT_PARTS];
 	t_dlist_node	*result;
 	t_dlist_node	*next;
-	size_t			i;
 
+	if (list->head.next == &(list->head) || list->head.next == list->head.prev)
+		return ;
 	ft_bzero(parts, sizeof(parts));
 	list->head.prev->next = NULL;
 	result = list->head.next;
@@ -86,18 +108,8 @@ void				ft_dlst_sort(t_dlist *list, t_dlist_compare cmp)
 	{
 		next = result->next;
 		result->next = NULL;
-		i = 0;
-		while (parts[i])
-		{
-			result = merge_lists(list, parts[i], result, cmp);
-			parts[i++] = NULL;
-		}
-		i = i == FT_DLST_SORT_PARTS ? i - 1 : i;
-		parts[i] = result;
+		merge_parts(list, parts, result, cmp);
 		result = next;
 	}
-	i = 0;
-	while (i < FT_DLST_SORT_PARTS)
-		result = merge_lists(list, parts[i++], result, cmp);
-	restore_list(list, result);
+	merge_all_parts(list, parts, cmp);
 }
