@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 12:12:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 18:19:33 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ typedef struct	s_dlist {
 ** t_dlist_iterator - function pointer type used to iterate over entries
 */
 typedef int		(*t_dlist_iterator)(void *entry, void *acc);
+
+/*
+** t_dlist_compare - function pointer type used to compare two list entries
+*/
+typedef int		(*t_dlist_compare)(void *e1, void *e2);
 
 /*
 ** FT_DLST_OFFSET - get the offset between your struct and the member node
@@ -212,5 +217,22 @@ void			ft_dlst_foreachl_from(t_dlist *list, t_dlist_node *first,
 */
 void			ft_dlst_foreachr_from(t_dlist *list, t_dlist_node *first,
 									  void *acc, t_dlist_iterator itr);
+
+/*
+** FT_DLST_SORT_PARTS - number of 'parts' used in merged sort
+**
+** Reducing the value of this constant can permit to use less memory,
+** but lists having more than (2 ^ FT_DLST_SORT_PARTS) will be slow to sort.
+*/
+# ifndef FT_DLST_SORT_PARTS
+#  define FT_DLST_SORT_PARTS 32
+# endif
+
+/*
+** ft_dlst_sort - sort a list
+** @list: list to sort
+** @cmp: compare function, uses the same principle as strcmp for its return val
+*/
+void			ft_dlst_sort(t_dlist *list, t_dlist_compare cmp);
 
 #endif

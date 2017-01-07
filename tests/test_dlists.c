@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 16:53:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 12:55:29 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 18:11:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,47 @@ TFT_TEST(test_dlist_iterate_right)
 	}
 }
 
+static int	sort_nums(void *e1, void *e2)
+{
+	return (((t_num *)e1)->n - ((t_num *)e2)->n);
+}
+
+TFT_TEST(test_dlist_sort)
+{
+	t_dlist			list;
+	t_num			nums[64];
+	size_t			i;
+	t_dlist_node	*curr;
+
+	FT_DLST_INIT(&list, t_num, node);
+	i = 0;
+	while (i < 64)
+	{
+		nums[i].n = i;
+		ft_dlst_pushl(&list, &(nums[i].node));
+		++i;
+	}
+	ft_dlst_sort(&list, &sort_nums);
+	i = 0;
+	curr = ft_dlst_first(&list);
+	while (curr)
+	{
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
+		curr = ft_dlst_next(&list, curr);
+		++i;
+	}
+	TFT_ASSERT(i == 64);
+	i = 64;
+	curr = ft_dlst_last(&list);
+	while (curr)
+	{
+		--i;
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
+		curr = ft_dlst_prev(&list, curr);
+	}
+	TFT_ASSERT(i == 0);
+}
+
 void	test_dlists(void)
 {
 	TFT_RUN(test_dlist_traverse_left);
@@ -193,4 +234,5 @@ void	test_dlists(void)
 	TFT_RUN(test_dlist_insert);
 	TFT_RUN(test_dlist_iterate_left);
 	TFT_RUN(test_dlist_iterate_right);
+	TFT_RUN(test_dlist_sort);
 }
