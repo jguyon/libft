@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 16:53:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 01:45:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 12:55:29 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,91 @@ TFT_TEST(test_dlist_insert)
 	TFT_ASSERT(ft_dlst_next(&list, &(nums[2].node)) == &(nums[0].node));
 }
 
+static int	iterate(void *entry, void *acc)
+{
+	if (((t_num *)entry)->n >= 32)
+		return (0);
+	*((size_t *)acc) += 1;
+	((t_num *)entry)->n *= 10;
+	return (1);
+}
+
+static int	remove_node_of(void *entry, void *acc)
+{
+	(void)acc;
+	ft_dlst_remove(&(((t_num *)entry)->node));
+	return (1);
+}
+
+TFT_TEST(test_dlist_iterate_left)
+{
+	t_dlist			list;
+	t_num			nums[64];
+	size_t			i;
+	t_dlist_node	*curr;
+
+	FT_DLST_INIT(&list, t_num, node);
+	i = 0;
+	while (i < 64)
+	{
+		nums[i].n = i;
+		ft_dlst_pushr(&list, &(nums[i].node));
+		++i;
+	}
+	i = 0;
+	ft_dlst_foreachl(&list, &i, &iterate);
+	TFT_ASSERT(i == 32);
+	i = 0;
+	curr = ft_dlst_first(&list);
+	while (curr)
+	{
+		if (i < 32)
+			TFT_ASSERT(((t_num *)FT_DLST_ENTRY(&list, curr))->n == i * 10);
+		else
+			TFT_ASSERT(((t_num *)FT_DLST_ENTRY(&list, curr))->n == i);
+		curr = ft_dlst_next(&list, curr);
+		++i;
+	}
+	ft_dlst_foreachl(&list, NULL, &remove_node_of);
+	TFT_ASSERT(ft_dlst_empty(&list));
+}
+
+TFT_TEST(test_dlist_iterate_right)
+{
+	t_dlist			list;
+	t_num			nums[64];
+	size_t			i;
+	t_dlist_node	*curr;
+
+	FT_DLST_INIT(&list, t_num, node);
+	i = 0;
+	while (i < 64)
+	{
+		nums[i].n = i;
+		ft_dlst_pushl(&list, &(nums[i].node));
+		++i;
+	}
+	i = 0;
+	ft_dlst_foreachr(&list, &i, &iterate);
+	TFT_ASSERT(i == 32);
+	i = 0;
+	curr = ft_dlst_last(&list);
+	while (curr)
+	{
+		if (i < 32)
+			TFT_ASSERT(((t_num *)FT_DLST_ENTRY(&list, curr))->n == i * 10);
+		else
+			TFT_ASSERT(((t_num *)FT_DLST_ENTRY(&list, curr))->n == i);
+		curr = ft_dlst_prev(&list, curr);
+		++i;
+	}
+}
+
 void	test_dlists(void)
 {
 	TFT_RUN(test_dlist_traverse_left);
 	TFT_RUN(test_dlist_traverse_right);
 	TFT_RUN(test_dlist_insert);
+	TFT_RUN(test_dlist_iterate_left);
+	TFT_RUN(test_dlist_iterate_right);
 }

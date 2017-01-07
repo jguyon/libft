@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 00:53:55 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 12:12:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ typedef struct	s_dlist {
 	size_t			offset;
 	t_dlist_node	head;
 }				t_dlist;
+
+/*
+** t_dlist_iterator - function pointer type used to iterate over entries
+*/
+typedef int		(*t_dlist_iterator)(void *entry, void *acc);
 
 /*
 ** FT_DLST_OFFSET - get the offset between your struct and the member node
@@ -169,5 +174,43 @@ int				ft_dlst_empty(t_dlist *list);
 ** @list: list to test
 */
 int				ft_dlst_singular(t_dlist *list);
+
+/*
+** ft_dlst_foreachl - iterate over the entries of a list from left to right
+** @list: list to iterate over
+** @acc: data to pass to @itr
+** @itr: function to call with each entry, iteration stops if it returns 0
+*/
+void			ft_dlst_foreachl(t_dlist *list, void *acc,
+									t_dlist_iterator itr);
+
+/*
+** ft_dlst_foreachr - iterate over the entries of a list from right to left
+** @list: list to iterate over
+** @acc: data to pass to @itr
+** @itr: function to call with each entry, iteration stops if it returns 0
+*/
+void			ft_dlst_foreachr(t_dlist *list, void *acc,
+									t_dlist_iterator itr);
+
+/*
+** ft_dlst_foreachl_from - iterate over a list from a specific entry
+** @list: list to iterate over
+** @first: first node to iterate over
+** @acc: data to pass to @itr
+** @itr: function to call with each entry, iteration stops if it returns 0
+*/
+void			ft_dlst_foreachl_from(t_dlist *list, t_dlist_node *first,
+										void *acc, t_dlist_iterator itr);
+
+/*
+** ft_dlst_foreachr_from - iterate over a list from a specific entry
+** @list: list to iterate over
+** @first: first node to iterate over
+** @acc: data to pass to @itr
+** @itr: function to call with each entry, iteration stops if it returns 0
+*/
+void			ft_dlst_foreachr_from(t_dlist *list, t_dlist_node *first,
+									  void *acc, t_dlist_iterator itr);
 
 #endif
