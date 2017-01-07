@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlsts.h                                        :+:      :+:    :+:   */
+/*   ft_dlists.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 18:19:33 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 19:40:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,29 @@ void			ft_dlst_replace(t_dlist_node *node, t_dlist_node *new);
 ** @n2: second node
 */
 void			ft_dlst_swap(t_dlist_node *n1, t_dlist_node *n2);
+
+/*
+** ft_dlst_slice - extracts part of a list into a new one
+** @list: empty list to fill
+** @start: first node to extract
+** @end: last node to extract
+*/
+void			ft_dlst_slice(t_dlist *list,
+								t_dlist_node *start, t_dlist_node *end);
+
+/*
+** ft_dlst_splicel - inserts a list into another one
+** @node: node before which to insert
+** @list: list to insert
+*/
+void			ft_dlst_splicel(t_dlist_node *node, t_dlist *list);
+
+/*
+** ft_dlst_splicer - inserts a list into another one
+** @node: node after which to insert
+** @list: list to insert
+*/
+void			ft_dlst_splicer(t_dlist_node *node, t_dlist *list);
 
 /*
 ** ft_dlst_prev - retrieve the previous node in a list

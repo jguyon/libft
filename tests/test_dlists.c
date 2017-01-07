@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 16:53:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 18:11:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/07 20:20:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,87 @@ TFT_TEST(test_dlist_sort)
 	TFT_ASSERT(i == 0);
 }
 
+TFT_TEST(test_dlist_slice)
+{
+	t_dlist			list;
+	t_dlist			dst;
+	t_num			nums[64];
+	size_t			i;
+	t_dlist_node	*curr;
+
+	FT_DLST_INIT(&list, t_num, node);
+	FT_DLST_INIT(&dst, t_num, node);
+	i = 0;
+	while (i < 64)
+	{
+		ft_dlst_pushr(&list, &(nums[i].node));
+		++i;
+	}
+	ft_dlst_slice(&dst, &(nums[3].node), &(nums[32].node));
+	i = 3;
+	curr = ft_dlst_first(&dst);
+	while (curr)
+	{
+		TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(nums[i]));
+		curr = ft_dlst_next(&dst, curr);
+		++i;
+	}
+	i = 0;
+	curr = ft_dlst_first(&list);
+	while (curr)
+	{
+		TFT_ASSERT(FT_DLST_ENTRY(&list, curr) == &(nums[i]));
+		curr = ft_dlst_next(&list, curr);
+		++i;
+		if (i == 3)
+			i = 33;
+	}
+}
+
+TFT_TEST(test_dlist_splice)
+{
+	t_dlist			dst;
+	t_dlist			list1;
+	t_dlist			list2;
+	t_num			numd[64];
+	t_num			num1[64];
+	t_num			num2[64];
+	size_t			i;
+	t_dlist_node	*curr;
+
+	FT_DLST_INIT(&dst, t_num, node);
+	FT_DLST_INIT(&list1, t_num, node);
+	FT_DLST_INIT(&list2, t_num, node);
+	i = 0;
+	while (i < 64)
+	{
+		ft_dlst_pushr(&dst, &(numd[i].node));
+		ft_dlst_pushr(&list1, &(num1[i].node));
+		ft_dlst_pushr(&list2, &(num2[i].node));
+		++i;
+	}
+	ft_dlst_splicel(&(numd[3].node), &list1);
+	ft_dlst_splicer(&(numd[32].node), &list2);
+	i = 0;
+	curr = ft_dlst_first(&dst);
+	while (curr)
+	{
+		if (i < 3)
+			TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(numd[i]));
+		else if (i < 67)
+			TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(num1[i - 3]));
+		else if (i < 97)
+			TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(numd[i - 64]));
+		else if (i < 161)
+			TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(num2[i - 97]));
+		else
+			TFT_ASSERT(FT_DLST_ENTRY(&dst, curr) == &(numd[i - 128]));
+		curr = ft_dlst_next(&dst, curr);
+		++i;
+	}
+	TFT_ASSERT(i == 192);
+}
+
 void	test_dlists(void)
 {
 	TFT_RUN(test_dlist_traverse_left);
@@ -235,4 +316,6 @@ void	test_dlists(void)
 	TFT_RUN(test_dlist_iterate_left);
 	TFT_RUN(test_dlist_iterate_right);
 	TFT_RUN(test_dlist_sort);
+	TFT_RUN(test_dlist_slice);
+	TFT_RUN(test_dlist_splice);
 }
