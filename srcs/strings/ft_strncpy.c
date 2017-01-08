@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:52:18 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/03 12:23:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 11:15:31 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 	while ((size_t)(dst - start + FT_MEM_WORDLEN) <= len)
 	{
 		*((t_mem_word *)dst) = 0;
-		dst += 8;
+		dst += FT_MEM_WORDLEN;
 	}
 	while ((size_t)(dst - start) < len)
 		*(dst++) = '\0';
