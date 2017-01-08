@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unicode.h                                       :+:      :+:    :+:   */
+/*   pf_write_wstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/02 02:37:50 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 20:11:55 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/08 20:25:01 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/08 22:07:36 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_UNICODE_H
-# define FT_UNICODE_H
+#include "ft_unicode.h"
+#include "priv/pf_write.h"
 
-/*
-** DEPRECATED - needs rewrite
-*/
+size_t	pf_write_wstr(t_stream *stream, const wchar_t *wstr, size_t len)
+{
+	size_t	i;
+	size_t	l;
+	char	buf[FT_WC_MAXBYTES];
 
-# define FT_WC_MAXBYTES 4
-
-# include <wchar.h>
-
-size_t	ft_wcconv(char *dst, wchar_t wc);
-size_t	ft_wclen(wchar_t wc);
-size_t	ft_wstrlen(const wchar_t *ws);
-
-#endif
+	i = 0;
+	while (i < len)
+	{
+		l = ft_wcconv(buf, *wstr);
+		ft_fwrite(buf, l, stream);
+		i += l;
+		++wstr;
+	}
+	return (i);
+}

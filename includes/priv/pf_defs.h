@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 19:13:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 19:59:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,28 @@ typedef struct	s_pf_flags {
 # define PF_PREC_PREFIX '.'
 
 /*
+** Length modifiers
+*/
+
+# define PF_MOD_L	'l'
+# define PF_MOD_H	'h'
+# define PF_MOD_J	'j'
+# define PF_MOD_Z	'z'
+
+/*
+** Type representing a modifier
+*/
+typedef enum	e_mod {
+	NO_MOD,
+	HH,
+	H,
+	L,
+	LL,
+	J,
+	Z
+}				t_mod;
+
+/*
 ** Conversion specifiers
 */
 # define PF_STRING_SPEC	's'
@@ -55,6 +77,7 @@ typedef struct	s_pf_info {
 	t_pf_flags	flags;
 	size_t		min_width;
 	ssize_t		prec;
+	t_mod		mod;
 }				t_pf_info;
 
 #endif

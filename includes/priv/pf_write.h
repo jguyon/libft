@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 18:25:34 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 18:40:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 20:27:21 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,21 @@
 ** Returns the number of bytes of padding written.
 */
 size_t	pf_write_pad(t_stream *stream, size_t min_len, size_t real_len);
+
+/*
+** pf_write_str - writes a string
+** @stream: stream to write to
+** @str: string to write
+** @len: number of bytes to write
+*/
+size_t	pf_write_str(t_stream *stream, const char *str, size_t len);
+
+/*
+** pf_write_wstr - write a unicode string
+** @stream: stream to write to
+** @wstr: string to write
+** @len: number of bytes to write
+*/
+size_t	pf_write_wstr(t_stream *stream, const wchar_t *wstr, size_t len);
 
 #endif
