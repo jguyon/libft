@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 15:53:01 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 17:06:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ TFT_TEST(test_printf_ints)
 
 void	test_printf(void)
 {
-	/* TFT_RUN(test_printf_basics); */
+	TFT_RUN(test_printf_basics);
 	/* TFT_RUN(test_printf_args); */
 	/* TFT_RUN(test_printf_errs); */
 	/* TFT_RUN(test_printf_ptrs); */
