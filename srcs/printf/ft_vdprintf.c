@@ -5,34 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 22:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 13:52:56 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/08 15:41:44 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/08 15:49:13 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
 
-static size_t			fd_write(void *cookie, const char *buff, size_t count)
+static size_t			fd_write(void *fd, const char *buff, size_t count)
 {
-	return (write(*((int *)cookie), buff, count));
+	return (write(*((int *)fd), buff, count));
 }
 
 static t_stream_type	g_fd_type = {
 	FT_BUFF_SIZE,
 	&fd_write,
-	NULL
+	NULL,
 };
 
-int						ft_vdprintf(int fd, const char *format, va_list ap)
+int						ft_vdprintf(int fd, const char *format, va_list args)
 {
 	t_stream	*stream;
-	int			count;
+	int			res;
 
 	if (!(stream = ft_fopencookie(&fd, g_fd_type)))
 		return (-1);
-	count = ft_vfprintf(stream, format, ap);
+	res = ft_vfprintf(stream, format, args);
 	if (ft_fclose(stream))
-		count = -1;
-	return (count);
+		res = -1;
+	return (res);
 }

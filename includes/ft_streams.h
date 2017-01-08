@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 13:06:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 15:49:00 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int				ft_ferror(t_stream *stream);
 ** ft_fclose - flush and close a stream
 ** @stream: stream to close
 **
-** Returns a positive or null number if successful, a negative number otherwise.
+** Returns non-null number if successful, zero otherwise.
 */
 int				ft_fclose(t_stream *stream);
 

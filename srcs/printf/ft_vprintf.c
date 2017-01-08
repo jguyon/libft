@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 22:53:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 13:54:19 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/08 15:40:11 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/08 15:41:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_vprintf(const char *format, va_list ap)
+int		ft_vprintf(const char *format, va_list args)
 {
-	return (ft_vdprintf(1, format, ap));
+	return (ft_vdprintf(1, format, args));
 }
