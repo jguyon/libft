@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 09:55:58 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 10:20:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ void			ft_dlst_foreachl_from(t_dlist *list, t_dlist_node *first,
 ** @itr: function to call with each entry, iteration stops if it returns 0
 */
 void			ft_dlst_foreachr_from(t_dlist *list, t_dlist_node *first,
-									  void *acc, t_dlist_iterator itr);
+										void *acc, t_dlist_iterator itr);
 
 /*
 ** FT_DLST_SORT_PARTS - number of 'parts' used in merged sort

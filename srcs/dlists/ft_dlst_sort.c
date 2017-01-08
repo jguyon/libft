@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:24:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 19:13:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 10:23:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 /*
 ** Merge two sorted null-terminated linked lists together
 */
+
 static t_dlist_node	*merge_lists(t_dlist *list,
-								 t_dlist_node *left, t_dlist_node *right,
-								 t_dlist_compare cmp)
+									t_dlist_node *left, t_dlist_node *right,
+									t_dlist_compare cmp)
 {
 	t_dlist_node	*merged;
 	t_dlist_node	**curr;
@@ -46,6 +47,7 @@ static t_dlist_node	*merge_lists(t_dlist *list,
 /*
 ** Merge the next node and iteratively merge resulting list parts
 */
+
 static void			merge_parts(t_dlist *list, t_dlist_node **parts,
 								t_dlist_node *node, t_dlist_compare cmp)
 {
@@ -65,6 +67,7 @@ static void			merge_parts(t_dlist *list, t_dlist_node **parts,
 /*
 ** Merge all remaining list parts and restore missing links
 */
+
 static void			merge_all_parts(t_dlist *list, t_dlist_node **parts,
 									t_dlist_compare cmp)
 {
@@ -93,6 +96,7 @@ static void			merge_all_parts(t_dlist *list, t_dlist_node **parts,
 ** before being converted back to avoid having to keep
 ** the prev links up to date.
 */
+
 void				ft_dlst_sort(t_dlist *list, t_dlist_compare cmp)
 {
 	t_dlist_node	*parts[FT_DLST_SORT_PARTS];
