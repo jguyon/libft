@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 10:20:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 12:22:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 /*
 ** Embedded doubly linked list implementation
+**
+** /!\ Functions that remove node or empty lists do not do anything
+** to mark those as invalid.
 */
 
 /*
@@ -261,9 +264,7 @@ void			ft_dlst_foreachr_from(t_dlist *list, t_dlist_node *first,
 ** Reducing the value of this constant can permit to use less memory,
 ** but lists having more than (2 ^ FT_DLST_SORT_PARTS) will be slow to sort.
 */
-# ifndef FT_DLST_SORT_PARTS
-#  define FT_DLST_SORT_PARTS 32
-# endif
+# define FT_DLST_SORT_PARTS 32
 
 /*
 ** ft_dlst_sort - sort a list
