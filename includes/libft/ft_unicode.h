@@ -6,12 +6,16 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 02:37:50 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:02:30 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 12:40:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_UNICODE_H
 # define FT_UNICODE_H
+
+/*
+** DEPRECATED - needs rewrite
+*/
 
 # include <wchar.h>
 

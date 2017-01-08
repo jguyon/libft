@@ -6,12 +6,16 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 02:46:07 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/03 12:25:23 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 12:41:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LISTS_H
 # define FT_LISTS_H
+
+/*
+** DEPRECATED - needs rewrite
+*/
 
 # include <stddef.h>
 
