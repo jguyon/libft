@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_convert.c                                       :+:      :+:    :+:   */
+/*   pf_convert_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 17:04:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 17:51:51 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/08 17:33:49 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/08 17:55:00 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include "priv/pf_convert.h"
-#include "priv/pf_parse.h"
 
-static t_conv	*g_convs[CHAR_MAX + 1] = {
-	[PF_STRING_SPEC] = &pf_convert_str,
-};
-
-int				pf_convert(t_stream *stream, t_pf_info *info, va_list args)
+int		pf_convert_str(t_stream *stream, t_pf_info *info, va_list args)
 {
-	if (g_convs[(size_t)info->spec])
-		return (g_convs[(size_t)info->spec](stream, info, args));
-	return (-1);
+	const char	*str;
+
+	(void)info;
+	str = va_arg(args, const char *);
+	if (!str)
+		return (ft_fputs(PF_STRING_NULL, stream));
+	return (ft_fputs(str, stream));
 }

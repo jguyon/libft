@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_convert.c                                       :+:      :+:    :+:   */
+/*   pf_convert.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 17:04:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 17:51:51 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/08 17:26:22 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/08 17:36:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#include "priv/pf_convert.h"
-#include "priv/pf_parse.h"
+#ifndef PF_CONVERT_H
+# define PF_CONVERT_H
 
-static t_conv	*g_convs[CHAR_MAX + 1] = {
-	[PF_STRING_SPEC] = &pf_convert_str,
-};
+# include <stdarg.h>
+# include "ft_streams.h"
+# include "priv/pf_defs.h"
 
-int				pf_convert(t_stream *stream, t_pf_info *info, va_list args)
-{
-	if (g_convs[(size_t)info->spec])
-		return (g_convs[(size_t)info->spec](stream, info, args));
-	return (-1);
-}
+/*
+** t_conv - conversion function type
+** @stream: stream to write to
+** @info: info for the conversion
+** @args: arguments given to printf
+*/
+typedef int	(t_conv)(t_stream *stream, t_pf_info *info, va_list args);
+
+/*
+** All conversion functions
+*/
+
+t_conv		pf_convert_str;
+
+#endif
