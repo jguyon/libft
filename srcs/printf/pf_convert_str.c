@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 17:33:49 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 22:08:05 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 22:11:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static size_t	wstrnlen(const wchar_t *wstr, size_t max)
 	return (len);
 }
 
-static int		convert_wstr(t_stream *stream, t_pf_info *info, const wchar_t *wstr)
+static int		convert_wstr(t_stream *stream, t_pf_info *info,
+								const wchar_t *wstr)
 {
 	int			count;
 	size_t		len;
