@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 18:57:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 19:18:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ TFT_TEST(test_printf_strings)
 	TP_PRINTF("%s // %s", "Hello, world!", NULL);
 	TP_PRINTF("%10s // %10s // %10s", "hello", "hellohello", "hellohellohello");
 	TP_PRINTF("%.s // %.10s // %.10s // %.10s", "hello", "hello", "hellohello", "hellohellohello");
+	TP_PRINTF("%-s // %-10s", "hello", "hello");
 	/* TP_PRINTF("%s // %s // %ls", "Hello, world!", NULL, NULL); */
 	/* TP_PRINTF("%c // %c // %c", 'b', 897, '\0'); */
 	/* TP_PRINTF("%10s // %10c // %3s", "hello", '$', "hello"); */

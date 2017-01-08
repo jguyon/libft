@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 18:54:21 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 19:13:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 ** Prefix character of conversions
 */
 # define PF_CONV_PREFIX '%'
+
+/*
+** Flag characters
+*/
+# define PF_FLAG_LEFT	'-'
+
+/*
+** Structure representing presence of flags
+*/
+typedef struct	s_pf_flags {
+	unsigned int	left : 1;
+}				t_pf_flags;
 
 /*
 ** Prefix character for precision
@@ -39,9 +51,10 @@
 ** Structure containing all information about a conversion
 */
 typedef struct	s_pf_info {
-	char	spec;
-	size_t	min_width;
-	ssize_t	prec;
+	char		spec;
+	t_pf_flags	flags;
+	size_t		min_width;
+	ssize_t		prec;
 }				t_pf_info;
 
 #endif
