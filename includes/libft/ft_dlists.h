@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 19:40:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 09:55:58 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,20 @@ void			ft_dlst_splicel(t_dlist_node *node, t_dlist *list);
 ** @list: list to insert
 */
 void			ft_dlst_splicer(t_dlist_node *node, t_dlist *list);
+
+/*
+** ft_dlst_joinl - prepend a list to another
+** @dst: list to prepend to
+** @src: list to prepend
+*/
+void			ft_dlst_joinl(t_dlist *dst, t_dlist *src);
+
+/*
+** ft_dlst_joinr - append a list to another
+** @dst: list to append to
+** @src: list to append
+*/
+void			ft_dlst_joinr(t_dlist *dst, t_dlist *src);
 
 /*
 ** ft_dlst_prev - retrieve the previous node in a list
