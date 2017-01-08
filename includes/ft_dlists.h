@@ -6,21 +6,23 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:34:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 12:22:46 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 14:30:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DLISTS_H
 # define FT_DLISTS_H
 
-# include <stddef.h>
-
 /*
 ** Embedded doubly linked list implementation
 **
-** /!\ Functions that remove node or empty lists do not do anything
-** to mark those as invalid.
+** /!\ In the interest of optimization, no special checks are done to
+** validate inputs. Be cautious. It would probably be a good idea
+** to write your own type and functions that use what is defined here
+** if you are doing anything non-trivial.
 */
+
+# include <stddef.h>
 
 /*
 ** t_dlist_node - list node type to embed in your entry struct
