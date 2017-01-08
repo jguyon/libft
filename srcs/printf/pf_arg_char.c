@@ -6,12 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:00:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 04:05:16 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:54:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
-#include "libft/ft_unicode.h"
+#include "ft_memory.h"
+#include "ft_unicode.h"
 #include "priv/pf_convert.h"
 
 void	*pf_arg_char(t_pf_info *info, va_list ap)

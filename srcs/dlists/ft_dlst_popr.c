@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 12:37:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 00:34:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:46:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_dlists.h"
+#include "ft_dlists.h"
 
 t_dlist_node	*ft_dlst_popr(t_dlist *list)
 {

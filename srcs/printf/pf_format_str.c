@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:39:56 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 04:06:49 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:56:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_unicode.h"
+#include "ft_unicode.h"
 #include "priv/pf_convert.h"
 
 static int		write_unps(t_stream *stream, char *str, size_t len)

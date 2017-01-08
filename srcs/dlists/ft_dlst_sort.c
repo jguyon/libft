@@ -6,12 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:24:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 10:23:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:47:33 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
-#include "libft/ft_dlists.h"
+#include "ft_memory.h"
+#include "ft_dlists.h"
 
 /*
 ** Merge two sorted null-terminated linked lists together

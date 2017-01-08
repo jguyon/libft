@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 00:57:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 01:13:52 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:48:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_dlists.h"
+#include "ft_dlists.h"
 
 void	ft_dlst_swap(t_dlist_node *n1, t_dlist_node *n2)
 {

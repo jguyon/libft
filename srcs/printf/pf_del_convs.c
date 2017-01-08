@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:17:52 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:57:47 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:56:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
+#include "ft_memory.h"
 #include "priv/pf_parse.h"
 
 static void	del_conv(void *content, size_t size)

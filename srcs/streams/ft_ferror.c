@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:06:13 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:24:04 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:59:13 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_streams.h"
+#include "ft_streams.h"
 
 int		ft_ferror(t_stream *stream)
 {

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:31:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 12:49:33 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:31:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 */
 
 # include <stdarg.h>
-# include "libft/ft_streams.h"
+# include "ft_streams.h"
 
 /*
 ** ft_printf - print formatted string to stdout

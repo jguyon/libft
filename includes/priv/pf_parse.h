@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:38:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:52:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:53:45 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PF_PARSE_H
 
 # include <stdarg.h>
-# include "libft/ft_lists.h"
-# include "libft/ft_streams.h"
+# include "ft_lists.h"
+# include "ft_streams.h"
 # include "priv/pf_info.h"
 
 typedef struct	s_pf_format {

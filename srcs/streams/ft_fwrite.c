@@ -6,12 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 22:10:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 14:00:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
-#include "libft/ft_streams.h"
+#include "ft_memory.h"
+#include "ft_streams.h"
 
 size_t	ft_fwrite(const char *s, size_t count, t_stream *stream)
 {

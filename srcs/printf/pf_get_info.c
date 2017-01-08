@@ -6,12 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:43:25 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:58:50 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:56:47 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
-#include "libft/ft_strings.h"
+#include "ft_memory.h"
+#include "ft_strings.h"
 #include "priv/pf_parse.h"
 
 static int			get_num(char **format)

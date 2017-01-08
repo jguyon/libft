@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 22:41:33 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:59:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:56:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_memory.h"
+#include "ft_memory.h"
 #include "priv/pf_convert.h"
 #include "priv/pf_parse.h"
 

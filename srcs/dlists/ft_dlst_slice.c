@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 19:26:29 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/07 19:59:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:47:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_dlists.h"
+#include "ft_dlists.h"
 
 void	ft_dlst_slice(t_dlist *list, t_dlist_node *start, t_dlist_node *end)
 {

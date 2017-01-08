@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:44:11 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/02 03:53:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:54:47 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <inttypes.h>
 # include <stdarg.h>
-# include "libft/ft_streams.h"
+# include "ft_streams.h"
 # include "priv/pf_info.h"
 
 typedef struct	s_pf_int {

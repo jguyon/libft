@@ -6,11 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 13:10:08 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/06 00:36:24 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/08 13:43:10 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/ft_dlists.h"
+#include "ft_dlists.h"
 
 t_dlist_node	*ft_dlst_first(t_dlist *list)
 {
