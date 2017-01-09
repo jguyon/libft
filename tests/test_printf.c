@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 22:08:24 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 11:13:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ TFT_TEST(test_printf_basics)
 
 TFT_TEST(test_printf_args)
 {
-	TP_PRINTF("%2$d // %1$d // %1$#x", 42, 21);
-	TP_PRINTF("%*u // %.*u", 4, 42, 8, 21);
-	TP_PRINTF("%3$*1$.*2$u // %4$*2$.*1$u", 4, 8, 42, 21);
-	TP_PRINTF("%2$*1$u // %2$.*1$u", -4, 42);
-	TP_PRINTF("%1$d // %% // %1$d", 42);
+	TP_PRINTF("%*s // %*s", 10, "hello", -10, "hello");
+	TP_PRINTF("%.*s // %.*s", 3, "hello", -3, "hello");
+	TP_PRINTF("%*.*s // %*.*s", 10, 3, "hello", -10, 3, "hello");
 }
 
 TFT_TEST(test_printf_errs)
@@ -60,6 +58,7 @@ TFT_TEST(test_printf_strings)
 	TP_PRINTF("%s // %s", "Hello, world!", NULL);
 	TP_PRINTF("%10s // %10s // %10s", "hello", "hellohello", "hellohellohello");
 	TP_PRINTF("%.s // %.10s // %.10s // %.10s", "hello", "hello", "hellohello", "hellohellohello");
+	TP_PRINTF("%10.5s // %10.5s", "hello", "hellohello");
 	TP_PRINTF("%-s // %-10s", "hello", "hello");
 	TP_PRINTF("%ls // %10ls // %.5ls", L"$¢€", L"$¢€", L"$¢€");
 }
@@ -121,7 +120,7 @@ void	test_printf(void)
 	TFT_RUN(test_printf_basics);
 	TFT_RUN(test_printf_errs);
 	TFT_RUN(test_printf_strings);
-	/* TFT_RUN(test_printf_args); */
+	TFT_RUN(test_printf_args);
 	/* TFT_RUN(test_printf_ptrs); */
 	/* TFT_RUN(test_printf_ints); */
 }

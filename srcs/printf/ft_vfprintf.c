@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 15:50:26 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 21:56:51 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 10:52:36 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_vfprintf(t_stream *stream, const char *format, va_list args)
 			break ;
 		if (*(++format) == PF_CONV_PREFIX)
 			count += ft_fwrite(format++, 1, stream);
-		else if ((format = pf_parse_info(format, &info)))
+		else if ((format = pf_parse_info(format, &info, args)))
 			count += (res = pf_convert(stream, &info, args));
 		if (res < 0 || !format || ft_ferror(stream))
 			break ;

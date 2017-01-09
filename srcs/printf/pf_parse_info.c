@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 20:02:18 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 11:16:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include "ft_memory.h"
 #include "ft_chars.h"
 #include "priv/pf_parse.h"
+
+static ssize_t	read_number(const char **format, va_list args)
+{
+	size_t	nbr;
+
+	if (**format == PF_ARG_CHAR)
+	{
+		++(*format);
+		return ((ssize_t)va_arg(args, int));
+	}
+	nbr = 0;
+	while (ft_isdigit(**format))
+	{
+		nbr = 10 * nbr + (**format - '0');
+		++(*format);
+	}
+	return (nbr);
+}
 
 static int		read_flag(const char *format, t_pf_flags *flags)
 {
@@ -47,22 +65,22 @@ static size_t	read_modifier(const char *format, t_mod *mod)
 	return (1);
 }
 
-const char		*pf_parse_info(const char *format, t_pf_info *info)
+const char		*pf_parse_info(const char *format, t_pf_info *info,
+								va_list args)
 {
+	(void)args;
 	if (!(*format))
 		return (NULL);
 	ft_bzero(info, sizeof(*info));
 	while (read_flag(format, &(info->flags)))
 		++format;
-	while (ft_isdigit(*format))
-		info->min_width = 10 * info->min_width + (*(format++) - '0');
+	info->min_width = read_number(&format, args);
+	info->prec = -1;
 	if (*format == PF_PREC_PREFIX)
 	{
-		while (ft_isdigit(*(++format)))
-			info->prec = 10 * info->prec + (*format - '0');
+		++format;
+		info->prec = read_number(&format, args);
 	}
-	else
-		info->prec = -1;
 	format += read_modifier(format, &(info->mod));
 	info->spec = *(format++);
 	return (format);

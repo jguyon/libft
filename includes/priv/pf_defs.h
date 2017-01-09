@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 19:59:51 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 11:04:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define PF_DEFS_H
 
 # include <unistd.h>
+
+/*
+** Take absolute value of integer
+*/
+# define PF_ABS(n) ((n) < 0 ? -(n) : (n))
 
 /*
 ** Prefix character of conversions
@@ -36,6 +41,11 @@ typedef struct	s_pf_flags {
 ** Prefix character for precision
 */
 # define PF_PREC_PREFIX '.'
+
+/*
+** Character for arg width or precision
+*/
+# define PF_ARG_CHAR '*'
 
 /*
 ** Length modifiers
@@ -75,7 +85,7 @@ typedef enum	e_mod {
 typedef struct	s_pf_info {
 	char		spec;
 	t_pf_flags	flags;
-	size_t		min_width;
+	ssize_t		min_width;
 	ssize_t		prec;
 	t_mod		mod;
 }				t_pf_info;
