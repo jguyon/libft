@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 17:04:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 13:49:00 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 14:41:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "priv/pf_parse.h"
 
 static t_conv	*g_convs[CHAR_MAX + 1] = {
+	[PF_CHAR_SPEC] = &pf_convert_char,
 	[PF_STRING_SPEC] = &pf_convert_str,
 	[PF_INT_SPEC] = &pf_convert_int,
 	[PF_ALTINT_SPEC] = &pf_convert_int,
