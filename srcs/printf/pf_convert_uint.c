@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 13:13:24 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 13:38:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:08:03 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <inttypes.h>
+#include "ft_memory.h"
 #include "ft_numbers.h"
 #include "ft_strings.h"
 #include "priv/pf_write.h"
@@ -55,6 +56,8 @@ static int			write_uint(t_stream *stream, t_pf_info *info,
 	size_t	lenp;
 	size_t	lenn;
 
+	if (!ns)
+		return (-1);
 	if (*prefix == '0' && *(prefix + 1) == '\0' && *ns == '0')
 		prefix = g_empty;
 	lenp = ft_strlen(prefix);
@@ -82,6 +85,7 @@ int					pf_convert_uint(t_stream *stream, t_pf_info *info,
 	uintmax_t	n;
 	char		*str;
 	const char	*prefix;
+	int			res;
 
 	if (info->mod == HH)
 		n = (unsigned char)va_arg(args, unsigned int);
@@ -97,8 +101,9 @@ int					pf_convert_uint(t_stream *stream, t_pf_info *info,
 		n = va_arg(args, size_t);
 	else
 		n = va_arg(args, unsigned int);
-	if (!(str = get_nstr(n, info)))
-		return (-1);
+	str = get_nstr(n, info);
 	prefix = get_prefix(info);
-	return (write_uint(stream, info, prefix, str));
+	res = write_uint(stream, info, prefix, str);
+	ft_memdel((void **)&str);
+	return (res);
 }

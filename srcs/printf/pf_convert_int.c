@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 11:23:01 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 13:12:07 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:04:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <inttypes.h>
+#include "ft_memory.h"
 #include "ft_numbers.h"
 #include "ft_strings.h"
 #include "priv/pf_write.h"
@@ -40,6 +41,8 @@ static int			write_int(t_stream *stream, t_pf_info *info,
 	size_t	lenp;
 	size_t	lenn;
 
+	if (!ns)
+		return (-1);
 	lenp = ft_strlen(prefix);
 	lenn = ft_strlen(ns);
 	if (info->flags.left || info->min_width < 0)
@@ -62,10 +65,10 @@ static int			write_int(t_stream *stream, t_pf_info *info,
 int					pf_convert_int(t_stream *stream, t_pf_info *info,
 									va_list args)
 {
-	uintmax_t	un;
 	intmax_t	n;
 	char		*str;
 	const char	*prefix;
+	int			res;
 
 	if (info->mod == HH)
 		n = (signed char)va_arg(args, int);
@@ -81,9 +84,9 @@ int					pf_convert_int(t_stream *stream, t_pf_info *info,
 		n = va_arg(args, ssize_t);
 	else
 		n = va_arg(args, int);
-	un = PF_ABS(n);
-	if (!(str = ft_uimtoa_base(un, 10, 0, info->prec)))
-		return (-1);
+	str = ft_uimtoa_base(PF_ABS(n), 10, 0, info->prec);
 	prefix = get_prefix(n < 0, info->flags);
-	return (write_int(stream, info, prefix, str));
+	res = write_int(stream, info, prefix, str);
+	ft_memdel((void **)&str);
+	return (res);
 }
