@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 12:50:24 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:29:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static size_t	read_modifier(const char *format, t_mod *mod)
 }
 
 const char		*pf_parse_info(const char *format, t_pf_info *info,
-								va_list args)
+								size_t count, va_list args)
 {
 	if (!(*format))
 		return (NULL);
@@ -90,5 +90,6 @@ const char		*pf_parse_info(const char *format, t_pf_info *info,
 	}
 	format += read_modifier(format, &(info->mod));
 	info->spec = *(format++);
+	info->count = count;
 	return (format);
 }

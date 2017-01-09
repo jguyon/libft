@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:20:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 10:38:32 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:30:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 ** Returns the next character after the format string,
 ** or null if an error occurred.
 */
-const char	*pf_parse_info(const char *format, t_pf_info *info, va_list args);
+const char	*pf_parse_info(const char *format, t_pf_info *info,
+							size_t count, va_list args);
 
 /*
 ** pf_convert - convert and write

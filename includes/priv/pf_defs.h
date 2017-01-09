@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 15:11:02 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:40:14 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef enum	e_mod {
 # define PF_HEXLO_SPEC	'x'
 # define PF_HEXUP_SPEC	'X'
 # define PF_ADDR_SPEC	'p'
+# define PF_PTR_SPEC	'n'
 
 /*
 ** String to print when null
@@ -103,6 +104,7 @@ typedef struct	s_pf_info {
 	ssize_t		min_width;
 	ssize_t		prec;
 	t_mod		mod;
+	size_t		count;
 }				t_pf_info;
 
 #endif

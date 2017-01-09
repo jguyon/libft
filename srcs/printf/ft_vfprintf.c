@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 15:50:26 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 10:52:36 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:28:50 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int		ft_vfprintf(t_stream *stream, const char *format, va_list args)
 {
-	int			count;
+	size_t		count;
 	int			res;
 	char		*next;
 	t_pf_info	info;
@@ -27,17 +27,17 @@ int		ft_vfprintf(t_stream *stream, const char *format, va_list args)
 	res = 0;
 	while ((next = ft_strchrnul(format, PF_CONV_PREFIX)))
 	{
-		count += ft_fwrite(format, next - format, stream);
-		if (!(*(format = next)))
+		count += (res = ft_fwrite(format, next - format, stream));
+		if (res != next - format || !(*(format = next)))
 			break ;
 		if (*(++format) == PF_CONV_PREFIX)
 			count += ft_fwrite(format++, 1, stream);
-		else if ((format = pf_parse_info(format, &info, args)))
+		else if ((format = pf_parse_info(format, &info, count, args)))
 			count += (res = pf_convert(stream, &info, args));
 		if (res < 0 || !format || ft_ferror(stream))
 			break ;
 	}
 	if (res < 0 || !format || ft_ferror(stream))
 		return (-1);
-	return (count);
+	return ((int)count);
 }
