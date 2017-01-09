@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 12:49:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 13:22:31 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ typedef enum	e_mod {
 # define PF_STRING_SPEC	's'
 # define PF_INT_SPEC	'd'
 # define PF_ALTINT_SPEC	'i'
+# define PF_OCT_SPEC	'o'
 # define PF_UINT_SPEC	'u'
+# define PF_HEXLO_SPEC	'x'
+# define PF_HEXUP_SPEC	'X'
 
 /*
 ** String to print when null

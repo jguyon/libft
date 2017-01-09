@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_convert_int.c                                   :+:      :+:    :+:   */
+/*   pf_convert_uint.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/09 11:23:01 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 13:12:07 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/09 13:13:24 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/09 13:38:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,47 @@
 #include "priv/pf_write.h"
 #include "priv/pf_convert.h"
 
-static const char	*g_neg = "-";
-static const char	*g_pls = "+";
-static const char	*g_spc = " ";
-static const char	*g_pos = "";
+static const char	*g_hexlo = "0x";
+static const char	*g_hexup = "0X";
+static const char	*g_oct = "0";
+static const char	*g_uint = "";
+static const char	*g_empty = "";
 
-static const char	*get_prefix(int is_neg, t_pf_flags flags)
+static const char	*get_prefix(t_pf_info *info)
 {
-	if (is_neg)
-		return (g_neg);
-	else if (flags.plus)
-		return (g_pls);
-	else if (flags.space)
-		return (g_spc);
+	if (!(info->flags.alt))
+		return (g_empty);
+	if (info->spec == PF_OCT_SPEC)
+		return (g_oct);
+	else if (info->spec == PF_HEXLO_SPEC)
+		return (g_hexlo);
+	else if (info->spec == PF_HEXUP_SPEC)
+		return (g_hexup);
 	else
-		return (g_pos);
+		return (g_uint);
 }
 
-static int			write_int(t_stream *stream, t_pf_info *info,
+static char			*get_nstr(uintmax_t n, t_pf_info *info)
+{
+	if (info->spec == PF_OCT_SPEC)
+		return (ft_uimtoa_base(n, 8, 0, info->prec));
+	else if (info->spec == PF_HEXLO_SPEC)
+		return (ft_uimtoa_base(n, 16, 0, info->prec));
+	else if (info->spec == PF_HEXUP_SPEC)
+		return (ft_uimtoa_base(n, 16, 1, info->prec));
+	else
+		return (ft_uimtoa_base(n, 10, 0, info->prec));
+}
+
+static int			write_uint(t_stream *stream, t_pf_info *info,
 								const char *prefix, const char *ns)
 {
 	size_t	count;
 	size_t	lenp;
 	size_t	lenn;
 
+	if (*prefix == '0' && *(prefix + 1) == '\0' && *ns == '0')
+		prefix = g_empty;
 	lenp = ft_strlen(prefix);
 	lenn = ft_strlen(ns);
 	if (info->flags.left || info->min_width < 0)
@@ -59,31 +76,29 @@ static int			write_int(t_stream *stream, t_pf_info *info,
 	return ((int)count);
 }
 
-int					pf_convert_int(t_stream *stream, t_pf_info *info,
-									va_list args)
+int					pf_convert_uint(t_stream *stream, t_pf_info *info,
+										va_list args)
 {
-	uintmax_t	un;
-	intmax_t	n;
+	uintmax_t	n;
 	char		*str;
 	const char	*prefix;
 
 	if (info->mod == HH)
-		n = (signed char)va_arg(args, int);
+		n = (unsigned char)va_arg(args, unsigned int);
 	else if (info->mod == H)
-		n = (short)va_arg(args, int);
-	else if (info->mod == L)
-		n = va_arg(args, long);
+		n = (unsigned short)va_arg(args, unsigned int);
 	else if (info->mod == LL)
-		n = va_arg(args, long long);
+		n = va_arg(args, unsigned long long);
+	else if (info->mod == L)
+		n = va_arg(args, unsigned long);
 	else if (info->mod == J)
-		n = va_arg(args, intmax_t);
+		n = va_arg(args, uintmax_t);
 	else if (info->mod == Z)
-		n = va_arg(args, ssize_t);
+		n = va_arg(args, size_t);
 	else
-		n = va_arg(args, int);
-	un = PF_ABS(n);
-	if (!(str = ft_uimtoa_base(un, 10, 0, info->prec)))
+		n = va_arg(args, unsigned int);
+	if (!(str = get_nstr(n, info)))
 		return (-1);
-	prefix = get_prefix(n < 0, info->flags);
-	return (write_int(stream, info, prefix, str));
+	prefix = get_prefix(info);
+	return (write_uint(stream, info, prefix, str));
 }

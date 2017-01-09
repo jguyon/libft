@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 13:05:39 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 13:49:23 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ TFT_TEST(test_printf_ints)
 	TP_PRINTF("%zd // %zd", SSIZE_MAX, INTMAX_MIN);
 	TP_PRINTF("%5d // %5d // %5d", 42, -42, INT_MAX);
 	TP_PRINTF("%.5d // %.5d // %.5d", 42, -42, INT_MAX);
+	TP_PRINTF(".d // .d", 42, 0);
 	TP_PRINTF("%5.5d // %5.5d // %5.5d", 42, -42, INT_MAX);
 	TP_PRINTF("%-5d // %-5d // %-5d", 42, -42, INT_MAX);
 	TP_PRINTF("%05d // %05d // %05d", 42, -42, INT_MAX);
@@ -79,6 +80,17 @@ TFT_TEST(test_printf_ints)
 	TP_PRINTF("% d // % d", 42, -42);
 	TP_PRINTF("%+ d // %+ d", 42, -42);
 	TP_PRINTF("%0+22.12hhi", 42);
+	TP_PRINTF("%u // %u // %u", 42, -42, 0);
+	TP_PRINTF("%u // %u", UINT_MAX, ULONG_MAX);
+	TP_PRINTF("%hhu // %hhu", UCHAR_MAX, USHRT_MAX);
+	TP_PRINTF("%hu // %hu", USHRT_MAX, UINT_MAX);
+	TP_PRINTF("%lu // %lu", ULONG_MAX, ULLONG_MAX);
+	TP_PRINTF("%llu // %llu", ULLONG_MAX, UINTMAX_MAX);
+	TP_PRINTF("%ju", UINTMAX_MAX);
+	TP_PRINTF("%zu // %zu", SIZE_MAX, INT_MIN);
+	TP_PRINTF("%0 22.12hhu", 42);
+	TP_PRINTF("%+o // %#o // %.5o // %#.5o", 42, 42, 42, 42);
+	TP_PRINTF("%+x // %#X // %.5X // %#.5X", 42, 42, 42, 42);
 }
 
 void	test_printf(void)
