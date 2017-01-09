@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 13:13:24 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 15:08:03 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 15:20:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@
 #include "priv/pf_write.h"
 #include "priv/pf_convert.h"
 
+static uintmax_t	get_arg(t_pf_info *info, va_list args)
+{
+	if (info->spec == PF_ADDR_SPEC)
+		return ((uintmax_t)va_arg(args, void *));
+	else if (info->mod == HH)
+		return ((unsigned char)va_arg(args, unsigned int));
+	else if (info->mod == H)
+		return ((unsigned short)va_arg(args, unsigned int));
+	else if (info->mod == LL)
+		return (va_arg(args, unsigned long long));
+	else if (info->mod == L)
+		return (va_arg(args, unsigned long));
+	else if (info->mod == J)
+		return (va_arg(args, uintmax_t));
+	else if (info->mod == Z)
+		return (va_arg(args, size_t));
+	else
+		return (va_arg(args, unsigned int));
+}
+
 static const char	*g_hexlo = "0x";
 static const char	*g_hexup = "0X";
 static const char	*g_oct = "0";
@@ -25,6 +45,8 @@ static const char	*g_empty = "";
 
 static const char	*get_prefix(t_pf_info *info)
 {
+	if (info->spec == PF_ADDR_SPEC)
+		return (g_hexlo);
 	if (!(info->flags.alt))
 		return (g_empty);
 	if (info->spec == PF_OCT_SPEC)
@@ -41,7 +63,7 @@ static char			*get_nstr(uintmax_t n, t_pf_info *info)
 {
 	if (info->spec == PF_OCT_SPEC)
 		return (ft_uimtoa_base(n, 8, 0, info->prec));
-	else if (info->spec == PF_HEXLO_SPEC)
+	else if (info->spec == PF_HEXLO_SPEC || info->spec == PF_ADDR_SPEC)
 		return (ft_uimtoa_base(n, 16, 0, info->prec));
 	else if (info->spec == PF_HEXUP_SPEC)
 		return (ft_uimtoa_base(n, 16, 1, info->prec));
@@ -87,20 +109,7 @@ int					pf_convert_uint(t_stream *stream, t_pf_info *info,
 	const char	*prefix;
 	int			res;
 
-	if (info->mod == HH)
-		n = (unsigned char)va_arg(args, unsigned int);
-	else if (info->mod == H)
-		n = (unsigned short)va_arg(args, unsigned int);
-	else if (info->mod == LL)
-		n = va_arg(args, unsigned long long);
-	else if (info->mod == L)
-		n = va_arg(args, unsigned long);
-	else if (info->mod == J)
-		n = va_arg(args, uintmax_t);
-	else if (info->mod == Z)
-		n = va_arg(args, size_t);
-	else
-		n = va_arg(args, unsigned int);
+	n = get_arg(info, args);
 	str = get_nstr(n, info);
 	prefix = get_prefix(info);
 	res = write_uint(stream, info, prefix, str);
