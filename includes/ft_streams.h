@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 15:49:00 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 17:37:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@
 /*
 ** t_stream_type - type containing functions used to flush or close the stream
 */
-typedef struct	s_stream_type {
-	size_t	buff_size;
+typedef struct	s_stream_funs {
 	size_t	(*write)(void *cookie, const char *buff, size_t size);
 	int		(*close)(void *cookie);
-}				t_stream_type;
+}				t_stream_funs;
 
 /*
 ** t_stream - stream type
 */
 typedef struct	s_stream {
+	t_stream_funs	funs;
 	void			*cookie;
+	size_t			size;
+	int				own;
 	char			*curr;
-	t_stream_type	type;
 	char			*buff;
 }				t_stream;
 
@@ -48,7 +49,18 @@ typedef struct	s_stream {
 ** @cookie: data passed to @type functions
 ** @type: description of the stream
 */
-t_stream		*ft_fopencookie(void *cookie, t_stream_type type);
+t_stream		*ft_fopencookie(void *cookie, t_stream_funs type);
+
+/*
+** ft_setbuffer - set the buffer of a stream
+** @stream: stream to assign the buffer to
+** @buff: buffer, must be at least @size bytes
+** @size: size of the buffer
+**
+** Returns 0 on success, something else otherwise.
+** Will always return an error if called after the first i/o operation.
+*/
+int				ft_setbuffer(t_stream *stream, char *buff, size_t size);
 
 /*
 ** ft_fwrite - write characters to a stream
