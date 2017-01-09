@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 15:40:11 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 15:41:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 20:15:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int		ft_vprintf(const char *format, va_list args)
 {
-	return (ft_vdprintf(1, format, args));
+	int		res;
+
+	res = ft_vfprintf(FT_STDOUT, format, args);
+	if (ft_fflush(FT_STDOUT) < 0)
+		return (-1);
+	return (res);
 }
