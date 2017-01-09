@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 11:04:26 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 11:19:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct	s_pf_flags {
 /*
 ** Length modifiers
 */
-
 # define PF_MOD_L	'l'
 # define PF_MOD_H	'h'
 # define PF_MOD_J	'j'
@@ -73,6 +72,9 @@ typedef enum	e_mod {
 ** Conversion specifiers
 */
 # define PF_STRING_SPEC	's'
+# define PF_INT_SPEC	'd'
+# define PF_ALTINT_SPEC	'i'
+# define PF_UINT_SPEC	'u'
 
 /*
 ** String to print when null

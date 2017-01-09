@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 17:26:22 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 18:49:18 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 11:21:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef int	(t_conv)(t_stream *stream, t_pf_info *info, va_list args);
 /*
 ** All conversion functions
 */
-
 int			pf_convert_str(t_stream *stream, t_pf_info *info, va_list args);
+int			pf_convert_int(t_stream *stream, t_pf_info *info, va_list args);
 
 #endif
