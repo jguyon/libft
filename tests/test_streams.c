@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 20:36:37 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 18:45:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 19:47:22 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,27 @@ TFT_TEST(test_streams_setbuffer)
 	ft_fclose(stm);
 }
 
-static size_t	noop_write(void *cookie, const char *buff, size_t count)
-{
-	(void)cookie;
-	(void)buff;
-	return (count);
-}
-
 TFT_TEST(test_streams_std)
 {
-	char	buffout[256];
-	char	bufferr[256];
+	t_stream	original;
 
-	g_ft_stdout.funs.write = &noop_write;
-	g_ft_stderr.funs.write = &noop_write;
-	ft_setbuffer(FT_STDOUT, buffout, 256);
-	ft_setbuffer(FT_STDERR, bufferr, 256);
-	ft_fputs("Hello, world!", FT_STDOUT);
-	TFT_ASSERT(strcmp(buffout, "Hello, world!") == 0);
-	ft_fputs("Hello, world!", FT_STDERR);
-	TFT_ASSERT(strcmp(bufferr, "Hello, world!") == 0);
-	ft_fclose(FT_STDOUT);
-	ft_fclose(FT_STDERR);
+	original = g_ft_stdout;
+	g_ft_stdout.cookie = g_output;
+	g_ft_stdout.funs.write = &write_to_str;
+	g_ft_stdout.funs.close = &close_str;
+	TFT_ASSERT(ft_fputs("Hello, world!", FT_STDOUT));
+	TFT_ASSERT(strcmp(g_output, "") == 0);
+	TFT_ASSERT(ft_fflush(FT_STDOUT));
+	TFT_ASSERT(strcmp(g_output, "Hello, world!") == 0);
+	TFT_ASSERT(!ft_fclose(FT_STDOUT));
+	g_ft_stdout = original;
+	g_ft_stderr.cookie = g_output;
+	g_ft_stderr.funs.write = &write_to_str;
+	g_ft_stderr.funs.close = &close_str;
+	TFT_ASSERT(ft_fputs("Hello, world!", FT_STDERR));
+	TFT_ASSERT(strcmp(g_output, "Hello, world!") == 0);
+	TFT_ASSERT(!ft_fclose(FT_STDERR));
+	g_ft_stderr = original;
 }
 
 void	test_streams(void)

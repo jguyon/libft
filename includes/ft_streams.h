@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 18:38:56 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 19:47:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_stream {
 	void			*cookie;
 	size_t			size;
 	int				own;
+	int				alloc;
 	char			*curr;
 	char			*buff;
 }				t_stream;
@@ -116,7 +117,7 @@ int				ft_ferror(t_stream *stream);
 ** ft_fclose - flush and close a stream
 ** @stream: stream to close
 **
-** Returns non-null number if successful, zero otherwise.
+** Returns zero if successful, -1 otherwise.
 */
 int				ft_fclose(t_stream *stream);
 

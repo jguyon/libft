@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 18:10:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 18:25:05 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 20:06:04 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_stream				g_ft_stdout = {
 		.write = &stdwrite
 	},
 	.cookie = &g_stdout_fd,
-	.size = FT_BUFF_SIZE
+	.size = 512
 };
 
 t_stream				g_ft_stderr = {
@@ -38,5 +38,5 @@ t_stream				g_ft_stderr = {
 		.write = &stdwrite
 	},
 	.cookie = &g_stderr_fd,
-	.size = FT_BUFF_SIZE
+	.size = 0
 };
