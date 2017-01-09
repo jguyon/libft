@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 17:37:46 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 18:38:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 /*
 ** Buffered output stream implementation
+**
+** /!\ Standard streams do not need to be opened,
+**     but they do need to be closed at the end of your program.
 */
 
 # include <stddef.h>
@@ -43,6 +46,18 @@ typedef struct	s_stream {
 	char			*curr;
 	char			*buff;
 }				t_stream;
+
+/*
+** FT_STDOUT - standard output stream
+*/
+t_stream		g_ft_stdout;
+# define FT_STDOUT (&g_ft_stdout)
+
+/*
+** FT_STDERR - standard error stream
+*/
+t_stream		g_ft_stderr;
+# define FT_STDERR (&g_ft_stderr)
 
 /*
 ** ft_fopencookie - create a new stream

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 20:36:37 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 17:47:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 18:45:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,35 @@ TFT_TEST(test_streams_setbuffer)
 	ft_fclose(stm);
 }
 
+static size_t	noop_write(void *cookie, const char *buff, size_t count)
+{
+	(void)cookie;
+	(void)buff;
+	return (count);
+}
+
+TFT_TEST(test_streams_std)
+{
+	char	buffout[256];
+	char	bufferr[256];
+
+	g_ft_stdout.funs.write = &noop_write;
+	g_ft_stderr.funs.write = &noop_write;
+	ft_setbuffer(FT_STDOUT, buffout, 256);
+	ft_setbuffer(FT_STDERR, bufferr, 256);
+	ft_fputs("Hello, world!", FT_STDOUT);
+	TFT_ASSERT(strcmp(buffout, "Hello, world!") == 0);
+	ft_fputs("Hello, world!", FT_STDERR);
+	TFT_ASSERT(strcmp(bufferr, "Hello, world!") == 0);
+	ft_fclose(FT_STDOUT);
+	ft_fclose(FT_STDERR);
+}
+
 void	test_streams(void)
 {
 	TFT_RUN(test_streams_fwrite);
 	TFT_RUN(test_streams_fputc);
 	TFT_RUN(test_streams_fputs);
 	TFT_RUN(test_streams_setbuffer);
+	TFT_RUN(test_streams_std);
 }
