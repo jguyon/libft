@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 11:16:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 12:50:24 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,16 @@ static ssize_t	read_number(const char **format, va_list args)
 
 static int		read_flag(const char *format, t_pf_flags *flags)
 {
-	if (*format == PF_FLAG_LEFT)
+	if (*format == PF_FLAG_ALT)
+		flags->alt = 1;
+	else if (*format == PF_FLAG_ZERO)
+		flags->zero = 1;
+	else if (*format == PF_FLAG_LEFT)
 		flags->left = 1;
+	else if (*format == PF_FLAG_PLUS)
+		flags->plus = 1;
+	else if (*format == PF_FLAG_SPACE)
+		flags->space = 1;
 	else
 		return (0);
 	return (1);
@@ -68,7 +76,6 @@ static size_t	read_modifier(const char *format, t_mod *mod)
 const char		*pf_parse_info(const char *format, t_pf_info *info,
 								va_list args)
 {
-	(void)args;
 	if (!(*format))
 		return (NULL);
 	ft_bzero(info, sizeof(*info));

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:08:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 11:19:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 12:49:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,21 @@
 /*
 ** Flag characters
 */
+# define PF_FLAG_ALT	'#'
+# define PF_FLAG_ZERO	'0'
 # define PF_FLAG_LEFT	'-'
+# define PF_FLAG_PLUS	'+'
+# define PF_FLAG_SPACE	' '
 
 /*
 ** Structure representing presence of flags
 */
 typedef struct	s_pf_flags {
+	unsigned int	alt : 1;
+	unsigned int	zero : 1;
 	unsigned int	left : 1;
+	unsigned int	plus : 1;
+	unsigned int	space : 1;
 }				t_pf_flags;
 
 /*

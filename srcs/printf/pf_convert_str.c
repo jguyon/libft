@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 17:33:49 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 11:15:07 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 12:53:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int		convert_str(t_stream *stream, t_pf_info *info, const char *str)
 	len = info->prec < 0 ? ft_strlen(str) : ft_strnlen(str, info->prec);
 	if (info->flags.left || info->min_width < 0)
 		count = pf_write_str(stream, str, len)
-			+ pf_write_pad(stream, PF_ABS(info->min_width), len);
+			+ pf_write_pad(stream, ' ', PF_ABS(info->min_width), len);
 	else
-		count = pf_write_pad(stream, info->min_width, len)
+		count = pf_write_pad(stream, ' ', info->min_width, len)
 			+ pf_write_str(stream, str, len);
 	if (ft_ferror(stream))
 		return (-1);
@@ -61,9 +61,9 @@ static int		convert_wstr(t_stream *stream, t_pf_info *info,
 	len = info->prec < 0 ? ft_wstrlen(wstr) : wstrnlen(wstr, info->prec);
 	if (info->flags.left || info->min_width < 0)
 		count = pf_write_wstr(stream, wstr, len)
-			+ pf_write_pad(stream, (size_t)PF_ABS(info->min_width), len);
+			+ pf_write_pad(stream, ' ', (size_t)PF_ABS(info->min_width), len);
 	else
-		count = pf_write_pad(stream, info->min_width, len)
+		count = pf_write_pad(stream, ' ', info->min_width, len)
 			+ pf_write_wstr(stream, wstr, len);
 	if (ft_ferror(stream))
 		return (-1);

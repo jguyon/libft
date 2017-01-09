@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 11:23:01 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 12:23:00 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/09 13:05:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@
 #include "priv/pf_convert.h"
 
 static const char	*g_neg = "-";
+static const char	*g_pls = "+";
+static const char	*g_spc = " ";
 static const char	*g_pos = "";
 
 static const char	*get_prefix(int is_neg, t_pf_flags flags)
 {
-	(void)flags;
 	if (is_neg)
 		return (g_neg);
+	else if (flags.plus)
+		return (g_pls);
+	else if (flags.space)
+		return (g_spc);
 	else
 		return (g_pos);
 }
@@ -40,9 +45,13 @@ static int			write_int(t_stream *stream, t_pf_info *info,
 	if (info->flags.left || info->min_width < 0)
 		count = pf_write_str(stream, prefix, lenp)
 			+ pf_write_str(stream, ns, lenn)
-			+ pf_write_pad(stream, PF_ABS(info->min_width), lenn + lenp);
+			+ pf_write_pad(stream, ' ', PF_ABS(info->min_width), lenn + lenp);
+	else if (info->flags.zero && info->prec < 0)
+		count = pf_write_str(stream, prefix, lenp)
+			+ pf_write_pad(stream, '0', info->min_width, lenn + lenp)
+			+ pf_write_str(stream, ns, lenn);
 	else
-		count = pf_write_pad(stream, info->min_width, lenn + lenp)
+		count = pf_write_pad(stream, ' ', info->min_width, lenn + lenp)
 			+ pf_write_str(stream, prefix, lenp)
 			+ pf_write_str(stream, ns, lenn);
 	if (ft_ferror(stream))
