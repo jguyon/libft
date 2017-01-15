@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
+/*   ft_snprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 15:41:44 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 16:35:17 by jguyon           ###   ########.fr       */
+/*   Created: 2017/01/15 16:01:15 by jguyon            #+#    #+#             */
+/*   Updated: 2017/01/15 16:02:11 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "ft_printf.h"
 
-static size_t	fd_write(void *fd, const char *buff, size_t count)
+int		ft_snprintf(char *str, size_t size, const char *format, ...)
 {
-	return (write(*((int *)fd), buff, count));
-}
-
-static t_stream	g_stream = {
-	.funs = {
-		.write = &fd_write
-	},
-	.size = 0,
-};
-
-int				ft_vdprintf(int fd, const char *format, va_list args)
-{
+	va_list	args;
 	int		res;
 
-	g_stream.cookie = &fd;
-	res = ft_vfprintf(&g_stream, format, args);
-	if (res < 0)
-	{
-		ft_clearerr(&g_stream);
-		return (-1);
-	}
+	va_start(args, format);
+	res = ft_vsnprintf(str, size, format, args);
+	va_end(args);
 	return (res);
 }

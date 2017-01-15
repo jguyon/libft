@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 14:01:08 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/15 16:41:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,17 @@ TFT_TEST(test_printf_ints)
 	TP_PRINTF_RES(3, "0x0", "%p", NULL);
 }
 
+TFT_TEST(test_printf_sprintf)
+{
+	char	str[256];
+
+	TFT_ASSERT(ft_sprintf(str, "%s", "hello") == 5);
+	TFT_ASSERT(strcmp(str, "hello") == 0);
+	TFT_ASSERT(ft_snprintf(str, 3, "%s", "hello") == 5);
+	TFT_ASSERT(strcmp(str, "hel") == 0);
+	TFT_ASSERT(ft_snprintf(NULL, 0, "%s", "hello") == 5);
+}
+
 void	test_printf(void)
 {
 	TFT_RUN(test_printf_basics);
@@ -106,4 +117,5 @@ void	test_printf(void)
 	TFT_RUN(test_printf_args);
 	TFT_RUN(test_printf_ints);
 	TFT_RUN(test_printf_ptrs);
+	TFT_RUN(test_printf_sprintf);
 }
