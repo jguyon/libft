@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 05:41:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 15:30:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/15 14:01:08 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ TFT_TEST(test_printf_ints)
 	TP_PRINTF("%0 22.12hhu", 42);
 	TP_PRINTF("%+o // %#o // %.5o // %#.5o", 42, 42, 42, 42);
 	TP_PRINTF("%+x // %#X // %.5X // %#.5X", 42, 42, 42, 42);
-	TP_PRINTF("%p // %p // %10.5p", "hello", NULL, "hello");
+	TP_PRINTF("%p // %10.5p", "hello", "hello");
+	TP_PRINTF_RES(3, "0x0", "%p", NULL);
 }
 
 void	test_printf(void)
