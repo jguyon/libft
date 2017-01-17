@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 22:22:38 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/17 16:46:58 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/01/17 21:26:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 		while (FT_MEM_ALIGN(s1))
 		{
 			if (!(*s1) || *s1 != *s2)
-				return (*s1 - *s2);
+				return (*((unsigned char *)s1) - *((unsigned char *)s2));
 			++s1;
 			++s2;
 		}
@@ -51,7 +51,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 		++s1;
 		++s2;
 	}
-	return (*s1 - *s2);
+	return (*((unsigned char *)s1) - *((unsigned char *)s2));
 }
 
 #endif
