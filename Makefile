@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/01/17 21:21:49 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/01 23:50:20 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -131,6 +131,15 @@ SRC_NAMES =	\
 	printf/pf_write_str \
 	printf/pf_write_wstr \
 	printf/pf_write_uint \
+	\
+	tap/ft_tap_start \
+	tap/ft_tap_end \
+	tap/ft_tap_pass \
+	tap/ft_tap_fail \
+	tap/ft_tap_plan \
+	tap/ft_tap_test \
+	tap/ft_tap_ok \
+	tap/ft_tap_notok \
 
 TST_NAMES = \
 	main \
