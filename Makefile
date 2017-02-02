@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/02 15:58:41 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/02 19:37:18 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -136,6 +136,7 @@ SRC_NAMES =	\
 	tap/ft_tap_end \
 	tap/ft_tap_pass \
 	tap/ft_tap_fail \
+	tap/ft_tap_diag \
 	tap/ft_tap_plan \
 	tap/ft_tap_test \
 	tap/ft_tap_ok \
