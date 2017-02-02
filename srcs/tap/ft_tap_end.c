@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 23:09:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/02 00:14:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/02 15:11:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_tap_end(t_tap *t)
 {
-	g_ft_tprintf("1..%zu\n", t->plan ? t->plan : t->run);
+	g_ft_tprintf("1..%zu\n", t->run);
 }
