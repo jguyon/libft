@@ -6,14 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 23:05:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/01 23:21:55 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/02 14:48:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
 #include "ft_printf.h"
 
-int		(*g_printf)(const char *, ...) = &ft_printf;
+int		(*g_ft_tprintf)(const char *, ...) = &ft_printf;
 
 void	ft_tap_start(t_tap *t)
 {
