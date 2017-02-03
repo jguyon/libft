@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tap_start.c                                     :+:      :+:    :+:   */
+/*   ft_tap_seq.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 23:05:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 14:04:16 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/03 12:48:02 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/03 14:02:24 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
-#include "ft_printf.h"
-#include "ft_strings.h"
 
-int		(*g_ft_tprintf)(const char *, ...) = &ft_printf;
-int		(*g_ft_tvprintf)(const char *, va_list) = &ft_vprintf;
-size_t	(*g_ft_strlen)(const char *) = &ft_strlen;
-int		(*g_ft_strcmp)(const char *, const char *) = &ft_strcmp;
-
-void	ft_tap_start(t_tap *t)
+int		ft_tap_seq(t_tap *t, const char *a, const char *b, const char *msg, ...)
 {
-	t->nesting = 0;
-	t->plan = 0;
-	t->run = 0;
-	t->passed = 0;
-	g_ft_tprintf("TAP version 13\n");
+	va_list	args;
+	int		res;
+
+	if (!msg)
+		msg = "are equal";
+	if ((res = g_ft_strcmp(a, b) == 0))
+		ft_tap_pass(t, msg);
+	else
+	{
+		ft_tap_fail(t, msg);
+		a = ft_tap_quote(a);
+		b = ft_tap_quote(b);
+		va_start(args, msg);
+		ft_tap_diag(t, args, "wanted", "%s", b, "found", "%s", a, NULL);
+		va_end(args);
+	}
+	return (res);
 }

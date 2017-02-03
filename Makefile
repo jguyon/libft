@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/03 12:16:21 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/03 14:03:02 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -145,6 +145,9 @@ SRC_NAMES =	\
 	tap/ft_tap_notieq \
 	tap/ft_tap_ueq \
 	tap/ft_tap_notueq \
+	tap/ft_tap_seq \
+	tap/ft_tap_notseq \
+	tap/ft_tap_quote \
 
 TST_NAMES = \
 	main \

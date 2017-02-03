@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tap_start.c                                     :+:      :+:    :+:   */
+/*   ft_tap_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 23:05:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 14:04:16 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/03 13:56:10 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/03 14:09:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
-#include "ft_printf.h"
-#include "ft_strings.h"
+#include <stdlib.h>
 
-int		(*g_ft_tprintf)(const char *, ...) = &ft_printf;
-int		(*g_ft_tvprintf)(const char *, va_list) = &ft_vprintf;
-size_t	(*g_ft_strlen)(const char *) = &ft_strlen;
-int		(*g_ft_strcmp)(const char *, const char *) = &ft_strcmp;
-
-void	ft_tap_start(t_tap *t)
+char	*ft_tap_quote(const char *str)
 {
-	t->nesting = 0;
-	t->plan = 0;
-	t->run = 0;
-	t->passed = 0;
-	g_ft_tprintf("TAP version 13\n");
+	char	*dst;
+	char	*ret;
+
+	if (!(dst = (char *)malloc(2 * g_ft_strlen(str) + 3)))
+		return (NULL);
+	ret = dst;
+	*(dst++) = '"';
+	while ((*dst = *(str++)))
+	{
+		if (*dst == '"')
+		{
+			*(dst++) = '\\';
+			*(dst++) = '"';
+		}
+		else if (*dst == '\n')
+		{
+			*(dst++) = '\\';
+			*(dst++) = 'n';
+		}
+		else
+			++dst;
+	}
+	*(dst++) = '"';
+	*dst = '\0';
+	return (ret);
 }

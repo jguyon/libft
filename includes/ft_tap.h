@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 22:58:58 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 12:14:08 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 13:56:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@
 # define FT_TAP_NOTIEQ(t, a, b) ft_tap_notieq(t, a, b, #a" != "#b, FT_TAP_DIAG)
 # define FT_TAP_UEQ(t, a, b) ft_tap_ueq(t, a, b, #a" == "#b, FT_TAP_DIAG)
 # define FT_TAP_NOTUEQ(t, a, b) ft_tap_notueq(t, a, b, #a" != "#b, FT_TAP_DIAG)
+# define FT_TAP_SEQ(t, a, b) ft_tap_seq(t, a, b, #a" == "#b, FT_TAP_DIAG)
+# define FT_TAP_NOTSEQ(t, a, b) ft_tap_notseq(t, a, b, #a" != "#b, FT_TAP_DIAG)
 
 int				(*g_ft_tprintf)(const char *format, ...);
 int				(*g_ft_tvprintf)(const char *format, va_list args);
+size_t			(*g_ft_strlen)(const char *str);
+int				(*g_ft_strcmp)(const char *s1, const char *s2);
 
 typedef struct	s_tap {
 	size_t		nesting;
@@ -56,5 +60,11 @@ int				ft_tap_ueq(t_tap *t, uintmax_t actual, uintmax_t expected,
 					const char *msg, ...);
 int				ft_tap_notueq(t_tap *t, uintmax_t actual, uintmax_t expected,
 					const char *msg, ...);
+int				ft_tap_seq(t_tap *t, const char *actual, const char *expected,
+					const char *msg, ...);
+int				ft_tap_notseq(t_tap *t,
+					const char *actual, const char *expected,
+					const char *msg, ...);
+char			*ft_tap_quote(const char *str);
 
 #endif
