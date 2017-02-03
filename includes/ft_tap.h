@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 22:58:58 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 11:55:39 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 12:14:08 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define FT_TAP_NOTOK(t, e) ft_tap_notok(t, e, #e" is false", FT_TAP_DIAG)
 # define FT_TAP_IEQ(t, a, b) ft_tap_ieq(t, a, b, #a" == "#b, FT_TAP_DIAG)
 # define FT_TAP_NOTIEQ(t, a, b) ft_tap_notieq(t, a, b, #a" != "#b, FT_TAP_DIAG)
+# define FT_TAP_UEQ(t, a, b) ft_tap_ueq(t, a, b, #a" == "#b, FT_TAP_DIAG)
+# define FT_TAP_NOTUEQ(t, a, b) ft_tap_notueq(t, a, b, #a" != "#b, FT_TAP_DIAG)
 
 int				(*g_ft_tprintf)(const char *format, ...);
 int				(*g_ft_tvprintf)(const char *format, va_list args);
@@ -49,6 +51,10 @@ int				ft_tap_notok(t_tap *t, int val, const char *msg, ...);
 int				ft_tap_ieq(t_tap *t, intmax_t actual, intmax_t expected,
 					const char *msg, ...);
 int				ft_tap_notieq(t_tap *t, intmax_t actual, intmax_t expected,
+					const char *msg, ...);
+int				ft_tap_ueq(t_tap *t, uintmax_t actual, uintmax_t expected,
+					const char *msg, ...);
+int				ft_tap_notueq(t_tap *t, uintmax_t actual, uintmax_t expected,
 					const char *msg, ...);
 
 #endif
