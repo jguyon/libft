@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tap_start.c                                     :+:      :+:    :+:   */
+/*   ft_tap_ieq.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 23:05:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 11:29:41 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/03 11:37:19 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/03 11:37:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
-#include "ft_printf.h"
 
-int		(*g_ft_tprintf)(const char *, ...) = &ft_printf;
-int		(*g_ft_tvprintf)(const char *, va_list) = &ft_vprintf;
-
-void	ft_tap_start(t_tap *t)
+int		ft_tap_ieq(t_tap *t, intmax_t a, intmax_t b, const char *msg, ...)
 {
-	t->nesting = 0;
-	t->plan = 0;
-	t->run = 0;
-	t->passed = 0;
-	g_ft_tprintf("TAP version 13\n");
+	va_list	args;
+
+	if (!msg)
+		msg = "are equal";
+	if (a == b)
+		ft_tap_pass(t, msg);
+	else
+	{
+		ft_tap_fail(t, msg);
+		va_start(args, msg);
+		ft_tap_diag(t, args, "wanted", "%jd", b, "found", "%jd", a, NULL);
+		va_end(args);
+	}
+	return (a == b);
 }
