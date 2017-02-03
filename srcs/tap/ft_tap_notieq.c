@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tap_ok.c                                        :+:      :+:    :+:   */
+/*   ft_tap_notieq.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 23:24:51 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 11:59:53 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/03 11:56:30 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/03 12:04:43 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
 
-int		ft_tap_ok(t_tap *t, int val, const char *msg, ...)
+int		ft_tap_notieq(t_tap *t, intmax_t a, intmax_t b, const char *msg, ...)
 {
 	va_list	args;
 
 	if (!msg)
-		msg = "is true";
-	if (val)
+		msg = "are not equal";
+	if (a != b)
 		ft_tap_pass(t, msg);
 	else
 	{
 		ft_tap_fail(t, msg);
 		va_start(args, msg);
-		ft_tap_diag(t, args, "wanted", "true", "found", "false", NULL);
+		ft_tap_diag(t, args, "doNotWant", "%jd", b, "found", "%jd", a, NULL);
 		va_end(args);
 	}
-	return (!!val);
+	return (a != b);
 }
