@@ -6,10 +6,11 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 17:51:30 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 19:12:30 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 23:14:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _GNU_SOURCE
 #include "test_libft.h"
 #include "ft_strings.h"
 #include <stdlib.h>
