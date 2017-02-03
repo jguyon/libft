@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:54:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 14:03:32 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 15:27:55 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_tap_notseq(t_tap *t, const char *a, const char *b,
 
 	if (!msg)
 		msg = "are equal";
-	if ((res = g_ft_strcmp(a, b) != 0))
+	if ((res = g_ft_tstrcmp(a, b) != 0))
 		ft_tap_pass(t, msg);
 	else
 	{

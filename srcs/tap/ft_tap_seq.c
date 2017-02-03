@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:48:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 14:02:24 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 15:28:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_tap_seq(t_tap *t, const char *a, const char *b, const char *msg, ...)
 
 	if (!msg)
 		msg = "are equal";
-	if ((res = g_ft_strcmp(a, b) == 0))
+	if ((res = g_ft_tstrcmp(a, b) == 0))
 		ft_tap_pass(t, msg);
 	else
 	{
