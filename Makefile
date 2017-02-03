@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/03 17:12:01 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/03 17:53:30 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -152,7 +152,7 @@ SRC_NAMES =	\
 TST_NAMES = \
 	main \
 	test_memory \
-#	test_strings \
+	test_strings \
 #	test_dlists \
 #	test_streams \
 #	test_printf \

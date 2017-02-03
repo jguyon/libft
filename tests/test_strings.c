@@ -5,105 +5,158 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/27 16:59:10 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 17:48:43 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/03 17:51:30 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/03 19:12:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test_libft.h"
+#include "ft_strings.h"
+#include <stdlib.h>
+#include <string.h>
 
-TFT_TEST(test_strlen)
+static void	test_strlen(t_tap *t)
 {
-	char	str[256] = {0};
+	char	str[256];
 
+	ft_tap_plan(t, 4);
 	strcpy(str, "hello");
-	TFT_ASSERT(ft_strlen(str) == strlen(str));
+	FT_TAP_UEQ(t, ft_strlen(str), strlen(str));
 	strcpy(str, "hello world hello world hello world hello world");
-	TFT_ASSERT(ft_strlen(str) == strlen(str));
+	FT_TAP_UEQ(t, ft_strlen(str), strlen(str));
 	strcpy(str, "");
-	TFT_ASSERT(ft_strlen(str) == strlen(str));
+	FT_TAP_UEQ(t, ft_strlen(str), strlen(str));
 	strcpy(str, "hello world");
-	TFT_ASSERT(ft_strlen(str) == strlen(str));
+	FT_TAP_UEQ(t, ft_strlen(str), strlen(str));
 }
 
-TFT_TEST(test_strnlen)
+static void	test_strnlen(t_tap *t)
 {
-	char	str[256] = {0};
+	char	str[256];
 
+	ft_tap_plan(t, 2);
 	strcpy(str, "hello world hello world hello world hello world hello world");
-	TFT_ASSERT(ft_strnlen(str, 256) == strnlen(str, 256));
-	TFT_ASSERT(ft_strnlen(str + 1, 17) == strnlen(str + 1, 17));
+	FT_TAP_UEQ(t, ft_strnlen(str, 256), strnlen(str, 256));
+	FT_TAP_UEQ(t, ft_strnlen(str + 1, 17), strnlen(str + 1, 17));
 }
 
-TFT_TEST(test_strdup)
+static void	test_strdup(t_tap *t)
 {
 	char	*str_ft;
 	char	*str_lc;
 
+	ft_tap_plan(t, 3);
 	str_ft = ft_strdup("qwertyuiopasdfghjklzxcvbnm0123456789");
 	str_lc = strdup("qwertyuiopasdfghjklzxcvbnm0123456789");
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	FT_TAP_OK(t, !strcmp(str_ft, str_lc));
 	free(str_ft);
 	free(str_lc);
 	str_ft = ft_strdup("hello");
 	str_lc = strdup("hello");
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	FT_TAP_OK(t, !strcmp(str_ft, str_lc));
 	free(str_ft);
 	free(str_lc);
 	str_ft = ft_strdup("");
 	str_lc = strdup("");
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	FT_TAP_OK(t, !strcmp(str_ft, str_lc));
 	free(str_ft);
 	free(str_lc);
 }
 
-TFT_TEST(test_strcpy)
+static void	test_strcpy(t_tap *t)
 {
 	char	str_ft[256];
 	char	str_lc[256];
+	char	*res_ft;
+	char	*res_lc;
 	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(strcmp(ft_strcpy(str_ft, src), strcpy(str_lc, src)) == 0);
-	TFT_ASSERT(strcmp(ft_strcpy(str_ft, src + 30), strcpy(str_lc, src + 30)) == 0);
-	TFT_ASSERT(strcmp(ft_strcpy(str_ft, src + 36), strcpy(str_lc, src + 36)) == 0);
+	memset(str_ft, 'a', sizeof(str_ft));
+	memset(str_lc, 'a', sizeof(str_lc));
+	ft_tap_plan(t, 6);
+	res_ft = ft_strcpy(str_ft, src);
+	res_lc = strcpy(str_lc, src);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strcpy(str_ft, src + 30);
+	res_lc = strcpy(str_lc, src + 30);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strcpy(str_ft, src + 36);
+	res_lc = strcpy(str_lc, src + 36);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
 }
 
-TFT_TEST(test_strncpy)
+static void	test_strncpy(t_tap *t)
 {
 	char	str_ft[256];
 	char	str_lc[256];
+	char	*res_ft;
+	char	*res_lc;
 	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	memset(str_ft, 'a', 256);
-	memset(str_lc, 'a', 256);
-	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src, 30), strncpy(str_lc, src, 30), 256) == 0);
-	memset(str_ft, 'a', 256);
-	memset(str_lc, 'a', 256);
-	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src + 30, 6), strncpy(str_lc, src + 30, 6), 256) == 0);
-	memset(str_ft, 'a', 256);
-	memset(str_lc, 'a', 256);
-	TFT_ASSERT(memcmp(ft_strncpy(str_ft, src + 36, 3), strncpy(str_lc, src + 36, 3), 256) == 0);
+	memset(str_ft, 'a', sizeof(str_ft));
+	memset(str_lc, 'a', sizeof(str_lc));
+	ft_tap_plan(t, 6);
+	res_ft = ft_strncpy(str_ft, src, 30);
+	res_lc = strncpy(str_lc, src, 30);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strncpy(str_ft, src + 30, 6);
+	res_lc = strncpy(str_lc, src + 30, 6);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strncpy(str_ft, src + 36, 3);
+	res_lc = strncpy(str_lc, src + 36, 3);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
 }
 
-TFT_TEST(test_strcat)
+static void	test_strcat(t_tap *t)
 {
-	char	str_ft[256] = {0};
-	char	str_lc[256] = {0};
+	char	str_ft[256];
+	char	str_lc[256];
+	char	*res_ft;
+	char	*res_lc;
 	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(strcmp(ft_strcat(str_ft, src), strcat(str_lc, src)) == 0);
-	TFT_ASSERT(strcmp(ft_strcat(str_ft, src), strcat(str_lc, src)) == 0);
-	TFT_ASSERT(strcmp(ft_strcat(str_ft, ""), strcat(str_lc, "")) == 0);
+	bzero(str_ft, sizeof(str_ft));
+	bzero(str_lc, sizeof(str_lc));
+	ft_tap_plan(t, 6);
+	res_ft = ft_strcat(str_ft, src);
+	res_lc = strcat(str_lc, src);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strcat(str_ft, src + 30);
+	res_lc = strcat(str_lc, src + 30);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strcat(str_ft, src + 36);
+	res_lc = strcat(str_lc, src + 36);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
 }
 
-TFT_TEST(test_strncat)
+static void	test_strncat(t_tap *t)
 {
-	char	str_ft[256] = {0};
-	char	str_lc[256] = {0};
+	char	str_ft[256];
+	char	str_lc[256];
+	char	*res_ft;
+	char	*res_lc;
 	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(strcmp(ft_strncat(str_ft, src, 40), strncat(str_lc, src, 40)) == 0);
-	TFT_ASSERT(strcmp(ft_strncat(str_ft, src, 30), strncat(str_lc, src, 30)) == 0);
+	bzero(str_ft, sizeof(str_ft));
+	bzero(str_lc, sizeof(str_lc));
+	ft_tap_plan(t, 4);
+	res_ft = ft_strncat(str_ft, src, 40);
+	res_lc = strncat(str_lc, src, 40);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strncat(str_ft, src, 30);
+	res_lc = strncat(str_lc, src, 30);
+	FT_TAP_UEQ(t, res_ft - str_ft, res_lc - str_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
 }
 
 #ifdef linux
@@ -138,18 +191,29 @@ static size_t	strlcat(char *dst, const char *src, size_t size)
 }
 #endif
 
-TFT_TEST(test_strlcat)
+void		test_strlcat(t_tap *t)
 {
-	char	str_ft[256] = {0};
-	char	str_lc[256] = {0};
+	char	str_ft[256];
+	char	str_lc[256];
+	size_t	res_ft;
+	size_t	res_lc;
 	char	*src = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(ft_strlcat(str_ft, src, 37) == strlcat(str_lc, src, 37));
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
-	TFT_ASSERT(ft_strlcat(str_ft, src, 47) == strlcat(str_lc, src, 47));
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
-	TFT_ASSERT(ft_strlcat(str_ft, src, 256) == strlcat(str_lc, src, 256));
-	TFT_ASSERT(strcmp(str_ft, str_lc) == 0);
+	bzero(str_ft, sizeof(str_ft));
+	bzero(str_lc, sizeof(str_lc));
+	ft_tap_plan(t, 6);
+	res_ft = ft_strlcat(str_ft, src, 37);
+	res_lc = strlcat(str_lc, src, 37);
+	FT_TAP_UEQ(t, res_ft, res_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strlcat(str_ft, src, 47);
+	res_lc = strlcat(str_lc, src, 47);
+	FT_TAP_UEQ(t, res_ft, res_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
+	res_ft = ft_strlcat(str_ft, src, 256);
+	res_lc = strlcat(str_lc, src, 256);
+	FT_TAP_UEQ(t, res_ft, res_lc);
+	FT_TAP_OK(t, !memcmp(str_ft, str_lc, 256));
 }
 
 #ifdef __APPLE__
@@ -162,90 +226,91 @@ static char	*strchrnul(const char *s, int c)
 }
 #endif
 
-TFT_TEST(test_strchrnul)
+void		test_strchrnul(t_tap *t)
 {
 	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(ft_strchrnul(str, 't') == strchrnul(str, 't'));
-	TFT_ASSERT(ft_strchrnul(str, '7') == strchrnul(str, '7'));
-	TFT_ASSERT(ft_strchrnul(str, '\0') == strchrnul(str, '\0'));
-	TFT_ASSERT(ft_strchrnul(str, '$') == strchrnul(str, '$'));
+	ft_tap_plan(t, 4);
+	FT_TAP_UEQ(t, ft_strchrnul(str, 't') - str, strchrnul(str, 't') - str);
+	FT_TAP_UEQ(t, ft_strchrnul(str, '7') - str, strchrnul(str, '7') - str);
+	FT_TAP_UEQ(t, ft_strchrnul(str, '\0') - str, strchrnul(str, '\0') - str);
+	FT_TAP_UEQ(t, ft_strchrnul(str, '$') - str, strchrnul(str, '$') - str);
 }
 
-TFT_TEST(test_strchr)
+void		test_strchr(t_tap *t)
 {
 	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(ft_strchr(str, 't') == strchr(str, 't'));
-	TFT_ASSERT(ft_strchr(str, '7') == strchr(str, '7'));
-	TFT_ASSERT(ft_strchr(str, '\0') == strchr(str, '\0'));
-	TFT_ASSERT(ft_strchr(str, '$') == strchr(str, '$'));
+	ft_tap_plan(t, 4);
+	FT_TAP_UEQ(t, ft_strchr(str, 't') - str, strchr(str, 't') - str);
+	FT_TAP_UEQ(t, ft_strchr(str, '7') - str, strchr(str, '7') - str);
+	FT_TAP_UEQ(t, ft_strchr(str, '\0') - str, strchr(str, '\0') - str);
+	FT_TAP_UEQ(t, ft_strchr(str, '$') - str, strchr(str, '$') - str);
 }
 
-TFT_TEST(test_strrchr)
+void		test_strrchr(t_tap *t)
 {
-	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789q";
+	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(ft_strrchr(str, 't') == strrchr(str, 't'));
-	TFT_ASSERT(ft_strrchr(str, '7') == strrchr(str, '7'));
-	TFT_ASSERT(ft_strrchr(str, '\0') == strrchr(str, '\0'));
-	TFT_ASSERT(ft_strrchr(str, '$') == strrchr(str, '$'));
-	TFT_ASSERT(ft_strrchr(str, 'q') == strrchr(str, 'q'));
+	ft_tap_plan(t, 4);
+	FT_TAP_UEQ(t, ft_strrchr(str, 't') - str, strrchr(str, 't') - str);
+	FT_TAP_UEQ(t, ft_strrchr(str, '7') - str, strrchr(str, '7') - str);
+	FT_TAP_UEQ(t, ft_strrchr(str, '\0') - str, strrchr(str, '\0') - str);
+	FT_TAP_UEQ(t, ft_strrchr(str, '$') - str, strrchr(str, '$') - str);
 }
 
-TFT_TEST(test_strcmp)
+void		test_strcmp(t_tap *t)
 {
 	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
 	char	cpy[38];
 
 	strcpy(cpy, str);
-	TFT_ASSERT(ft_strcmp(str, cpy) == 0 && strcmp(str, cpy) == 0);
+	ft_tap_plan(t, 6);
+	FT_TAP_OK(t, ft_strcmp(str, cpy) == 0 && strcmp(str, cpy) == 0);
 	cpy[28] = '~';
-	TFT_ASSERT(ft_strcmp(str, cpy) < 0 && strcmp(str, cpy) < 0);
+	FT_TAP_OK(t, ft_strcmp(str, cpy) < 0 && strcmp(str, cpy) < 0);
 	cpy[4] = '\0';
-	TFT_ASSERT(ft_strcmp(str, cpy) > 0 && strcmp(str, cpy) > 0);
+	FT_TAP_OK(t, ft_strcmp(str, cpy) > 0 && strcmp(str, cpy) > 0);
 	strcpy(cpy + 1, str);
-	TFT_ASSERT(ft_strcmp(str, cpy + 1) == 0 && strcmp(str, cpy + 1) == 0);
+	FT_TAP_OK(t, ft_strcmp(str, cpy + 1) == 0 && strcmp(str, cpy + 1) == 0);
 	cpy[29] = '~';
-	TFT_ASSERT(ft_strcmp(str, cpy + 1) < 0 && strcmp(str, cpy + 1) < 0);
+	FT_TAP_OK(t, ft_strcmp(str, cpy + 1) < 0 && strcmp(str, cpy + 1) < 0);
 	cpy[5] = '\0';
-	TFT_ASSERT(ft_strcmp(str, cpy + 1) > 0 && strcmp(str, cpy + 1) > 0);
+	FT_TAP_OK(t, ft_strcmp(str, cpy + 1) > 0 && strcmp(str, cpy + 1) > 0);
 }
 
-TFT_TEST(test_strncmp)
+void		test_strncmp(t_tap *t)
 {
-	char	str[37] = "qwertyuiopasdfghjklzxcvbnm0123456789";
+	char	*str = "qwertyuiopasdfghjklzxcvbnm0123456789";
 	char	cpy[38];
 
 	strcpy(cpy, str);
-	TFT_ASSERT(ft_strncmp(str, cpy, 38) == 0 && strncmp(str, cpy, 38) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy, 5) == 0 && strncmp(str, cpy, 5) == 0);
+	ft_tap_plan(t, 8);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 38) == 0 && strncmp(str, cpy, 38) == 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 5) == 0 && strncmp(str, cpy, 5) == 0);
 	cpy[28] = '~';
-	TFT_ASSERT(ft_strncmp(str, cpy, 28) == 0 && strncmp(str, cpy, 28) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy, 29) < 0 && strncmp(str, cpy, 29) < 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 28) == 0 && strncmp(str, cpy, 28) == 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 29) < 0 && strncmp(str, cpy, 29) < 0);
 	cpy[4] = '\0';
-	TFT_ASSERT(ft_strncmp(str, cpy, 4) == 0 && strncmp(str, cpy, 4) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy, 5) > 0 && strncmp(str, cpy, 5) > 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 4) == 0 && strncmp(str, cpy, 4) == 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy, 5) > 0 && strncmp(str, cpy, 5) > 0);
 	strcpy(cpy + 1, str);
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 37) == 0 && strncmp(str, cpy + 1, 37) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 5) == 0 && strncmp(str, cpy + 1, 5) == 0);
-	cpy[29] = '~';
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 28) == 0 && strncmp(str, cpy + 1, 28) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 29) < 0 && strncmp(str, cpy + 1, 29) < 0);
-	cpy[5] = '\0';
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 4) == 0 && strncmp(str, cpy + 1, 4) == 0);
-	TFT_ASSERT(ft_strncmp(str, cpy + 1, 5) > 0 && strncmp(str, cpy + 1, 5) > 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy + 1, 37) == 0
+		&& strncmp(str, cpy + 1, 37) == 0);
+	FT_TAP_OK(t, ft_strncmp(str, cpy + 1, 5) == 0
+		&& strncmp(str, cpy + 1, 5) == 0);
 }
 
-TFT_TEST(test_strstr)
+void		test_strstr(t_tap *t)
 {
 	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789q";
 
-	TFT_ASSERT(ft_strstr(str, "012") == strstr(str, "012"));
-	TFT_ASSERT(ft_strstr(str, "0124") == strstr(str, "0124"));
-	TFT_ASSERT(ft_strstr(str, "qz") == strstr(str, "qz"));
-	TFT_ASSERT(ft_strstr(str, "") == strstr(str, ""));
-	TFT_ASSERT(ft_strstr(str, "qw") == strstr(str, "qw"));
+	ft_tap_plan(t, 5);
+	FT_TAP_UEQ(t, ft_strstr(str, "012") - str, strstr(str, "012") - str);
+	FT_TAP_UEQ(t, ft_strstr(str, "0124") - str, strstr(str, "0124") - str);
+	FT_TAP_UEQ(t, ft_strstr(str, "qz") - str, strstr(str, "qz") - str);
+	FT_TAP_UEQ(t, ft_strstr(str, "") - str, strstr(str, "") - str);
+	FT_TAP_UEQ(t, ft_strstr(str, "qw") - str, strstr(str, "qw") - str);
 }
 
 #ifdef linux
@@ -271,64 +336,72 @@ static char	*strnstr(const char *s, const char *find, size_t slen)
 }
 #endif
 
-TFT_TEST(test_strnstr)
+void		test_strnstr(t_tap *t)
 {
 	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789";
 
-	TFT_ASSERT(ft_strnstr(str, "0123456789", 36) == strnstr(str, "0123456789", 36));
-	TFT_ASSERT(ft_strnstr(str, "0123456789", 35) == strnstr(str, "0123456789", 35));
-	TFT_ASSERT(ft_strnstr(str, "0123456789", 25) == strnstr(str, "0123456789", 25));
+	ft_tap_plan(t, 3);
+	FT_TAP_UEQ(t, ft_strnstr(str, "0123456789", 36) - str,
+			   strnstr(str, "0123456789", 36) - str);
+	FT_TAP_UEQ(t, ft_strnstr(str, "0123456789", 35) - str,
+			   strnstr(str, "0123456789", 35) - str);
+	FT_TAP_UEQ(t, ft_strnstr(str, "0123456789", 25) - str,
+			   strnstr(str, "0123456789", 25) - str);
 }
 
-TFT_TEST(test_strclr)
+void		test_strclr(t_tap *t)
 {
-	char	str[] = "qwertyuiopasdfghjklzxcvbnm0123456789";
-	char	zro[256] = {0};
+	char	str[256] = "qwertyuiopasdfghjklzxcvbnm0123456789";
+	char	zro[256];
 
+	bzero(zro, sizeof(zro));
+	ft_tap_plan(t, 1);
 	ft_strclr(str);
-	TFT_ASSERT(memcmp(str, zro, 36) == 0);
+	FT_TAP_OK(t, !memcmp(str, zro, 36));
 }
 
-TFT_TEST(test_strjoin)
+void		test_strjoin(t_tap *t)
 {
 	char	s1[] = "qwertyuiopasdfghjklzxcvbnm";
 	char	s2[] = "0123456789";
 	char	*join = NULL;
 
+	ft_tap_plan(t, 2);
 	join = ft_strjoin(s1, s2);
-	TFT_ASSERT(memcmp(s1, join, 26) == 0);
-	TFT_ASSERT(memcmp(s2, join + 26, 11) == 0);
+	FT_TAP_OK(t, !memcmp(s1, join, 26));
+	FT_TAP_OK(t, !memcmp(s2, join + 26, 11));
 	free(join);
 }
 
-TFT_TEST(test_strsub)
+void		test_strsub(t_tap *t)
 {
 	char	str[] = "qwertyuiopasdfghjklzxcvbnm0123456789";
 	char	*sub = NULL;
 
+	ft_tap_plan(t, 1);
 	sub = ft_strsub(str, 3, 31);
-	TFT_ASSERT(ft_memcmp(sub, str + 3, 31) == 0);
+	FT_TAP_OK(t, !memcmp(sub, str + 3, 31));
 	free(sub);
 }
 
-void	test_strings(void)
+void		test_strings(t_tap *t)
 {
-	TFT_RUN(test_strlen);
-	TFT_RUN(test_strnlen);
-	TFT_RUN(test_strdup);
-	TFT_RUN(test_strcpy);
-	TFT_RUN(test_strncpy);
-	TFT_RUN(test_strcat);
-	TFT_RUN(test_strncat);
-	TFT_RUN(test_strlcat);
-	TFT_RUN(test_strchrnul);
-	TFT_RUN(test_strchr);
-	TFT_RUN(test_strrchr);
-	TFT_RUN(test_strcmp);
-	TFT_RUN(test_strncmp);
-	TFT_RUN(test_strstr);
-	TFT_RUN(test_strnstr);
-	TFT_RUN(test_strclr);
-	TFT_RUN(test_strjoin);
-	TFT_RUN(test_strsub);
+	FT_TAP_TEST(t, test_strlen);
+	FT_TAP_TEST(t, test_strnlen);
+	FT_TAP_TEST(t, test_strdup);
+	FT_TAP_TEST(t, test_strcpy);
+	FT_TAP_TEST(t, test_strncpy);
+	FT_TAP_TEST(t, test_strcat);
+	FT_TAP_TEST(t, test_strncat);
+	FT_TAP_TEST(t, test_strlcat);
+	FT_TAP_TEST(t, test_strchrnul);
+	FT_TAP_TEST(t, test_strchr);
+	FT_TAP_TEST(t, test_strrchr);
+	FT_TAP_TEST(t, test_strcmp);
+	FT_TAP_TEST(t, test_strncmp);
+	FT_TAP_TEST(t, test_strstr);
+	FT_TAP_TEST(t, test_strnstr);
+	FT_TAP_TEST(t, test_strclr);
+	FT_TAP_TEST(t, test_strjoin);
+	FT_TAP_TEST(t, test_strsub);
 }
