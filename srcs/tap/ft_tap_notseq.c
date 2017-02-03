@@ -6,17 +6,20 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:54:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 15:27:55 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 15:41:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
+#include <stdlib.h>
 
 int		ft_tap_notseq(t_tap *t, const char *a, const char *b,
 			const char *msg, ...)
 {
 	va_list	args;
 	int		res;
+	char	*wanted;
+	char	*found;
 
 	if (!msg)
 		msg = "are equal";
@@ -25,10 +28,13 @@ int		ft_tap_notseq(t_tap *t, const char *a, const char *b,
 	else
 	{
 		ft_tap_fail(t, msg);
-		a = ft_tap_quote(a);
-		b = ft_tap_quote(b);
+		found = ft_tap_quote(a);
+		wanted = ft_tap_quote(b);
 		va_start(args, msg);
-		ft_tap_diag(t, args, "doNotWant", "%s", b, "found", "%s", a, NULL);
+		ft_tap_diag(t, args,
+			"doNotWant", "%s", wanted, "found", "%s", found, NULL);
+		free(found);
+		free(wanted);
 		va_end(args);
 	}
 	return (res);
