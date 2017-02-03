@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:15:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 19:33:17 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/03 21:18:11 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int		main(void)
 	FT_TAP_TEST(&t, test_memory);
 	FT_TAP_TEST(&t, test_strings);
 	FT_TAP_TEST(&t, test_dlists);
+	FT_TAP_TEST(&t, test_streams);
 	ft_tap_end(&t);
 }
