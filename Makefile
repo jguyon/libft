@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/03 21:16:13 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/03 21:39:36 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -155,7 +155,7 @@ TST_NAMES = \
 	test_strings \
 	test_dlists \
 	test_streams \
-#	test_printf \
+	test_printf \
 
 SRC_PATH = srcs
 TST_PATH = tests
