@@ -1,5 +1,3 @@
-objs
-deps
 libft.a
-run_tests
+build
 *.dSYM

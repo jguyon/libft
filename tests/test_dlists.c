@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 19:26:01 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 20:07:38 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/05 00:34:59 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,7 +379,7 @@ static void		test_join(t_tap *t)
 	FT_TAP_UEQ(t, i, 192);
 }
 
-void			test_dlists(t_tap *t)
+void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_traverse_left);
 	FT_TAP_TEST(t, test_traverse_right);

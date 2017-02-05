@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 16:46:07 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 17:46:43 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/05 00:34:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ static void	test_memcmp(t_tap *t)
 	FT_TAP_IEQ(t, ft_memcmp(mem, cmp, 37), memcmp(mem, cmp, 37));
 }
 
-void		test_memory(t_tap *t)
+void		run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_memset);
 	FT_TAP_TEST(t, test_bzero);

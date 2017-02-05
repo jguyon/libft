@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/03 21:39:36 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 02:16:14 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,13 +14,14 @@ CC = gcc
 AR = ar
 CFLAGS = -Wall -Werror -Wextra
 LDFLAGS =
-LIBS =
-DEPFLAGS = -MMD -MP -MF $(patsubst $(OBJ_PATH)/%.o,$(DEP_PATH)/%.d,$@)
+DEPFLAGS = -MMD -MP
+TEST_CMD = prove -f
+TEST_CFLAGS = -g -Wno-format
+TEST_LDFLAGS = -g
 
 NAME = libft.a
-TST_NAME = run_tests
 
-SRC_NAMES =	\
+SOURCES = \
 	memory/ft_memalloc \
 	memory/ft_memdel \
 	memory/ft_memchr \
@@ -149,58 +150,62 @@ SRC_NAMES =	\
 	tap/ft_tap_notseq \
 	tap/ft_tap_quote \
 
-TST_NAMES = \
-	main \
+TESTS = \
 	test_memory \
 	test_strings \
 	test_dlists \
 	test_streams \
 	test_printf \
 
-SRC_PATH = srcs
-TST_PATH = tests
-INC_PATH = includes
-OBJ_PATH = objs
-DEP_PATH = deps
+TEST_UTILS = \
+	common_main
 
-SRC = $(SRC_NAMES:%=$(SRC_PATH)/%.c)
-OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
-DEP = $(SRC:$(SRC_PATH)/%.c=$(DEP_PATH)/%.d)
+SRC_PATH := srcs
+TST_PATH := tests
+INC_PATH := includes
+BLD_PATH := build
 
-TST_SRC = $(TST_NAMES:%=$(TST_PATH)/%.c)
-TST_OBJ = $(TST_SRC:$(TST_PATH)/%.c=$(OBJ_PATH)/$(TST_PATH)/%.o)
-TST_DEP = $(TST_SRC:$(TST_PATH)/%.c=$(DEP_PATH)/$(TST_PATH)/%.d)
+OBJ := $(SOURCES:%=$(BLD_PATH)/%.o)
+DEP := $(OBJ:%.o=%.d)
+
+TST_OBJ := $(TESTS:%=$(BLD_PATH)/$(TST_PATH)/%.o)
+TST_UTL := $(TEST_UTILS:%=$(BLD_PATH)/$(TST_PATH)/%.o)
+TST_DEP := $(TST_OBJ:%.o=%.d) $(TST_UTL:%.o=%.d)
+TST_EXE := $(TST_OBJ:%.o=%.t)
 
 all: $(NAME)
-
-test: CFLAGS += -g -Wno-format
-test: LDFLAGS += -g
-test: $(TST_NAME)
-	./$<
 
 $(NAME): $(OBJ)
 	$(AR) rcs $@ $^
 
-$(TST_NAME): $(OBJ) $(TST_OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(DEP_PATH)/%.d
-	@mkdir -p $(dir $@) $(dir $(DEP_PATH)/$*)
+$(BLD_PATH)/%.o: $(SRC_PATH)/%.c $(BLD_PATH)/%.d
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INC_PATH) $(DEPFLAGS) -o $@ -c $<
 
-$(OBJ_PATH)/$(TST_PATH)/%.o: $(TST_PATH)/%.c $(DEP_PATH)/$(TST_PATH)/%.d
-	@mkdir -p $(dir $@) $(dir $(DEP_PATH)/$(TST_PATH)/$*)
+test: CFLAGS += $(TEST_CFLAGS)
+test: LDFLAGS += $(TEST_LDFLAGS)
+test: $(TST_EXE)
+	$(TEST_CMD) $^
+
+$(BLD_PATH)/$(TST_PATH)/%.t: $(BLD_PATH)/$(TST_PATH)/%.o $(TST_UTL) $(OBJ)
+	@mkdir -p $(dir $@)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(BLD_PATH)/$(TST_PATH)/%.o: $(TST_PATH)/%.c $(BLD_PATH)/$(TST_PATH)/%.d
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INC_PATH) $(DEPFLAGS) -o $@ -c $<
 
-$(DEP_PATH)/%.d: ;
+.SECONDARY: $(TST_OBJ) $(TST_UTL)
+
+$(BLD_PATH)/%.d: ;
 
 -include $(DEP) $(TST_DEP)
 
 clean:
-	rm -f $(OBJ) $(DEP) $(TST_OBJ) $(TST_DEP)
+	rm -f $(OBJ) $(DEP) $(TST_OBJ) $(TST_UTL) $(TST_DEP) $(TST_EXE)
 
 fclean: clean
-	rm -f $(NAME) $(TST_NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

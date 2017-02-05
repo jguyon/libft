@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 17:51:30 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 23:14:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/05 00:35:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,7 +385,7 @@ void		test_strsub(t_tap *t)
 	free(sub);
 }
 
-void		test_strings(t_tap *t)
+void		run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_strlen);
 	FT_TAP_TEST(t, test_strnlen);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   common_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:15:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 21:40:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/05 02:15:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ int		main(void)
 	g_ft_tstrlen = &strlen;
 	g_ft_tstrcmp = &strcmp;
 	ft_tap_start(&t);
-	FT_TAP_TEST(&t, test_memory);
-	FT_TAP_TEST(&t, test_strings);
-	FT_TAP_TEST(&t, test_dlists);
-	FT_TAP_TEST(&t, test_streams);
-	FT_TAP_TEST(&t, test_printf);
+	run_tests(&t);
 	ft_tap_end(&t);
 }

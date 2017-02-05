@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 21:34:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/05 00:36:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void		test_setbuffer(t_tap *t)
 	ft_fclose(stm);
 }
 
-void			test_streams(t_tap *t)
+void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_fwrite);
 	FT_TAP_TEST(t, test_fputc);
