@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 19:59:12 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 22:26:12 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,12 +28,8 @@ TST_CMN := $(TESTS_COMMON:%=$(DEBUG_PATH)/$(TEST_PATH)/%.o)
 TST_DEP := $(TST_OBJ:%.o=%.d) $(TST_CMN:%.o=%.d)
 TST_EXE := $(TST_OBJ:%.o=%.t)
 
-define objs
-$(filter %.o,$(1))
-endef
-define libs
-$(patsubst lib%.a,-l%,$(filter lib%.a,$(1)))
-endef
+objs = $(filter %.o,$(1))
+libs = $(patsubst lib%.a,-l%,$(filter lib%.a,$(1)))
 
 # Compile the release version of the library
 all: $(NAME)
@@ -43,15 +39,15 @@ debug: $(DEBUG_NAME)
 
 # Compile and execute tests
 test: $(TST_EXE)
-	$(TEST_CMD) $^
+	$(PROVE) $^
 
 # Remove intermediate files
 clean:
-	rm -f $(OBJ) $(DEP) $(DBG_OBJ) $(DBG_DEP) $(TST_OBJ) $(TST_CMN) $(TST_DEP)
+	-rm -f $(OBJ) $(DEP) $(DBG_OBJ) $(DBG_DEP) $(TST_OBJ) $(TST_CMN) $(TST_DEP)
 
 # Remove library, tests and intermediate files
 fclean: clean
-	rm -f $(NAME) $(DEBUG_NAME) $(TST_EXE)
+	-rm -f $(NAME) $(DEBUG_NAME) $(TST_EXE)
 
 # Recompile library
 re: fclean all
@@ -59,10 +55,10 @@ re: fclean all
 .PHONY: all debug test clean fclean re
 
 $(NAME): $(OBJ)
-	$(AR) rcsu $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 
 $(DEBUG_NAME): $(DBG_OBJ)
-	$(AR) rcsu $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 
 $(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.c $(BUILD_PATH)/%.d
 	@mkdir -p $(dir $@)
@@ -72,15 +68,15 @@ $(DEBUG_PATH)/$(TEST_PATH)/%.t: \
 		$(DEBUG_PATH)/$(TEST_PATH)/%.o $(TST_CMN) \
 		$(DEBUG_NAME)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $@ $(call objs,$^) -L. $(call libs,$^)
+	$(CC) $(LDFLAGS) $(DEBUGFLAGS) -o $@ $(call objs,$^) -L. $(call libs,$^)
 
 $(DEBUG_PATH)/$(TEST_PATH)/%.o: $(TEST_PATH)/%.c $(DEBUG_PATH)/$(TEST_PATH)/%.d
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
 
 $(DEBUG_PATH)/%.o: $(SOURCE_PATH)/%.c $(DEBUG_PATH)/%.d
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
 
 $(BUILD_PATH)/%.d: ;
 $(DEBUG_PATH)/%.d: ;

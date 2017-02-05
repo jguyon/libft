@@ -6,31 +6,32 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 19:04:07 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 22:24:05 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-# Compilers, linkers and their flags
+# Programs and their flags
+SHELL = /bin/sh
 CC = clang
-AR = ar
 CFLAGS = -Wall -Werror -Wextra
-DEBUG_FLAGS = -g
-
-# Command used to execute test executables
-TEST_CMD = prove -f
+LDFLAGS =
+DEBUGFLAGS = -g
+AR = ar
+ARFLAGS = rcsu
+PROVE = prove -f
 
 # Paths to find sources and headers in
 SOURCE_PATH = srcs
 TEST_PATH = tests
 INCLUDE_PATH = includes
 
-# Paths to put intermediate files in
+# Path to put intermediate files in
 BUILD_PATH = build
 DEBUG_PATH = debug
 
 # Release and debug name of the library
 NAME = libft.a
-DEBUG_NAME = libftdebug.a
+DEBUG_NAME = libftdbg.a
 
 # Modules to include in the build
 MODULES = \

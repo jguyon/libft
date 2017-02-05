@@ -1,5 +1,5 @@
 libft.a
-libftdebug.a
+libftdbg.a
 local.mk
 build
 debug
