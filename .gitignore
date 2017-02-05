@@ -1,4 +1,6 @@
 libft.a
-dev.mk
+libftdebug.a
+local.mk
 build
+debug
 *.dSYM

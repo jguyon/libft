@@ -6,60 +6,78 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 16:04:10 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 18:38:31 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
+# Configuration file
 include config.mk
--include dev.mk
+# Local overrides, should be excluded from version-control
+-include local.mk
 
-SRC_PATH := srcs
-TST_PATH := tests
-INC_PATH := includes
-BLD_PATH := build
-
-OBJ := $(SOURCES:%=$(BLD_PATH)/%.o)
+OBJ := $(SOURCES:%=$(BUILD_PATH)/%.o)
 DEP := $(OBJ:%.o=%.d)
 
-TST_OBJ := $(TESTS:%=$(BLD_PATH)/$(TST_PATH)/%.o)
-TST_CMN := $(TESTS_COMMON:%=$(BLD_PATH)/$(TST_PATH)/%.o)
+DBG_OBJ := $(SOURCES:%=$(DEBUG_PATH)/%.o)
+DBG_DEP := $(DBG_OBJ:%.o=%.d)
+
+TST_OBJ := $(TESTS:%=$(DEBUG_PATH)/$(TEST_PATH)/%.o)
+TST_CMN := $(TESTS_COMMON:%=$(DEBUG_PATH)/$(TEST_PATH)/%.o)
 TST_DEP := $(TST_OBJ:%.o=%.d) $(TST_CMN:%.o=%.d)
 TST_EXE := $(TST_OBJ:%.o=%.t)
 
+# Compile the release version of the library
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) rcs $@ $^
+# Compile the debug version of the library
+debug: $(DEBUG_NAME)
 
-$(BLD_PATH)/%.o: $(SRC_PATH)/%.c $(BLD_PATH)/%.d
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INC_PATH) -MMD -MP -o $@ -c $<
-
-test: CFLAGS += $(TEST_CFLAGS)
-test: LDFLAGS += $(TEST_LDFLAGS)
+# Compile and execute tests
 test: $(TST_EXE)
 	$(TEST_CMD) $^
 
-$(BLD_PATH)/$(TST_PATH)/%.t: $(BLD_PATH)/$(TST_PATH)/%.o $(TST_CMN) $(OBJ)
-	@mkdir -p $(dir $@)
-	$(CC) $(LDFLAGS) -o $@ $^
-
-$(BLD_PATH)/$(TST_PATH)/%.o: $(TST_PATH)/%.c $(BLD_PATH)/$(TST_PATH)/%.d
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INC_PATH) -MMD -MP -o $@ -c $<
-
-.SECONDARY: $(TST_OBJ) $(TST_CMN)
-
-$(BLD_PATH)/%.d: ;
-
--include $(DEP) $(TST_DEP)
-
+# Remove intermediate files
 clean:
-	rm -f $(OBJ) $(DEP) $(TST_OBJ) $(TST_CMN) $(TST_DEP) $(TST_EXE)
+	rm -f $(OBJ) $(DEP) $(DBG_OBJ) $(DBG_DEP) $(TST_OBJ) $(TST_CMN) $(TST_DEP)
 
+# Remove library, tests and intermediate files
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(DEBUG_NAME) $(TST_EXE)
 
+# Recompile library
 re: fclean all
 
-.PHONY: all test clean fclean re
+.PHONY: all debug test clean fclean re
+
+$(NAME): $(OBJ)
+	$(AR) rcsu $@ $^
+
+$(DEBUG_NAME): $(DBG_OBJ)
+	$(AR) rcsu $@ $^
+
+$(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.c $(BUILD_PATH)/%.d
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
+
+$(DEBUG_PATH)/$(TEST_PATH)/%.t: \
+		$(DEBUG_NAME) \
+		$(DEBUG_PATH)/$(TEST_PATH)/%.o $(TST_CMN)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) \
+		-o $@ $(filter %.o,$^) \
+		-L. -l$(patsubst lib%.a,%,$<)
+
+$(DEBUG_PATH)/$(TEST_PATH)/%.o: $(TEST_PATH)/%.c $(DEBUG_PATH)/$(TEST_PATH)/%.d
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
+
+$(DEBUG_PATH)/%.o: $(SOURCE_PATH)/%.c $(DEBUG_PATH)/%.d
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
+
+$(BUILD_PATH)/%.d: ;
+$(DEBUG_PATH)/%.d: ;
+
+-include $(DEP) $(DBG_DEP) $(TST_DEP)
+
+.SECONDARY: $(TST_OBJ) $(TST_CMN)

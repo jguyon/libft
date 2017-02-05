@@ -6,20 +6,33 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 15:32:13 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 18:04:00 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-CC = gcc
+# Compilers, linkers and their flags
+CC = clang
 AR = ar
 CFLAGS = -Wall -Werror -Wextra
-LDFLAGS =
+DEBUG_FLAGS = -g
+
+# Command used to execute test executables
 TEST_CMD = prove -f
-TEST_CFLAGS = -Wno-format -g
-TEST_LDFLAGS = -g
 
+# Paths to find sources and headers in
+SOURCE_PATH = srcs
+TEST_PATH = tests
+INCLUDE_PATH = includes
+
+# Paths to put intermediate files in
+BUILD_PATH = build
+DEBUG_PATH = debug
+
+# Release and debug name of the library
 NAME = libft.a
+DEBUG_NAME = libftdebug.a
 
+# Sources names to include in the library
 SOURCES = \
 	memory/ft_memalloc \
 	memory/ft_memdel \
@@ -149,6 +162,7 @@ SOURCES = \
 	tap/ft_tap_notseq \
 	tap/ft_tap_quote \
 
+# Source names to execute as tests
 TESTS = \
 	test_memory \
 	test_strings \
@@ -156,5 +170,6 @@ TESTS = \
 	test_streams \
 	test_printf \
 
+# Source names to compile with every test executable
 TESTS_COMMON = \
 	common_main \
