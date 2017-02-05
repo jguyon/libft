@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 18:04:00 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 19:04:07 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -31,6 +31,18 @@ DEBUG_PATH = debug
 # Release and debug name of the library
 NAME = libft.a
 DEBUG_NAME = libftdebug.a
+
+# Modules to include in the build
+MODULES = \
+	memory \
+	strings \
+	chars \
+	numbers \
+	unicode \
+	dlists \
+	streams \
+	printf \
+	tap \
 
 # Sources names to include in the library
 SOURCES = \

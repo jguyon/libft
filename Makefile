@@ -6,25 +6,34 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 18:38:31 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 19:59:12 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-# Configuration file
+# Configuration variables
 include config.mk
 # Local overrides, should be excluded from version-control
 -include local.mk
 
-OBJ := $(SOURCES:%=$(BUILD_PATH)/%.o)
+SRC := $(foreach module,$(MODULES),$(filter $(module)/%,$(SOURCES)))
+
+OBJ := $(SRC:%=$(BUILD_PATH)/%.o)
 DEP := $(OBJ:%.o=%.d)
 
-DBG_OBJ := $(SOURCES:%=$(DEBUG_PATH)/%.o)
+DBG_OBJ := $(SRC:%=$(DEBUG_PATH)/%.o)
 DBG_DEP := $(DBG_OBJ:%.o=%.d)
 
 TST_OBJ := $(TESTS:%=$(DEBUG_PATH)/$(TEST_PATH)/%.o)
 TST_CMN := $(TESTS_COMMON:%=$(DEBUG_PATH)/$(TEST_PATH)/%.o)
 TST_DEP := $(TST_OBJ:%.o=%.d) $(TST_CMN:%.o=%.d)
 TST_EXE := $(TST_OBJ:%.o=%.t)
+
+define objs
+$(filter %.o,$(1))
+endef
+define libs
+$(patsubst lib%.a,-l%,$(filter lib%.a,$(1)))
+endef
 
 # Compile the release version of the library
 all: $(NAME)
@@ -60,12 +69,10 @@ $(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.c $(BUILD_PATH)/%.d
 	$(CC) $(CFLAGS) -I$(INCLUDE_PATH) -MMD -MP -o $@ -c $<
 
 $(DEBUG_PATH)/$(TEST_PATH)/%.t: \
-		$(DEBUG_NAME) \
-		$(DEBUG_PATH)/$(TEST_PATH)/%.o $(TST_CMN)
+		$(DEBUG_PATH)/$(TEST_PATH)/%.o $(TST_CMN) \
+		$(DEBUG_NAME)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) \
-		-o $@ $(filter %.o,$^) \
-		-L. -l$(patsubst lib%.a,%,$<)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $@ $(call objs,$^) -L. $(call libs,$^)
 
 $(DEBUG_PATH)/$(TEST_PATH)/%.o: $(TEST_PATH)/%.c $(DEBUG_PATH)/$(TEST_PATH)/%.d
 	@mkdir -p $(dir $@)
