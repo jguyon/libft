@@ -6,11 +6,12 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 15:38:01 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/05 16:04:10 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 include config.mk
+-include dev.mk
 
 SRC_PATH := srcs
 TST_PATH := tests

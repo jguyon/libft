@@ -1,3 +1,4 @@
 libft.a
+dev.mk
 build
 *.dSYM
