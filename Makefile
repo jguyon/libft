@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/06 04:31:25 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/06 17:31:18 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -32,17 +32,31 @@ TST_DEP := $(TST_EXE:%.t=%.d)
 
 PATHS := $(sort $(dir $(OBJ) $(TST_EXE)))
 
-# Compile the release version of the library
-all: $(NAME)
+# Default target
+all: $(DEFAULT_BUILD)
 
-debug test: CFLAGS += $(DBGFLAGS)
+# Compile library with release flags
+release: CPPFLAGS := $(strip $(CPPFLAGS) $(RLSFLAGS))
+release: $(NAME)
 
-# Compile the debug version of the library
+# Compile library with debug flags
+debug: CPPFLAGS := $(strip $(CPPFLAGS) $(DBGFLAGS))
 debug: $(NAME)
 
-# Compile and execute tests
+# Compile tests
+# If the library needs to be updated, test flags will be used.
+# Use the check target to avoid that.
+test: CPPFLAGS := $(strip $(CPPFLAGS) $(TSTFLAGS))
 test: $(TST_EXE)
-	$(PROVE) $^
+
+# Compile the library and execute its tests
+# If a version of the library is already compiled and does not need updating,
+# it will not be recompiled.
+# As a consequence, running for example make fclean && make -j release check
+# will test the release version even if check is configured to default
+# to the debug version.
+check: $(CHECK_BUILD) test
+	$(PROVE) $(TST_EXE)
 
 # Remove intermediate files
 clean:
@@ -55,22 +69,24 @@ fclean: clean
 # Recompile library
 re: fclean all
 
-.PHONY: all debug test clean fclean re
+.PHONY: all release debug test check clean fclean re
 
 $(NAME): $(OBJ)
 	$(AR) $(ARFLAGS) $@ $^
 
-$(BUILD_PATH)/%.o: %.c $(BUILD_PATH)/%.d | $(PATHS)
+$(BUILD_PATH)/%.o: %.c $(BUILD_PATH)/%.d
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 	@touch $@
 
-$(BUILD_PATH)/%.t: %.c $(BUILD_PATH)/%.d $(TST_CMN) $(NAME) | $(PATHS)
+$(BUILD_PATH)/%.t: %.c $(BUILD_PATH)/%.d $(TST_CMN) $(NAME)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $(filter %.c,$^) $(LDLIBS)
 	@touch $@
 
 $(BUILD_PATH)/%.d: ;
 
 -include $(DEP) $(TST_DEP)
+
+$(OBJ) $(TST_EXE): | $(PATHS)
 
 $(PATHS):
 	@mkdir -p $@

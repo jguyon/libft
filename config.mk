@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/06 04:34:12 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/06 17:36:53 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -17,10 +17,18 @@ CFLAGS = -Wall -Werror -Wextra
 CPPFLAGS =
 LDFLAGS =
 LDLIBS =
-DBGFLAGS = -g
 AR = ar
 ARFLAGS = rcs
 PROVE = prove -f
+
+# Flags for release and debug versions, and test executables
+RLSFLAGS =
+DBGFLAGS = -g
+TSTFLAGS = $(DBGFLAGS)
+
+# Default targets for building or testing (debug or release)
+DEFAULT_BUILD = release
+CHECK_BUILD = debug
 
 # Paths to find sources and headers in
 SOURCE_PATH = srcs
