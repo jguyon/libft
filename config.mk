@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/05 22:24:05 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/06 04:34:12 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,10 +14,12 @@
 SHELL = /bin/sh
 CC = clang
 CFLAGS = -Wall -Werror -Wextra
+CPPFLAGS =
 LDFLAGS =
-DEBUGFLAGS = -g
+LDLIBS =
+DBGFLAGS = -g
 AR = ar
-ARFLAGS = rcsu
+ARFLAGS = rcs
 PROVE = prove -f
 
 # Paths to find sources and headers in
@@ -27,11 +29,9 @@ INCLUDE_PATH = includes
 
 # Path to put intermediate files in
 BUILD_PATH = build
-DEBUG_PATH = debug
 
 # Release and debug name of the library
 NAME = libft.a
-DEBUG_NAME = libftdbg.a
 
 # Modules to include in the build
 MODULES = \
