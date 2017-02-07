@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/13 21:51:47 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/14 12:24:33 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -51,6 +51,7 @@ MODULES = \
 	dlists \
 	streams \
 	printf \
+	program \
 	tap \
 
 # Sources names to include in the library
@@ -185,6 +186,10 @@ SOURCES = \
 	tap/ft_tap_seq \
 	tap/ft_tap_notseq \
 	tap/ft_tap_quote \
+	\
+	program/ft_onexit \
+	program/ft_cleanup \
+	program/ft_exit \
 
 # Source names to execute as tests
 TESTS = \
@@ -193,6 +198,7 @@ TESTS = \
 	test_dlists \
 	test_streams \
 	test_printf \
+	test_program \
 
 # Source names to compile with every test executable
 TESTS_COMMON = \
