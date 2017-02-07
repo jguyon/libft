@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 18:02:25 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 18:25:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/07 20:10:21 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,18 @@ static void	test_cleanup_success(t_tap *t)
 	ft_cleanup(FT_EXIT_SUCCESS);
 }
 
+static void	test_progname(t_tap *t)
+{
+	FT_TAP_SEQ(t, ft_getprogname(), "");
+	ft_setprogname("hello");
+	FT_TAP_SEQ(t, ft_getprogname(), "hello");
+	ft_setprogname("/hello/world");
+	FT_TAP_SEQ(t, ft_getprogname(), "world");
+}
+
 void		run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_cleanup_failure);
 	FT_TAP_TEST(t, test_cleanup_success);
+	FT_TAP_TEST(t, test_progname);
 }

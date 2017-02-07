@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:18:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 18:37:41 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/07 20:13:38 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include <stdlib.h>
+# include <limits.h>
 
 /*
 ** FT_EXIT_SUCCESS, FT_EXIT_FAILURE - portable exit statuses
@@ -64,5 +65,23 @@ typedef struct	s_exit_cb {
 }				t_exit_cb;
 
 t_exit_cb		g_exit_cb[FT_ONEXIT_MAX];
+
+/*
+** ft_setprogname - set the program name to the last part of @progname
+** @progname: invocation name of the program (argv[0])
+*/
+void			ft_setprogname(const char *progname);
+
+/*
+** ft_getprogname - get the program name
+**
+** Returns an empty string if ft_setprogname has not called before.
+*/
+const char		*ft_getprogname(void);
+
+/*
+** Private string holding the program name
+*/
+char			g_program_name[NAME_MAX + 1];
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/14 12:24:33 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/14 12:25:35 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -190,6 +190,8 @@ SOURCES = \
 	program/ft_onexit \
 	program/ft_cleanup \
 	program/ft_exit \
+	program/ft_setprogname \
+	program/ft_getprogname \
 
 # Source names to execute as tests
 TESTS = \
