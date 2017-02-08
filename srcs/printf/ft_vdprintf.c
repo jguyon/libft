@@ -6,35 +6,31 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 15:41:44 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 16:35:17 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 19:43:32 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
 
-static size_t	fd_write(void *fd, const char *buff, size_t count)
+static ssize_t			fd_write(void *fd, const char *buff, size_t count)
 {
 	return (write(*((int *)fd), buff, count));
 }
 
-static t_stream	g_stream = {
-	.funs = {
-		.write = &fd_write
-	},
-	.size = 0,
+static t_stream_funs	fd_funs = {
+	.write = &fd_write,
 };
 
-int				ft_vdprintf(int fd, const char *format, va_list args)
+int						ft_vdprintf(int fd, const char *format, va_list args)
 {
-	int		res;
+	t_stream		*stm;
+	int				res;
 
-	g_stream.cookie = &fd;
-	res = ft_vfprintf(&g_stream, format, args);
-	if (res < 0)
-	{
-		ft_clearerr(&g_stream);
+	if (!(stm = ft_fopencookie(&fd, "w", fd_funs)))
 		return (-1);
-	}
+	res = ft_vfprintf(stm, format, args);
+	if (ft_fclose(stm) == FT_EOF || res < 0)
+		return (-1);
 	return (res);
 }

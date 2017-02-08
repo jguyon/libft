@@ -6,22 +6,25 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 19:56:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 19:50:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 22:04:51 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
+#include "ft_strings.h"
 
-t_stream	*ft_fopencookie(void *cookie, t_stream_funs funs)
+t_stream	*ft_fopencookie(void *cookie, const char *mode, t_stream_funs funs)
 {
 	t_stream	*stream;
 
-	if (!(stream = (t_stream *)ft_memalloc(sizeof(*stream))))
+	if (ft_strcmp(mode, "w")
+		|| !(stream = (t_stream *)ft_memalloc(sizeof(*stream))))
 		return (NULL);
-	stream->funs = funs;
+	stream->write = funs.write;
+	stream->close = funs.close;
 	stream->cookie = cookie;
-	stream->size = FT_BUFF_SIZE;
-	stream->alloc = 1;
+	stream->mode = FT_IOFBF;
+	stream->size = FT_BUFSIZ;
 	return (stream);
 }

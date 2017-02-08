@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/06 17:36:53 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/08 19:11:35 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -132,16 +132,15 @@ SOURCES = \
 	dlists/ft_dlst_foreachr_from \
 	dlists/ft_dlst_sort \
 	\
-	streams/ft_std \
 	streams/ft_fopencookie \
-	streams/ft_setbuffer \
+	streams/ft_setvbuf \
 	streams/ft_fwrite \
 	streams/ft_fputc \
 	streams/ft_fputs \
 	streams/ft_ferror \
 	streams/ft_clearerr \
-	streams/ft_fclose \
 	streams/ft_fflush \
+	streams/ft_fclose \
 	\
 	printf/ft_printf \
 	printf/ft_vprintf \

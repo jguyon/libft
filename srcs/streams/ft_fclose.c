@@ -6,24 +6,24 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 19:50:11 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 19:10:43 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
 
-int		ft_fclose(t_stream *stream)
+int		ft_fclose(t_stream *stm)
 {
 	int		res;
 
-	if (ft_fflush(stream) < 0)
-		return (-1);
-	res = stream->funs.close ? stream->funs.close(stream->cookie) : 0;
-	res = ft_ferror(stream) ? -1 : res;
-	if (stream->own)
-		ft_memdel((void **)&(stream->buff));
-	if (stream->alloc)
-		ft_memdel((void **)&stream);
+	res = 0;
+	if (ft_fflush(stm) == FT_EOF)
+		res = FT_EOF;
+	if (!(stm->user_buff))
+		ft_memdel((void **)&(stm->buff));
+	if (stm->close && stm->close(stm->cookie) == FT_EOF)
+		res = FT_EOF;
+	ft_memdel((void **)&(stm));
 	return (res);
 }

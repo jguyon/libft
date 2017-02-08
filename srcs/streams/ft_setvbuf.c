@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_setbuffer.c                                     :+:      :+:    :+:   */
+/*   ft_setvbuf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/09 17:24:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 14:34:33 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/08 17:55:28 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/08 18:48:32 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 
-int		ft_setbuffer(t_stream *stream, char *buff, size_t size)
+int		ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size)
 {
-	if (!stream || stream->buff || (!buff && size > 0) || (buff && size == 0))
+	if (!stm || stm->buff || (mode != FT_IONBF && mode != FT_IOFBF))
 		return (-1);
-	stream->buff = buff;
-	stream->size = size;
-	stream->curr = stream->buff;
+	if (mode == FT_IONBF)
+	{
+		buff = NULL;
+		size = FT_BUFSIZ;
+	}
+	else if (size == 0)
+		return (-1);
+	stm->mode = mode;
+	stm->size = size;
+	stm->buff = buff;
+	stm->curr = stm->buff;
+	stm->user_buff = stm->buff != NULL;
 	return (0);
 }

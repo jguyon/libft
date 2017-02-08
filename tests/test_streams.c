@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/05 00:36:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 22:07:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static char		g_output[4096] = {0};
 
-static size_t	write_to_str(void *cookie, const char *buff, size_t size)
+static ssize_t	write_to_str(void *cookie, const char *buff, size_t size)
 {
 	ft_memcpy(cookie + ft_strlen(cookie), buff, size);
 	return (size);
@@ -31,7 +31,7 @@ static int		close_str(void *cookie)
 
 static t_stream_funs	g_output_funs = {
 	&write_to_str,
-	&close_str
+	&close_str,
 };
 
 static void		test_fwrite(t_tap *t)
@@ -39,8 +39,8 @@ static void		test_fwrite(t_tap *t)
 	t_stream	*stm;
 
 	ft_tap_plan(t, 2);
-	stm = ft_fopencookie(g_output, g_output_funs);
-	FT_TAP_UEQ(t, ft_fwrite("hello world", 11, stm), 11);
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
+	FT_TAP_UEQ(t, ft_fwrite("hello world", 1, 11, stm), 11);
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello world");
 	ft_fclose(stm);
@@ -51,7 +51,7 @@ static void		test_fputc(t_tap *t)
 	t_stream	*stm;
 
 	ft_tap_plan(t, 2);
-	stm = ft_fopencookie(g_output, g_output_funs);
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
 	FT_TAP_UEQ(t, ft_fputc('h', stm), 'h');
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "h");
@@ -63,8 +63,8 @@ static void		test_fputs(t_tap *t)
 	t_stream	*stm;
 
 	ft_tap_plan(t, 2);
-	stm = ft_fopencookie(g_output, g_output_funs);
-	FT_TAP_UEQ(t, ft_fputs("hello, world", stm), 12);
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
+	FT_TAP_OK(t, ft_fputs("hello, world", stm) >= 0);
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");
 	ft_fclose(stm);
@@ -76,10 +76,10 @@ static void		test_setbuffer(t_tap *t)
 	char		buff[4];
 
 	ft_tap_plan(t, 4);
-	stm = ft_fopencookie(g_output, g_output_funs);
-	FT_TAP_NOTOK(t, ft_setbuffer(stm, buff, 4));
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
+	FT_TAP_NOTOK(t, ft_setvbuf(stm, buff, FT_IOFBF, 4));
 	ft_fputs("hello, world", stm);
-	FT_TAP_OK(t, ft_setbuffer(stm, buff, 4));
+	FT_TAP_OK(t, ft_setvbuf(stm, buff, FT_IOFBF, 4));
 	FT_TAP_SEQ(t, g_output, "hello, w");
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:47:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/17 19:02:05 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 20:21:31 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ size_t		pf_write_uint(t_stream *stream, uintmax_t n, int base, size_t len)
 		--dgt;
 		++i;
 	}
-	ft_fwrite(dgt + 1, len, stream);
+	ft_fwrite(dgt + 1, 1, len, stream);
 	return (len);
 }

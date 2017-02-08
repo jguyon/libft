@@ -6,34 +6,28 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:08:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 15:21:21 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 19:05:18 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
 
-int		ft_fflush(t_stream *stream)
+int		ft_fflush(t_stream *stm)
 {
-	size_t	count;
+	size_t	len;
+	ssize_t	res;
 
-	if (!stream || !(stream->funs.write) || ft_ferror(stream))
-		return (-1);
-	if (stream->size > 0 && !(stream->buff))
-	{
-		if (!(stream->buff = (char *)ft_memalloc(stream->size)))
-			return (-1);
-		stream->own = 1;
-		stream->curr = stream->buff;
-	}
-	if (stream->size == 0 || stream->curr == stream->buff)
+	if (!stm || ft_ferror(stm))
+		return (FT_EOF);
+	if (!(stm->write) || (len = stm->curr - stm->buff) == 0)
 		return (0);
-	count = stream->curr - stream->buff;
-	if (stream->funs.write(stream->cookie, stream->buff, count) == count)
+	res = stm->write(stm->cookie, stm->buff, len);
+	if (res < 0 || (size_t)res != len)
 	{
-		stream->curr = stream->buff;
-		return (1);
+		stm->error = 1;
+		return (FT_EOF);
 	}
-	stream->err = 1;
-	return (-1);
+	stm->curr = stm->buff;
+	return (0);
 }

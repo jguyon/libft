@@ -6,45 +6,47 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 15:20:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 22:19:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
 
-static size_t	stream_write(const char *buff, size_t count, t_stream *stream)
+static int	alloc_buff(t_stream *stm)
 {
-	size_t	res;
-
-	res = stream->funs.write(stream->cookie, buff, count);
-	if (res != count)
-		stream->err = 1;
-	return (res);
+	if (stm->buff)
+		return (0);
+	if ((stm->buff = (char *)malloc(stm->size)))
+	{
+		stm->curr = stm->buff;
+		return (0);
+	}
+	stm->error = 1;
+	return (-1);
 }
 
-size_t			ft_fwrite(const char *s, size_t count, t_stream *stream)
+size_t		ft_fwrite(const void *mem, size_t size, size_t n, t_stream *stm)
 {
-	size_t	i;
-	size_t	size;
+	size_t	bytes;
+	size_t	len;
 
-	if (!stream || !(stream->funs.write) || ft_ferror(stream)
-		|| (!(stream->buff) && stream->size > 0 && ft_fflush(stream) < 0))
+	if (!stm || size == 0 || ft_ferror(stm) || alloc_buff(stm))
 		return (0);
-	if (stream->size == 0)
-		return (stream_write(s, count, stream));
-	i = count;
-	while (i)
+	bytes = n * size;
+	while (bytes)
 	{
-		size = stream->size - (stream->curr - stream->buff);
-		if (i < size)
-			size = i;
-		ft_memcpy(stream->curr, s, size);
-		stream->curr += size;
-		if (i > size && ft_fflush(stream) < 0)
-			break ;
-		s += size;
-		i -= size;
+		len = stm->size - (stm->curr - stm->buff);
+		if (bytes < len)
+			len = bytes;
+		ft_memcpy(stm->curr, mem, len);
+		stm->curr += len;
+		if (bytes > len && ft_fflush(stm) == FT_EOF)
+			return (0);
+		mem += len;
+		bytes -= len;
 	}
-	return (count - i);
+	if (stm->mode == FT_IONBF && ft_fflush(stm) == FT_EOF)
+		return (0);
+	return (n);
 }

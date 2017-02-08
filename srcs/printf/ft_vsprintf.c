@@ -6,14 +6,14 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 15:31:58 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 16:35:03 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 20:14:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_memory.h"
 
-static size_t	string_write(void *strp, const char *buff, size_t count)
+static ssize_t			str_write(void *strp, const char *buff, size_t count)
 {
 	char	*str;
 
@@ -21,27 +21,39 @@ static size_t	string_write(void *strp, const char *buff, size_t count)
 	if (!str)
 		return (count);
 	ft_memcpy(str, buff, count);
+	strp = str + count;
 	return (count);
 }
 
-static t_stream	g_stream = {
-	.funs = {
-		.write = &string_write
-	},
-	.size = 0
+static int				str_close(void *strp)
+{
+	char	*str;
+
+	str = *((char **)strp);
+	if (!str)
+		return (0);
+	*str = '\0';
+	return (0);
+}
+
+static t_stream_funs	str_funs = {
+	.write = &str_write,
+	.close = &str_close,
 };
 
-int				ft_vsprintf(char *str, const char *format, va_list args)
+int						ft_vsprintf(char *str, const char *format, va_list args)
 {
-	int res;
+	t_stream	*stm;
+	int			res;
 
-	g_stream.cookie = &str;
-	res = ft_vfprintf(&g_stream, format, args);
-	if (res < 0)
+	if (!(stm = ft_fopencookie(&str, "w", str_funs))
+		|| ft_setvbuf(stm, NULL, FT_IONBF, 0))
 	{
-		ft_clearerr(&g_stream);
+		ft_fclose(stm);
 		return (-1);
 	}
-	str[res] = '\0';
+	res = ft_vfprintf(stm, format, args);
+	if (ft_fclose(stm) || res < 0)
+		return (-1);
 	return (res);
 }
