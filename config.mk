@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/06 17:36:53 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/08 03:49:53 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -183,14 +183,11 @@ SOURCES = \
 	tap/ft_tap_notseq \
 	tap/ft_tap_quote \
 
+# Wildcard for test files, it makes experimentation easier
+TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
+
 # Source names to execute as tests
-TESTS = \
-	test_memory \
-	test_strings \
-	test_dlists \
-	test_streams \
-	test_printf \
+TESTS = $(filter test_%,$(TEST_FILES))
 
 # Source names to compile with every test executable
-TESTS_COMMON = \
-	common_main \
+TESTS_COMMON = $(filter-out $(TESTS),$(TEST_FILES))
