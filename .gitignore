@@ -1,6 +1,0 @@
-libft.a
-libftdbg.a
-local.mk
-build
-debug
-*.dSYM
