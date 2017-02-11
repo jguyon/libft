@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/08 19:11:35 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/09 02:31:42 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -141,6 +141,7 @@ SOURCES = \
 	streams/ft_clearerr \
 	streams/ft_fflush \
 	streams/ft_fclose \
+	streams/ft_fcloseall \
 	\
 	printf/ft_printf \
 	printf/ft_vprintf \

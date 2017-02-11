@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:06:13 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 18:20:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/09 02:42:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int		ft_ferror(t_stream *stm)
 {
-	return (stm->error ? -1 : 0);
+	return (!(stm->mode) || stm->error ? -1 : 0);
 }

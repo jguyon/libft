@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 18:47:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/11 02:17:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FT_IONBF 1
 # define FT_IOFBF 2
 # define FT_EOF -1
+# define FT_FOPEN_MAX 16
 
 typedef ssize_t	t_stream_write(void *cookie, const char *buff, size_t size);
 typedef int		t_stream_close(void *cookie);
@@ -33,16 +34,22 @@ typedef struct	s_stream_funs {
 }				t_stream_funs;
 
 typedef struct	s_stream {
+	int				mode;
+	int				error;
+	int				allocated;
+	int				fd;
+	void			*cookie;
 	t_stream_write	*write;
 	t_stream_close	*close;
-	void			*cookie;
-	int				mode;
 	size_t			size;
-	int				user_buff;
-	int				error;
 	char			*curr;
 	char			*buff;
 }				t_stream;
+
+t_stream		*g_ft_stdout;
+t_stream		*g_ft_stderr;
+# define FT_STDOUT	g_ft_stdout
+# define FT_STDERR	g_ft_stderr
 
 t_stream		*ft_fopencookie(void *cookie, const char *mode,
 					t_stream_funs type);
@@ -55,5 +62,8 @@ int				ft_ferror(t_stream *stm);
 void			ft_clearerr(t_stream *stm);
 int				ft_fflush(t_stream *stm);
 int				ft_fclose(t_stream *stm);
+int				ft_fcloseall(void);
+
+t_stream		g_ft_streams[FT_FOPEN_MAX];
 
 #endif

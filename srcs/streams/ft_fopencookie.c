@@ -6,25 +6,64 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 19:56:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 22:04:51 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/11 02:26:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
-#include "ft_memory.h"
 #include "ft_strings.h"
+#include <unistd.h>
 
-t_stream	*ft_fopencookie(void *cookie, const char *mode, t_stream_funs funs)
+static ssize_t	stdwrite(void *fd, const char *buff, size_t size)
+{
+	return (write(*((int *)fd), buff, size));
+}
+
+t_stream		g_ft_streams[FT_FOPEN_MAX] = {
+	[1] = {
+		.mode = FT_IOFBF,
+		.fd = 1,
+		.size = FT_BUFSIZ,
+		.write = &stdwrite,
+	},
+	[2] = {
+		.mode = FT_IONBF,
+		.fd = 2,
+		.write = &stdwrite,
+	},
+};
+
+t_stream		*g_ft_stdout = &(g_ft_streams[1]);
+t_stream		*g_ft_stderr = &(g_ft_streams[2]);
+
+static t_stream	*next_stream(void)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < FT_FOPEN_MAX && g_ft_streams[i].mode)
+		++i;
+	if (i >= FT_FOPEN_MAX)
+		return (NULL);
+	return (&(g_ft_streams[i]));
+}
+
+t_stream		*ft_fopencookie(void *cookie, const char *mode,
+					t_stream_funs funs)
 {
 	t_stream	*stream;
 
-	if (ft_strcmp(mode, "w")
-		|| !(stream = (t_stream *)ft_memalloc(sizeof(*stream))))
+	if (ft_strcmp(mode, "w") || !(stream = next_stream()))
 		return (NULL);
+	stream->mode = FT_IOFBF;
+	stream->error = 0;
+	stream->allocated = 1;
+	stream->fd = -1;
+	stream->cookie = cookie;
 	stream->write = funs.write;
 	stream->close = funs.close;
-	stream->cookie = cookie;
-	stream->mode = FT_IOFBF;
 	stream->size = FT_BUFSIZ;
+	stream->curr = NULL;
+	stream->buff = NULL;
 	return (stream);
 }

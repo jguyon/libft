@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_setvbuf.c                                       :+:      :+:    :+:   */
+/*   ft_fcloseall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/08 17:55:28 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/11 02:25:34 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/09 02:29:09 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/09 02:35:34 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 
-int		ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size)
+int		ft_fcloseall(void)
 {
-	if (!stm || !(stm->mode) || stm->curr
-		|| (mode != FT_IONBF && mode != FT_IOFBF)
-		|| (mode != FT_IONBF && size == 0))
-		return (-1);
-	if ((stm->mode = mode) == FT_IONBF)
+	size_t	i;
+	int		res;
+
+	res = 0;
+	i = 0;
+	while (i < FT_FOPEN_MAX)
 	{
-		stm->allocated = 0;
-		stm->buff = NULL;
-		stm->size = 0;
+		if (g_ft_streams[i].mode && ft_fclose(&(g_ft_streams[i])))
+			res = FT_EOF;
+		++i;
 	}
-	else
-	{
-		stm->allocated = (buff == NULL);
-		stm->buff = buff;
-		stm->size = size;
-	}
-	return (0);
+	return (res);
 }

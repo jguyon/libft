@@ -6,33 +6,36 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 22:19:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/11 02:17:23 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 #include "ft_memory.h"
 
-static int	alloc_buff(t_stream *stm)
+static size_t	write_nbf(const void *mem, size_t size, size_t n, t_stream *stm)
 {
-	if (stm->buff)
-		return (0);
-	if ((stm->buff = (char *)malloc(stm->size)))
+	ssize_t	res;
+
+	if (!(stm->write))
+		return (n);
+	if (stm->fd < 0)
+		res = stm->write(stm->cookie, mem, size * n);
+	else
+		res = stm->write(&(stm->fd), mem, size * n);
+	if (res < 0 || (size_t)res != size * n)
 	{
-		stm->curr = stm->buff;
-		return (0);
+		stm->error = 1;
+		res = res < 0 ? 0 : res;
 	}
-	stm->error = 1;
-	return (-1);
+	return ((size_t)res / size);
 }
 
-size_t		ft_fwrite(const void *mem, size_t size, size_t n, t_stream *stm)
+static size_t	write_fbf(const void *mem, size_t size, size_t n, t_stream *stm)
 {
 	size_t	bytes;
 	size_t	len;
 
-	if (!stm || size == 0 || ft_ferror(stm) || alloc_buff(stm))
-		return (0);
 	bytes = n * size;
 	while (bytes)
 	{
@@ -46,7 +49,21 @@ size_t		ft_fwrite(const void *mem, size_t size, size_t n, t_stream *stm)
 		mem += len;
 		bytes -= len;
 	}
-	if (stm->mode == FT_IONBF && ft_fflush(stm) == FT_EOF)
-		return (0);
 	return (n);
+}
+
+size_t			ft_fwrite(const void *mem, size_t size, size_t n, t_stream *stm)
+{
+	if (!stm || !(stm->mode) || size * n == 0 || ft_ferror(stm))
+		return (0);
+	if (stm->mode == FT_IONBF)
+		return (write_nbf(mem, size, n, stm));
+	if (!(stm->buff) && !(stm->buff = (char *)ft_memalloc(stm->size)))
+	{
+		stm->error = 1;
+		return (0);
+	}
+	if (!(stm->curr))
+		stm->curr = stm->buff;
+	return (write_fbf(mem, size, n, stm));
 }

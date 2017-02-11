@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 22:07:27 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/11 02:16:43 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void		test_setbuffer(t_tap *t)
 	t_stream	*stm;
 	char		buff[4];
 
-	ft_tap_plan(t, 4);
+	ft_tap_plan(t, 10);
 	stm = ft_fopencookie(g_output, "w", g_output_funs);
 	FT_TAP_NOTOK(t, ft_setvbuf(stm, buff, FT_IOFBF, 4));
 	ft_fputs("hello, world", stm);
@@ -84,6 +84,38 @@ static void		test_setbuffer(t_tap *t)
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");
 	ft_fclose(stm);
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
+	FT_TAP_NOTOK(t, ft_setvbuf(stm, NULL, FT_IOFBF, 2 * FT_BUFSIZ));
+	ft_fputs("hello, world", stm);
+	FT_TAP_OK(t, ft_setvbuf(stm, NULL, FT_IOFBF, 2 * FT_BUFSIZ));
+	FT_TAP_SEQ(t, g_output, "");
+	ft_fflush(stm);
+	FT_TAP_SEQ(t, g_output, "hello, world");
+	ft_fclose(stm);
+	stm = ft_fopencookie(g_output, "w", g_output_funs);
+	FT_TAP_NOTOK(t, ft_setvbuf(stm, NULL, FT_IONBF, 0));
+	ft_fputs("hello, world", stm);
+	FT_TAP_SEQ(t, g_output, "hello, world");
+	ft_fclose(stm);
+}
+
+static void		test_fcloseall(t_tap *t)
+{
+	t_stream	*stm;
+	t_stream	out;
+	t_stream	err;
+
+	out = *FT_STDOUT;
+	err = *FT_STDERR;
+	ft_tap_plan(t, 5);
+	FT_TAP_OK(t, (int)(stm = ft_fopencookie(g_output, "w", g_output_funs)));
+	ft_fputs("hello, world", stm);
+	FT_TAP_SEQ(t, g_output, "");
+	FT_TAP_NOTOK(t, ft_fcloseall());
+	FT_TAP_OK(t, ft_ferror(FT_STDOUT));
+	FT_TAP_OK(t, ft_ferror(FT_STDERR));
+	*FT_STDOUT = out;
+	*FT_STDERR = err;
 }
 
 void			run_tests(t_tap *t)
@@ -92,4 +124,5 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_fputc);
 	FT_TAP_TEST(t, test_fputs);
 	FT_TAP_TEST(t, test_setbuffer);
+	FT_TAP_TEST(t, test_fcloseall);
 }
