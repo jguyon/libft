@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 17:11:49 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 18:38:05 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "ft_streams.h"
 #include "ft_memory.h"
 #include "ft_strings.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 static char		g_output[4096] = {0};
 
@@ -160,6 +162,25 @@ static void		test_memstream(t_tap *t)
 	free(ptr);
 }
 
+static void		test_fdopen(t_tap *t)
+{
+	int			fd;
+	t_stream	*stm;
+	FILE		*file;
+	char		buff[256];
+
+	FT_TAP_NOTOK(t,
+		(fd = open("/tmp/libft_testfile", O_RDWR | O_CREAT | O_TRUNC)) < 0);
+	FT_TAP_OK(t, (int)(stm = ft_fdopen(fd, "w")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_IEQ(t, ft_fputs("hello, world\n", stm), 0);
+	FT_TAP_IEQ(t, ft_fclose(stm), 0);
+	file = fopen("/tmp/libft_testfile", "r");
+	fgets(buff, sizeof(buff), file);
+	FT_TAP_SEQ(t, buff, "hello, world\n");
+	fclose(file);
+}
+
 void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_fwrite);
@@ -169,4 +190,5 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_fcloseall);
 	FT_TAP_TEST(t, test_fmemopen);
 	FT_TAP_TEST(t, test_memstream);
+	FT_TAP_TEST(t, test_fdopen);
 }

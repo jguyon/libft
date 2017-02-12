@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 17:55:08 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 18:09:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_stream		*ft_fmemopen(void *buf, size_t size, const char *mode);
 t_stream		*ft_fopencookie(void *cookie, const char *mode,
 					t_stream_funs type);
 t_stream		*ft_open_memstream(char **ptr, size_t *sizeloc);
+t_stream		*ft_fdopen(int fd, const char *mode);
 int				ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size);
 size_t			ft_fwrite(const void *mem, size_t size, size_t n,
 					t_stream *stm);

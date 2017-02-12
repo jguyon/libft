@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/12 17:06:46 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/12 18:19:31 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -135,6 +135,7 @@ SOURCES = \
 	streams/ft_fopencookie \
 	streams/ft_fmemopen \
 	streams/ft_open_memstream \
+	streams/ft_fdopen \
 	streams/ft_setvbuf \
 	streams/ft_fwrite \
 	streams/ft_fputc \
