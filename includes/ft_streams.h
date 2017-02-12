@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/11 02:17:46 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 16:19:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_stream		*g_ft_stderr;
 # define FT_STDOUT	g_ft_stdout
 # define FT_STDERR	g_ft_stderr
 
+t_stream		*ft_fmemopen(void *buf, size_t size, const char *mode);
 t_stream		*ft_fopencookie(void *cookie, const char *mode,
 					t_stream_funs type);
 int				ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size);
@@ -65,5 +66,12 @@ int				ft_fclose(t_stream *stm);
 int				ft_fcloseall(void);
 
 t_stream		g_ft_streams[FT_FOPEN_MAX];
+
+typedef struct	s_mem_cookie {
+	int			allocated;
+	size_t		size;
+	void		*buff;
+	char		*curr;
+}				t_mem_cookie;
 
 #endif

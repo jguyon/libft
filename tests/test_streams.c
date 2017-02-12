@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/11 02:16:43 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 16:06:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,30 @@ static void		test_fcloseall(t_tap *t)
 	*FT_STDERR = err;
 }
 
+static void		test_fmemopen(t_tap *t)
+{
+	t_stream	*stm;
+	char		buff[256];
+
+	FT_TAP_OK(t, (int)(stm = ft_fmemopen(buff, sizeof(buff), "w")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_IEQ(t, ft_fputs("hello", stm), 0);
+	FT_TAP_IEQ(t, ft_fputs(", world", stm), 0);
+	ft_fclose(stm);
+	FT_TAP_SEQ(t, buff, "hello, world");
+	ft_bzero(buff, 4);
+	FT_TAP_OK(t, (int)(stm = ft_fmemopen(buff, 4, "w")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_IEQ(t, ft_fputs("hell", stm), 0);
+	FT_TAP_SEQ(t, buff, "hello, world");
+	FT_TAP_IEQ(t, ft_fputs("o", stm), FT_EOF);
+	ft_fclose(stm);
+	FT_TAP_OK(t, (int)(stm = ft_fmemopen(NULL, 256, "w")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_IEQ(t, ft_fputs("hello, world", stm), 0);
+	ft_fclose(stm);
+}
+
 void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_fwrite);
@@ -125,4 +149,5 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_fputs);
 	FT_TAP_TEST(t, test_setbuffer);
 	FT_TAP_TEST(t, test_fcloseall);
+	FT_TAP_TEST(t, test_fmemopen);
 }
