@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 18:09:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 19:17:39 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,51 @@
 # define FT_STREAMS_H
 
 /*
-** Buffered output stream implementation
+** Buffered stream implementation
 */
 
 # include <stdlib.h>
 
+/*
+** FT_BUFSIZ - default size of buffers
+*/
 # define FT_BUFSIZ 1024
+
+/*
+** FT_IONBF, FT_IOFBF - flags for configuring stream buffering
+*/
 # define FT_IONBF 1
 # define FT_IOFBF 2
+
+/*
+** FT_EOF - end of file or error indicator
+*/
 # define FT_EOF -1
+
+/*
+** FT_FOPEN_MAX - max number of stream that can be open at the same time
+*/
 # define FT_FOPEN_MAX 16
 
+/*
+** t_stream_write, t_stream_close - types for custom stream functions
+*/
 typedef ssize_t	t_stream_write(void *cookie, const char *buff, size_t size);
 typedef int		t_stream_close(void *cookie);
 
+/*
+** t_stream_funs - type for holding custom stream functions
+*/
 typedef struct	s_stream_funs {
 	t_stream_write	*write;
 	t_stream_close	*close;
 }				t_stream_funs;
 
+/*
+** t_stream - stream type
+**
+** Members of this struct should not be accessed outside of this library.
+*/
 typedef struct	s_stream {
 	int				mode;
 	int				error;
@@ -46,29 +72,143 @@ typedef struct	s_stream {
 	char			*buff;
 }				t_stream;
 
+/*
+** FT_STDOUT, FT_STDERR - standard streams
+**
+** Since these macros are just aliases to global variables, directly
+** reassigning them (after having closed them) to other streams is possible.
+** This could especially be useful for testing command line programs.
+*/
 t_stream		*g_ft_stdout;
 t_stream		*g_ft_stderr;
 # define FT_STDOUT	g_ft_stdout
 # define FT_STDERR	g_ft_stderr
 
-t_stream		*ft_fmemopen(void *buf, size_t size, const char *mode);
+/*
+** ft_fopencookie - open a custom stream
+** @cookie: cookie to pass to functions in @funs
+** @mode: opening mode
+** @funs: functions called when writing to or closing the stream
+**
+** Returns null if an error occured.
+*/
 t_stream		*ft_fopencookie(void *cookie, const char *mode,
-					t_stream_funs type);
+								t_stream_funs funs);
+
+/*
+** ft_memopen - open a stream to write in a given string
+** @buf: buffer to write to
+** @size: size of the buffer
+** @mode: opening mode
+**
+** Will append a '\0' when flushing or closing if possible,
+** @size should account for it.
+*/
+t_stream		*ft_fmemopen(void *buf, size_t size, const char *mode);
+
+/*
+** ft_open_memstream - open a stream to write in dynamically allocated string
+** @ptr: pointer to store the string
+** @sizeloc: point to store the size of the string
+**
+** The initial values that @ptr and @sizeloc point to will be ignored.
+** The string pointed to by @ptr will be allocated and grown as needed,
+** storing its size in the value pointed by @sizeloc.
+*/
 t_stream		*ft_open_memstream(char **ptr, size_t *sizeloc);
+
+/*
+** ft_fdopen - open a stream using an open file descriptor
+** @fd: file descriptor
+** @mode: opening mode
+**
+** Note that @fd will be closed when the stream is closed.
+*/
 t_stream		*ft_fdopen(int fd, const char *mode);
+
+/*
+** ft_setvbuf - change the buffer associated with the stream
+** @stm: the stream
+** @buff: buffer to assign to @stm
+** @mode: FT_IOFBF for full buffering, FT_IONBF for no buffering
+** @size: size of the buffer
+**
+** If @buff is null, it will be allocated in the next io operation.
+** Returns 0 if successful, FT_EOF otherwise.
+*/
 int				ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size);
+
+/*
+** ft_fwrite - write to a stream
+** @mem: buffer to write
+** @size: size of an item of data in @mem, in bytes
+** @n: number of items of data in @mem
+** @stm: stream to write to
+**
+** Returns the number of items of data sucessfully written.
+*/
 size_t			ft_fwrite(const void *mem, size_t size, size_t n,
 					t_stream *stm);
+
+/*
+** ft_fputc - write a character
+** @c: character to write
+** @stm: stream to write to
+*/
 int				ft_fputc(int c, t_stream *stm);
+
+/*
+** ft_fputs - write a string
+** @s: null-terminated string to write
+** @stm: stream to write to
+**
+** Returns 0 if successful, FT_EOF otherwise.
+*/
 int				ft_fputs(const char *s, t_stream *stm);
+
+/*
+** ft_ferror - check if a stream has failed
+** @stm: stream to check
+*/
 int				ft_ferror(t_stream *stm);
+
+/*
+** ft_clearerr - clear the error indicator
+** @stm: stream to clear
+*/
 void			ft_clearerr(t_stream *stm);
+
+/*
+** ft_fflush - flush the buffer associated with a stream
+** @stm: stream to flush
+**
+** Returns 0 if successful, FT_EOF otherwise.
+*/
 int				ft_fflush(t_stream *stm);
+
+/*
+** ft_fclose - flush and close a stream
+** @stm: stream to close
+**
+** Returns 0 if successful, FT_EOF otherwise.
+*/
 int				ft_fclose(t_stream *stm);
+
+/*
+** ft_fcloseall - close all open streams
+**
+** Returns 0 if successful, FT_EOF otherwise.
+*/
 int				ft_fcloseall(void);
 
+/*
+** Private global used to store all streams
+*/
 t_stream		g_ft_streams[FT_FOPEN_MAX];
 
+/*
+** Private type used by ft_fmemopen to store the cookie
+*/
 typedef struct	s_mem_cookie {
 	int			allocated;
 	size_t		size;
@@ -76,6 +216,9 @@ typedef struct	s_mem_cookie {
 	char		*curr;
 }				t_mem_cookie;
 
+/*
+** Private type used by ft_open_memstream to store the cookie
+*/
 typedef struct	s_ptr_cookie {
 	size_t		*sizeloc;
 	char		**ptr;
