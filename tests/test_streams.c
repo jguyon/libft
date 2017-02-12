@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 16:06:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/12 17:11:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,24 @@ static void		test_fmemopen(t_tap *t)
 	ft_fclose(stm);
 }
 
+static void		test_memstream(t_tap *t)
+{
+	t_stream	*stm;
+	char		*ptr;
+	size_t		size;
+
+	FT_TAP_OK(t, (int)(stm = ft_open_memstream(&ptr, &size)));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	ft_fputs("hello", stm);
+	FT_TAP_UEQ(t, size, 5);
+	FT_TAP_SEQ(t, ptr, "hello");
+	ft_fputs(", world", stm);
+	FT_TAP_UEQ(t, size, 12);
+	FT_TAP_SEQ(t, ptr, "hello, world");
+	ft_fclose(stm);
+	free(ptr);
+}
+
 void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_fwrite);
@@ -150,4 +168,5 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_setbuffer);
 	FT_TAP_TEST(t, test_fcloseall);
 	FT_TAP_TEST(t, test_fmemopen);
+	FT_TAP_TEST(t, test_memstream);
 }
