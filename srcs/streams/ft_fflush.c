@@ -6,19 +6,37 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:08:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/09 02:34:22 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 12:45:13 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 #include "ft_memory.h"
 
-int		ft_fflush(t_stream *stm)
+static int	fflushall(void)
+{
+	size_t	i;
+	int		res;
+
+	i = 0;
+	res = 0;
+	while (i < FT_FOPEN_MAX)
+	{
+		if (g_ft_streams[i].mode && ft_fflush(&(g_ft_streams[i])))
+			res = FT_EOF;
+		++i;
+	}
+	return (res);
+}
+
+int			ft_fflush(t_stream *stm)
 {
 	size_t	len;
 	ssize_t	res;
 
-	if (!stm || !(stm->mode) || ft_ferror(stm))
+	if (!stm)
+		return (fflushall());
+	if (ft_ferror(stm))
 		return (FT_EOF);
 	if (!(stm->curr) || !(stm->write) || (len = stm->curr - stm->buff) == 0)
 		return (0);

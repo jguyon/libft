@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 18:38:05 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 12:40:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,26 @@ static void		test_fputs(t_tap *t)
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");
 	ft_fclose(stm);
+}
+
+static void		test_fflush(t_tap *t)
+{
+	t_stream	*stm1;
+	t_stream	*stm2;
+	char		out1[256] = {0};
+	char		out2[256] = {0};
+
+	stm1 = ft_fopencookie(out1, "w", g_output_funs);
+	stm2 = ft_fopencookie(out2, "w", g_output_funs);
+	FT_TAP_OK(t, ft_fputs("hello", stm1) >= 0);
+	FT_TAP_OK(t, ft_fputs("world", stm2) >= 0);
+	FT_TAP_SEQ(t, out1, "");
+	FT_TAP_SEQ(t, out2, "");
+	FT_TAP_OK(t, ft_fflush(NULL) == 0);
+	FT_TAP_SEQ(t, out1, "hello");
+	FT_TAP_SEQ(t, out2, "world");
+	ft_fclose(stm1);
+	ft_fclose(stm2);
 }
 
 static void		test_setbuffer(t_tap *t)
@@ -186,6 +206,7 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_fwrite);
 	FT_TAP_TEST(t, test_fputc);
 	FT_TAP_TEST(t, test_fputs);
+	FT_TAP_TEST(t, test_fflush);
 	FT_TAP_TEST(t, test_setbuffer);
 	FT_TAP_TEST(t, test_fcloseall);
 	FT_TAP_TEST(t, test_fmemopen);
