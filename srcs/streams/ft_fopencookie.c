@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 19:56:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 18:41:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:09:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,23 @@
 
 static ssize_t	stdwrite(void *fd, const char *buff, size_t size)
 {
-	return (write(*((int *)fd), buff, size));
+	ssize_t	res;
+
+	res = write(*((int *)fd), buff, size);
+	return (res < 0 ? 0 : res);
+}
+
+static ssize_t	stdread(void *fd, char *buff, size_t size)
+{
+	return (read(*((int *)fd), buff, size));
 }
 
 t_stream		g_ft_streams[FT_FOPEN_MAX] = {
+	[0] = {
+		.flags = FT_IORD | FT_IONBF,
+		.fd = 0,
+		.read = &stdread,
+	},
 	[1] = {
 		.flags = FT_IOWR | FT_IOFBF,
 		.fd = 1,
@@ -33,6 +46,7 @@ t_stream		g_ft_streams[FT_FOPEN_MAX] = {
 	},
 };
 
+t_stream		*g_ft_stdin = &(g_ft_streams[0]);
 t_stream		*g_ft_stdout = &(g_ft_streams[1]);
 t_stream		*g_ft_stderr = &(g_ft_streams[2]);
 

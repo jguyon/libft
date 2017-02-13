@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 22:01:19 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:11:36 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,18 +185,22 @@ static void		test_setbuffer(t_tap *t)
 static void		test_fcloseall(t_tap *t)
 {
 	t_stream	*stm;
+	t_stream	in;
 	t_stream	out;
 	t_stream	err;
 
+	in = *FT_STDIN;
 	out = *FT_STDOUT;
 	err = *FT_STDERR;
-	ft_tap_plan(t, 5);
+	ft_tap_plan(t, 6);
 	FT_TAP_OK(t, (int)(stm = ft_fopencookie(g_output, "w", g_output_funs)));
 	ft_fputs("hello, world", stm);
 	FT_TAP_SEQ(t, g_output, "");
 	FT_TAP_NOTOK(t, ft_fcloseall());
+	FT_TAP_OK(t, ft_ferror(FT_STDIN));
 	FT_TAP_OK(t, ft_ferror(FT_STDOUT));
 	FT_TAP_OK(t, ft_ferror(FT_STDERR));
+	*FT_STDIN = in;
 	*FT_STDOUT = out;
 	*FT_STDERR = err;
 }
