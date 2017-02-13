@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/12 15:07:21 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 02:14:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 20:11:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@
 static ssize_t			write_mem(void *cookie, const char *buff, size_t size)
 {
 	t_mem_cookie	*mem;
-	int				err;
 
 	mem = (t_mem_cookie *)cookie;
-	err = 0;
 	if (size > mem->size - (size_t)(mem->curr - (char *)mem->buff))
-	{
 		size = mem->size - (size_t)(mem->curr - (char *)mem->buff);
-		err = 1;
-	}
 	if (mem->curr && size > 0)
 	{
 		ft_memcpy(mem->curr, buff, size);
@@ -32,7 +27,22 @@ static ssize_t			write_mem(void *cookie, const char *buff, size_t size)
 	}
 	if (mem->size > (size_t)(mem->curr - (char *)mem->buff))
 		*(mem->curr) = '\0';
-	return (err ? -1 : size);
+	return (size);
+}
+
+static ssize_t			read_mem(void *cookie, char *buff, size_t size)
+{
+	t_mem_cookie	*mem;
+
+	mem = (t_mem_cookie *)cookie;
+	if (size > mem->size - (size_t)(mem->curr - (char *)mem->buff))
+		size = mem->size - (size_t)(mem->curr - (char *)mem->buff);
+	if (mem->curr && size > 0)
+	{
+		ft_memcpy(buff, mem->curr, size);
+		mem->curr += size;
+	}
+	return (size);
 }
 
 static int				close_mem(void *cookie)
@@ -48,6 +58,7 @@ static int				close_mem(void *cookie)
 
 static t_stream_funs	g_mem_funs = {
 	.write = &write_mem,
+	.read = &read_mem,
 	.close = &close_mem,
 };
 

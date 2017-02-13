@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 12:40:46 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 20:33:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ static ssize_t	write_to_str(void *cookie, const char *buff, size_t size)
 	return (size);
 }
 
+static ssize_t	read_from_str(void *cookie, char *buff, size_t size)
+{
+	size_t	len;
+
+	len = ft_strlen(cookie);
+	size = size > len ? len : size;
+	ft_memcpy(buff, cookie, size);
+	ft_memmove(cookie, cookie + size, sizeof(g_output) - size);
+	return (size);
+}
+
 static int		close_str(void *cookie)
 {
 	ft_strclr(cookie);
@@ -32,8 +43,9 @@ static int		close_str(void *cookie)
 }
 
 static t_stream_funs	g_output_funs = {
-	&write_to_str,
-	&close_str,
+	.write = &write_to_str,
+	.read = &read_from_str,
+	.close = &close_str,
 };
 
 static void		test_fwrite(t_tap *t)
@@ -45,6 +57,19 @@ static void		test_fwrite(t_tap *t)
 	FT_TAP_UEQ(t, ft_fwrite("hello world", 1, 11, stm), 11);
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello world");
+	ft_fclose(stm);
+}
+
+static void		test_fread(t_tap *t)
+{
+	t_stream	*stm;
+	char		str[256] = {0};
+
+	ft_strcpy(g_output, "hello, world");
+	stm = ft_fopencookie(g_output, "r", g_output_funs);
+	FT_TAP_UEQ(t, ft_fread(str, 1, sizeof(str), stm), 12);
+	FT_TAP_SEQ(t, str, "hello, world");
+	FT_TAP_IEQ(t, ft_feof(stm), FT_EOF);
 	ft_fclose(stm);
 }
 
@@ -96,8 +121,9 @@ static void		test_setbuffer(t_tap *t)
 {
 	t_stream	*stm;
 	char		buff[4];
+	char		str[256] = {0};
 
-	ft_tap_plan(t, 10);
+	ft_tap_plan(t, 13);
 	stm = ft_fopencookie(g_output, "w", g_output_funs);
 	FT_TAP_NOTOK(t, ft_setvbuf(stm, buff, FT_IOFBF, 4));
 	ft_fputs("hello, world", stm);
@@ -118,6 +144,12 @@ static void		test_setbuffer(t_tap *t)
 	FT_TAP_NOTOK(t, ft_setvbuf(stm, NULL, FT_IONBF, 0));
 	ft_fputs("hello, world", stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");
+	ft_fclose(stm);
+	ft_strcpy(g_output, "hello, world");
+	stm = ft_fopencookie(g_output, "r", g_output_funs);
+	FT_TAP_NOTOK(t, ft_setvbuf(stm, NULL, FT_IONBF, 0));
+	FT_TAP_UEQ(t, ft_fread(str, 1, sizeof(str), stm), 12);
+	FT_TAP_SEQ(t, str, "hello, world");
 	ft_fclose(stm);
 }
 
@@ -144,6 +176,7 @@ static void		test_fmemopen(t_tap *t)
 {
 	t_stream	*stm;
 	char		buff[256];
+	char		str[256] = {0};
 
 	FT_TAP_OK(t, (int)(stm = ft_fmemopen(buff, sizeof(buff), "w")));
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
@@ -161,6 +194,15 @@ static void		test_fmemopen(t_tap *t)
 	FT_TAP_OK(t, (int)(stm = ft_fmemopen(NULL, 256, "w")));
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
 	FT_TAP_IEQ(t, ft_fputs("hello, world", stm), 0);
+	ft_fclose(stm);
+	FT_TAP_OK(t, (int)(stm = ft_fmemopen("hello, world", 12, "r")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_UEQ(t, ft_fread(str, 1, 5, stm), 5);
+	FT_TAP_SEQ(t, str, "hello");
+	FT_TAP_IEQ(t, ft_feof(stm), 0);
+	FT_TAP_UEQ(t, ft_fread(str + 5, 1, sizeof(str) - 5, stm), 7);
+	FT_TAP_SEQ(t, str, "hello, world");
+	FT_TAP_IEQ(t, ft_feof(stm), FT_EOF);
 	ft_fclose(stm);
 }
 
@@ -186,24 +228,27 @@ static void		test_fdopen(t_tap *t)
 {
 	int			fd;
 	t_stream	*stm;
-	FILE		*file;
-	char		buff[256];
+	char		buff[256] = {0};
 
 	FT_TAP_NOTOK(t,
-		(fd = open("/tmp/libft_testfile", O_RDWR | O_CREAT | O_TRUNC)) < 0);
+		(fd = open("/tmp/libft_testfile", O_WRONLY | O_CREAT | O_TRUNC)) < 0);
 	FT_TAP_OK(t, (int)(stm = ft_fdopen(fd, "w")));
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
 	FT_TAP_IEQ(t, ft_fputs("hello, world\n", stm), 0);
 	FT_TAP_IEQ(t, ft_fclose(stm), 0);
-	file = fopen("/tmp/libft_testfile", "r");
-	fgets(buff, sizeof(buff), file);
+	FT_TAP_NOTOK(t,
+				 (fd = open("/tmp/libft_testfile", O_RDONLY)) < 0);
+	FT_TAP_OK(t, (int)(stm = ft_fdopen(fd, "r")));
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	FT_TAP_UEQ(t, ft_fread(buff, 1, sizeof(buff), stm), 13);
 	FT_TAP_SEQ(t, buff, "hello, world\n");
-	fclose(file);
+	FT_TAP_IEQ(t, ft_fclose(stm), 0);
 }
 
 void			run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_fwrite);
+	FT_TAP_TEST(t, test_fread);
 	FT_TAP_TEST(t, test_fputc);
 	FT_TAP_TEST(t, test_fputs);
 	FT_TAP_TEST(t, test_fflush);

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 13:10:56 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 18:37:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@
 # define FT_FOPEN_MAX 16
 
 /*
-** t_stream_write, t_stream_close - types for custom stream functions
+** t_stream_read, t_stream_write, t_stream_close - custom stream functions
 */
 typedef ssize_t	t_stream_write(void *cookie, const char *buff, size_t size);
+typedef ssize_t	t_stream_read(void *cookie, char *buff, size_t size);
 typedef int		t_stream_close(void *cookie);
 
 /*
@@ -51,6 +52,7 @@ typedef int		t_stream_close(void *cookie);
 */
 typedef struct	s_stream_funs {
 	t_stream_write	*write;
+	t_stream_read	*read;
 	t_stream_close	*close;
 }				t_stream_funs;
 
@@ -60,7 +62,8 @@ typedef struct	s_stream_funs {
 # define FT_IOWR	0x4
 # define FT_IORD	0x8
 # define FT_IOERR	0x10
-# define FT_IOUSRBF 0x20
+# define FT_IOEOF	0x20
+# define FT_IOUSRBF 0x40
 
 /*
 ** t_stream - stream type
@@ -72,21 +75,25 @@ typedef struct	s_stream {
 	int				fd;
 	void			*cookie;
 	t_stream_write	*write;
+	t_stream_read	*read;
 	t_stream_close	*close;
 	size_t			size;
 	char			*curr;
+	char			*eof;
 	char			*buff;
 }				t_stream;
 
 /*
-** FT_STDOUT, FT_STDERR - standard streams
+** FT_STDIN, FT_STDOUT, FT_STDERR - standard streams
 **
 ** Since these macros are just aliases to global variables, directly
 ** reassigning them (after having closed them) to other streams is possible.
 ** This could especially be useful for testing command line programs.
 */
+t_stream		*g_ft_stdin;
 t_stream		*g_ft_stdout;
 t_stream		*g_ft_stderr;
+# define FT_STDIN	g_ft_stdin
 # define FT_STDOUT	g_ft_stdout
 # define FT_STDERR	g_ft_stderr
 
@@ -146,15 +153,26 @@ int				ft_setvbuf(t_stream *stm, char *buff, int mode, size_t size);
 
 /*
 ** ft_fwrite - write to a stream
-** @mem: buffer to write
-** @size: size of an item of data in @mem, in bytes
-** @n: number of items of data in @mem
+** @mem: buffer to write from
+** @size: size of an item of data in bytes
+** @n: number of items of data to write
 ** @stm: stream to write to
 **
 ** Returns the number of items of data sucessfully written.
 */
 size_t			ft_fwrite(const void *mem, size_t size, size_t n,
 					t_stream *stm);
+
+/*
+** ft_fread - read from a stream
+** @mem: buffer to read to
+** @size: size of an item of data in bytes
+** @n: number of items of data to read
+** @stm: stream to read from
+**
+** Returns the number of items of data successfully read.
+*/
+size_t			ft_fread(void *mem, size_t size, size_t n, t_stream *stm);
 
 /*
 ** ft_fputc - write a character
@@ -177,6 +195,12 @@ int				ft_fputs(const char *s, t_stream *stm);
 ** @stm: stream to check
 */
 int				ft_ferror(t_stream *stm);
+
+/*
+** ft_feof - check if a stream is at eof
+** @stm: stream to check
+*/
+int				ft_feof(t_stream *stm);
 
 /*
 ** ft_clearerr - clear the error indicator

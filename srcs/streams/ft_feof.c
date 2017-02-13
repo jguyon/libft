@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clearerr.c                                      :+:      :+:    :+:   */
+/*   ft_feof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 15:04:51 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 18:41:26 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/13 18:38:27 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 18:40:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 
-void	ft_clearerr(t_stream *stream)
+int		ft_feof(t_stream *stm)
 {
-	stream->flags &= ~FT_IOERR;
-	stream->flags &= ~FT_IOEOF;
+	return (stm->flags & FT_IOEOF ? FT_EOF : 0);
 }

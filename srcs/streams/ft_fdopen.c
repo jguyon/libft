@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/12 18:10:09 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 18:19:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 20:27:00 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 
 static ssize_t			fd_write(void *fd, const char *buff, size_t size)
 {
-	return (write(*((int *)fd), buff, size));
+	int		res;
+
+	res = write(*((int *)fd), buff, size);
+	return (res < 0 ? 0 : res);
+}
+
+static ssize_t			fd_read(void *fd, char *buff, size_t size)
+{
+	return (read(*((int *)fd), buff, size));
 }
 
 static int				fd_close(void *fd)
 {
-	return (close(*((int *)fd)));
+	return (close(*((int *)fd)) ? FT_EOF : 0);
 }
 
 static t_stream_funs	g_fd_funs = {
 	.write = &fd_write,
+	.read = &fd_read,
 	.close = &fd_close,
 };
 
