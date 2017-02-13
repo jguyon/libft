@@ -6,71 +6,38 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 16:02:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 22:03:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 02:06:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_memory.h"
 
-static ssize_t			str_write(void *strp, const char *buff, size_t count)
-{
-	char	**range;
-
-	if (!strp)
-		return (count);
-	range = (char **)strp;
-	if ((size_t)(range[1] - range[0]) > count)
-	{
-		ft_memcpy(range[0], buff, count);
-		range[0] += count;
-	}
-	else
-	{
-		ft_memcpy(range[0], buff, range[1] - range[0]);
-		range[0] = range[1];
-	}
-	return (count);
-}
-
-static int				str_close(void *strp)
-{
-	char	**range;
-
-	if (!strp)
-		return (0);
-	range = (char **)strp;
-	if ((size_t)(range[1] - range[0]) > 0)
-		range[0][0] = '\0';
-	return (0);
-}
-
-static t_stream_funs	str_funs = {
-	.write = &str_write,
-	.close = &str_close,
-};
+static t_stream_funs	g_noop_funs = {};
 
 int						ft_vsnprintf(char *str, size_t size,
 							const char *format, va_list args)
 {
 	t_stream	*stm;
-	char		*range[2];
-	int			res;
+	int			count;
+	va_list		cpy;
 
-	if (size > 0 && !str)
+	if (!str && size > 0)
 		return (-1);
-	if (str)
-	{
-		range[0] = str;
-		range[1] = str + size;
-		stm = ft_fopencookie(range, "w", str_funs);
-	}
-	else
-		stm = ft_fopencookie(range, "w", str_funs);
-	if (!stm)
+	if (!(stm = ft_fopencookie(NULL, "w", g_noop_funs)))
 		return (-1);
-	res = ft_vfprintf(stm, format, args);
-	if (ft_fclose(stm) || res < 0)
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	va_copy(cpy, args);
+	count = ft_vfprintf(stm, format, cpy);
+	va_end(cpy);
+	if (ft_fclose(stm) || count < 0)
 		return (-1);
-	return (res);
+	if (!str)
+		return (count);
+	if (!(stm = ft_fmemopen(str, size, "w")))
+		return (-1);
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	ft_vfprintf(stm, format, args);
+	ft_fclose(stm);
+	str[(size_t)count >= size ? size - 1 : count] = '\0';
+	return (count);
 }

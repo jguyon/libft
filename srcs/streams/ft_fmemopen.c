@@ -6,31 +6,36 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/12 15:07:21 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 16:23:55 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 02:14:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 #include "ft_memory.h"
 
-ssize_t					write_mem(void *cookie, const char *buff, size_t size)
+static ssize_t			write_mem(void *cookie, const char *buff, size_t size)
 {
 	t_mem_cookie	*mem;
+	int				err;
 
 	mem = (t_mem_cookie *)cookie;
+	err = 0;
 	if (size > mem->size - (size_t)(mem->curr - (char *)mem->buff))
-		return (-1);
-	if (mem->curr)
+	{
+		size = mem->size - (size_t)(mem->curr - (char *)mem->buff);
+		err = 1;
+	}
+	if (mem->curr && size > 0)
 	{
 		ft_memcpy(mem->curr, buff, size);
 		mem->curr += size;
 	}
 	if (mem->size > (size_t)(mem->curr - (char *)mem->buff))
 		*(mem->curr) = '\0';
-	return (size);
+	return (err ? -1 : size);
 }
 
-int						close_mem(void *cookie)
+static int				close_mem(void *cookie)
 {
 	t_mem_cookie	*mem;
 
@@ -54,6 +59,7 @@ t_stream				*ft_fmemopen(void *buf, size_t size, const char *mode)
 		return (NULL);
 	if (!buf)
 	{
+		cookie->buff = NULL;
 		if (size > 0 && !(cookie->buff = ft_memalloc(size)))
 		{
 			ft_memdel((void **)&cookie);
