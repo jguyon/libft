@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 19:56:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/11 02:26:41 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:32:20 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static ssize_t	stdwrite(void *fd, const char *buff, size_t size)
 
 t_stream		g_ft_streams[FT_FOPEN_MAX] = {
 	[1] = {
-		.mode = FT_IOFBF,
+		.flags = FT_IOWR | FT_IOFBF,
 		.fd = 1,
 		.size = FT_BUFSIZ,
 		.write = &stdwrite,
 	},
 	[2] = {
-		.mode = FT_IONBF,
+		.flags = FT_IOWR | FT_IONBF,
 		.fd = 2,
 		.write = &stdwrite,
 	},
@@ -41,7 +41,7 @@ static t_stream	*next_stream(void)
 	size_t	i;
 
 	i = 0;
-	while (i < FT_FOPEN_MAX && g_ft_streams[i].mode)
+	while (i < FT_FOPEN_MAX && g_ft_streams[i].flags)
 		++i;
 	if (i >= FT_FOPEN_MAX)
 		return (NULL);
@@ -53,11 +53,11 @@ t_stream		*ft_fopencookie(void *cookie, const char *mode,
 {
 	t_stream	*stream;
 
-	if (ft_strcmp(mode, "w") || !(stream = next_stream()))
+	if ((mode[0] != 'w' && mode[0] != 'r') || mode[1] != '\0'
+		|| !(stream = next_stream()))
 		return (NULL);
-	stream->mode = FT_IOFBF;
-	stream->error = 0;
-	stream->allocated = 1;
+	stream->flags = FT_IOFBF;
+	stream->flags |= mode[0] == 'r' ? FT_IORD : FT_IOWR;
 	stream->fd = -1;
 	stream->cookie = cookie;
 	stream->write = funs.write;

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 02:29:09 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/09 02:35:34 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:23:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_fcloseall(void)
 	i = 0;
 	while (i < FT_FOPEN_MAX)
 	{
-		if (g_ft_streams[i].mode && ft_fclose(&(g_ft_streams[i])))
+		if (g_ft_streams[i].flags && ft_fclose(&(g_ft_streams[i])))
 			res = FT_EOF;
 		++i;
 	}

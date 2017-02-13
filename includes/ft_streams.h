@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/12 19:17:39 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:10:56 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /*
 ** FT_IONBF, FT_IOFBF - flags for configuring stream buffering
 */
-# define FT_IONBF 1
-# define FT_IOFBF 2
+# define FT_IONBF 0x1
+# define FT_IOFBF 0x2
 
 /*
 ** FT_EOF - end of file or error indicator
@@ -55,14 +55,20 @@ typedef struct	s_stream_funs {
 }				t_stream_funs;
 
 /*
+** Private flags used in stream structure
+*/
+# define FT_IOWR	0x4
+# define FT_IORD	0x8
+# define FT_IOERR	0x10
+# define FT_IOUSRBF 0x20
+
+/*
 ** t_stream - stream type
 **
 ** Members of this struct should not be accessed outside of this library.
 */
 typedef struct	s_stream {
-	int				mode;
-	int				error;
-	int				allocated;
+	int				flags;
 	int				fd;
 	void			*cookie;
 	t_stream_write	*write;
@@ -183,6 +189,7 @@ void			ft_clearerr(t_stream *stm);
 ** @stm: stream to flush
 **
 ** Returns 0 if successful, FT_EOF otherwise.
+** If @stm is null, all open streams are flushed.
 */
 int				ft_fflush(t_stream *stm);
 

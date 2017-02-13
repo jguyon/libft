@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 15:04:51 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/08 18:21:27 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:18:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_clearerr(t_stream *stream)
 {
-	stream->error = 0;
+	stream->flags &= ~FT_IOERR;
 }

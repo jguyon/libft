@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:08:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 12:45:13 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:21:33 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	fflushall(void)
 	res = 0;
 	while (i < FT_FOPEN_MAX)
 	{
-		if (g_ft_streams[i].mode && ft_fflush(&(g_ft_streams[i])))
+		if (g_ft_streams[i].flags && ft_fflush(&(g_ft_streams[i])))
 			res = FT_EOF;
 		++i;
 	}
@@ -38,6 +38,8 @@ int			ft_fflush(t_stream *stm)
 		return (fflushall());
 	if (ft_ferror(stm))
 		return (FT_EOF);
+	if ((stm->flags & FT_IOWR) == 0)
+		return (0);
 	if (!(stm->curr) || !(stm->write) || (len = stm->curr - stm->buff) == 0)
 		return (0);
 	if (stm->fd < 0)
@@ -46,7 +48,7 @@ int			ft_fflush(t_stream *stm)
 		res = stm->write(&(stm->fd), stm->buff, len);
 	if (res < 0 || (size_t)res != len)
 	{
-		stm->error = 1;
+		stm->flags |= FT_IOERR;
 		return (FT_EOF);
 	}
 	stm->curr = stm->buff;
