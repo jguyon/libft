@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 22:58:58 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 15:34:28 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:46:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** The TAP specification does not provide a way to format subtests.
 ** This library uses roughly the same format as node-tap, to be compatible
 ** with their formatters.
-** The output is also compatiblee with the program prove, often available
+** The output is also compatible with the program prove, often available
 ** on *NIX platforms.
 */
 
@@ -29,17 +29,6 @@
 
 # define DO_STR(token) #token
 # define STR(token) DO_STR(token)
-
-/*
-** g_ft_tprintf, g_ft_tvprintf, g_ft_tstrlen, g_ft_tstrcmp - library functions
-**
-** Change those variables to use the libc functions instead of the
-** variants present in this library.
-*/
-int				(*g_ft_tprintf)(const char *format, ...);
-int				(*g_ft_tvprintf)(const char *format, va_list args);
-size_t			(*g_ft_tstrlen)(const char *str);
-int				(*g_ft_tstrcmp)(const char *s1, const char *s2);
 
 /*
 ** t_tap - type representing a test

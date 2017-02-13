@@ -6,17 +6,18 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 19:36:07 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 11:28:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:43:04 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
+#include <stdio.h>
 
 static void	print_key(t_tap *t, const char *key, const char *val, va_list args)
 {
-	g_ft_tprintf("%*s %s: ", (int)t->nesting, "", key);
-	g_ft_tvprintf(val, args);
-	g_ft_tprintf("\n");
+	printf("%*s %s: ", (int)t->nesting, "", key);
+	vprintf(val, args);
+	printf("\n");
 }
 
 void		ft_tap_diag(t_tap *t, va_list parent, ...)
@@ -28,7 +29,7 @@ void		ft_tap_diag(t_tap *t, va_list parent, ...)
 	if ((key = va_arg(parent, const char *))
 		&& (val = va_arg(parent, const char *)))
 	{
-		g_ft_tprintf("%*s ---\n", (int)t->nesting, "");
+		printf("%*s ---\n", (int)t->nesting, "");
 		while (key && val)
 		{
 			print_key(t, key, val, parent);
@@ -40,6 +41,6 @@ void		ft_tap_diag(t_tap *t, va_list parent, ...)
 			&& (val = va_arg(own, const char *)))
 			print_key(t, key, val, own);
 		va_end(own);
-		g_ft_tprintf("%*s ...\n", (int)t->nesting, "");
+		printf("%*s ...\n", (int)t->nesting, "");
 	}
 }
