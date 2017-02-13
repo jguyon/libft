@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/13 18:44:33 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/13 21:51:47 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -140,7 +140,9 @@ SOURCES = \
 	streams/ft_fwrite \
 	streams/ft_fread \
 	streams/ft_fputc \
+	streams/ft_fgetc \
 	streams/ft_fputs \
+	streams/ft_fgets \
 	streams/ft_ferror \
 	streams/ft_feof \
 	streams/ft_clearerr \

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 20:33:09 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:01:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,22 @@ static void		test_fputc(t_tap *t)
 	ft_fclose(stm);
 }
 
+static void		test_fgetc(t_tap *t)
+{
+	t_stream	*stm;
+
+	ft_strcpy(g_output, "hello");
+	stm = ft_fopencookie(g_output, "r", g_output_funs);
+	FT_TAP_IEQ(t, ft_fgetc(stm), 'h');
+	FT_TAP_IEQ(t, ft_fgetc(stm), 'e');
+	FT_TAP_IEQ(t, ft_fgetc(stm), 'l');
+	FT_TAP_IEQ(t, ft_fgetc(stm), 'l');
+	FT_TAP_IEQ(t, ft_fgetc(stm), 'o');
+	FT_TAP_IEQ(t, ft_fgetc(stm), FT_EOF);
+	FT_TAP_IEQ(t, ft_feof(stm), FT_EOF);
+	ft_fclose(stm);
+}
+
 static void		test_fputs(t_tap *t)
 {
 	t_stream	*stm;
@@ -94,6 +110,19 @@ static void		test_fputs(t_tap *t)
 	FT_TAP_OK(t, ft_fputs("hello, world", stm) >= 0);
 	ft_fflush(stm);
 	FT_TAP_SEQ(t, g_output, "hello, world");
+	ft_fclose(stm);
+}
+
+static void		test_fgets(t_tap *t)
+{
+	t_stream	*stm;
+	char		str[256];
+
+	ft_strcpy(g_output, "hello\nworld");
+	stm = ft_fopencookie(g_output, "r", g_output_funs);
+	FT_TAP_SEQ(t, ft_fgets(str, sizeof(str), stm), "hello\n");
+	FT_TAP_SEQ(t, ft_fgets(str, sizeof(str), stm), "world");
+	FT_TAP_IEQ(t, ft_feof(stm), FT_EOF);
 	ft_fclose(stm);
 }
 
@@ -250,7 +279,9 @@ void			run_tests(t_tap *t)
 	FT_TAP_TEST(t, test_fwrite);
 	FT_TAP_TEST(t, test_fread);
 	FT_TAP_TEST(t, test_fputc);
+	FT_TAP_TEST(t, test_fgetc);
 	FT_TAP_TEST(t, test_fputs);
+	FT_TAP_TEST(t, test_fgets);
 	FT_TAP_TEST(t, test_fflush);
 	FT_TAP_TEST(t, test_setbuffer);
 	FT_TAP_TEST(t, test_fcloseall);

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 18:37:26 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 21:44:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,12 @@ size_t			ft_fread(void *mem, size_t size, size_t n, t_stream *stm);
 int				ft_fputc(int c, t_stream *stm);
 
 /*
+** ft_fgetc - read a character from a stream
+** @stm: stream to read from
+*/
+int				ft_fgetc(t_stream *stm);
+
+/*
 ** ft_fputs - write a string
 ** @s: null-terminated string to write
 ** @stm: stream to write to
@@ -189,6 +195,18 @@ int				ft_fputc(int c, t_stream *stm);
 ** Returns 0 if successful, FT_EOF otherwise.
 */
 int				ft_fputs(const char *s, t_stream *stm);
+
+/*
+** ft_fgets - read into a string
+** @s: buffer to read into
+** @size: size of the buffer, including the '\0'
+** @stm: stream to read from
+**
+** Reading stops when @size has been reached, on eof, or after a newline.
+** Returns null on error or when eof occurs before reading any character,
+** @s otherwise.
+*/
+char			*ft_fgets(char *s, int size, t_stream *stm);
 
 /*
 ** ft_ferror - check if a stream has failed
