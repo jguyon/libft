@@ -6,13 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 16:02:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 02:06:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:27:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_stream_funs	g_noop_funs = {};
+static t_stream_funs	g_noop_funs;
 
 int						ft_vsnprintf(char *str, size_t size,
 							const char *format, va_list args)
