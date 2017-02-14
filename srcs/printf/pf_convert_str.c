@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 17:33:49 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/09 12:53:55 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:10:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static int		convert_str(t_stream *stream, t_pf_info *info, const char *str)
 	size_t		len;
 
 	if (!str)
-		return (ft_fputs(PF_STRING_NULL, stream));
+	{
+		return (ft_fwrite(PF_STRING_NULL,
+			1, ft_strlen(PF_STRING_NULL), stream));
+	}
 	len = info->prec < 0 ? ft_strlen(str) : ft_strnlen(str, info->prec);
 	if (info->flags.left || info->min_width < 0)
 		count = pf_write_str(stream, str, len)

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sprintf.c                                       :+:      :+:    :+:   */
+/*   ft_fcloseall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 15:55:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 15:57:12 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/09 02:29:09 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 13:23:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_streams.h"
 
-int		ft_sprintf(char *str, const char *format, ...)
+int		ft_fcloseall(void)
 {
-	va_list	args;
+	size_t	i;
 	int		res;
 
-	va_start(args, format);
-	res = ft_vsprintf(str, format, args);
-	va_end(args);
+	res = 0;
+	i = 0;
+	while (i < FT_FOPEN_MAX)
+	{
+		if (g_ft_streams[i].flags && ft_fclose(&(g_ft_streams[i])))
+			res = FT_EOF;
+		++i;
+	}
 	return (res);
 }

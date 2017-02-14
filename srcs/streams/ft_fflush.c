@@ -6,34 +6,51 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:08:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 15:21:21 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:21:33 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
 
-int		ft_fflush(t_stream *stream)
+static int	fflushall(void)
 {
-	size_t	count;
+	size_t	i;
+	int		res;
 
-	if (!stream || !(stream->funs.write) || ft_ferror(stream))
-		return (-1);
-	if (stream->size > 0 && !(stream->buff))
+	i = 0;
+	res = 0;
+	while (i < FT_FOPEN_MAX)
 	{
-		if (!(stream->buff = (char *)ft_memalloc(stream->size)))
-			return (-1);
-		stream->own = 1;
-		stream->curr = stream->buff;
+		if (g_ft_streams[i].flags && ft_fflush(&(g_ft_streams[i])))
+			res = FT_EOF;
+		++i;
 	}
-	if (stream->size == 0 || stream->curr == stream->buff)
+	return (res);
+}
+
+int			ft_fflush(t_stream *stm)
+{
+	size_t	len;
+	ssize_t	res;
+
+	if (!stm)
+		return (fflushall());
+	if (ft_ferror(stm))
+		return (FT_EOF);
+	if ((stm->flags & FT_IOWR) == 0)
 		return (0);
-	count = stream->curr - stream->buff;
-	if (stream->funs.write(stream->cookie, stream->buff, count) == count)
+	if (!(stm->curr) || !(stm->write) || (len = stm->curr - stm->buff) == 0)
+		return (0);
+	if (stm->fd < 0)
+		res = stm->write(stm->cookie, stm->buff, len);
+	else
+		res = stm->write(&(stm->fd), stm->buff, len);
+	if (res < 0 || (size_t)res != len)
 	{
-		stream->curr = stream->buff;
-		return (1);
+		stm->flags |= FT_IOERR;
+		return (FT_EOF);
 	}
-	stream->err = 1;
-	return (-1);
+	stm->curr = stm->buff;
+	return (0);
 }

@@ -6,45 +6,64 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:02:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 15:20:06 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:27:59 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_streams.h"
+#include "ft_memory.h"
 
-static size_t	stream_write(const char *buff, size_t count, t_stream *stream)
+static size_t	write_nbf(const void *mem, size_t size, size_t n, t_stream *stm)
 {
-	size_t	res;
+	ssize_t	res;
 
-	res = stream->funs.write(stream->cookie, buff, count);
-	if (res != count)
-		stream->err = 1;
-	return (res);
+	if (!(stm->write))
+		return (n);
+	if (stm->fd < 0)
+		res = stm->write(stm->cookie, mem, size * n);
+	else
+		res = stm->write(&(stm->fd), mem, size * n);
+	if (res < 0 || (size_t)res != size * n)
+	{
+		stm->flags |= FT_IOERR;
+		res = res < 0 ? 0 : res;
+	}
+	return ((size_t)res / size);
 }
 
-size_t			ft_fwrite(const char *s, size_t count, t_stream *stream)
+static size_t	write_fbf(const void *mem, size_t size, size_t n, t_stream *stm)
 {
-	size_t	i;
-	size_t	size;
+	size_t	bytes;
+	size_t	len;
 
-	if (!stream || !(stream->funs.write) || ft_ferror(stream)
-		|| (!(stream->buff) && stream->size > 0 && ft_fflush(stream) < 0))
-		return (0);
-	if (stream->size == 0)
-		return (stream_write(s, count, stream));
-	i = count;
-	while (i)
+	bytes = n * size;
+	while (bytes)
 	{
-		size = stream->size - (stream->curr - stream->buff);
-		if (i < size)
-			size = i;
-		ft_memcpy(stream->curr, s, size);
-		stream->curr += size;
-		if (i > size && ft_fflush(stream) < 0)
-			break ;
-		s += size;
-		i -= size;
+		len = stm->size - (stm->curr - stm->buff);
+		if (bytes < len)
+			len = bytes;
+		ft_memcpy(stm->curr, mem, len);
+		stm->curr += len;
+		if (bytes > len && ft_fflush(stm) == FT_EOF)
+			return (0);
+		mem += len;
+		bytes -= len;
 	}
-	return (count - i);
+	return (n);
+}
+
+size_t			ft_fwrite(const void *mem, size_t size, size_t n, t_stream *stm)
+{
+	if (!stm || size * n == 0 || ft_ferror(stm) || (stm->flags & FT_IOWR) == 0)
+		return (0);
+	if (stm->flags & FT_IONBF)
+		return (write_nbf(mem, size, n, stm));
+	if (!(stm->buff) && !(stm->buff = (char *)ft_memalloc(stm->size)))
+	{
+		stm->flags |= FT_IOERR;
+		return (0);
+	}
+	if (!(stm->curr))
+		stm->curr = stm->buff;
+	return (write_fbf(mem, size, n, stm));
 }

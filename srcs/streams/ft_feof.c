@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf.c                                       :+:      :+:    :+:   */
+/*   ft_feof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 15:35:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 15:36:58 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/13 18:38:27 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 18:40:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_streams.h"
 
-int		ft_dprintf(int fd, const char *format, ...)
+int		ft_feof(t_stream *stm)
 {
-	va_list	args;
-	int		res;
-
-	va_start(args, format);
-	res = ft_vdprintf(fd, format, args);
-	va_end(args);
-	return (res);
+	return (stm->flags & FT_IOEOF ? FT_EOF : 0);
 }

@@ -6,13 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 20:06:13 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 14:31:23 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 13:17:44 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 
-int		ft_ferror(t_stream *stream)
+int		ft_ferror(t_stream *stm)
 {
-	return (stream->err);
+	return (!(stm->flags) || (stm->flags & FT_IOERR) ? FT_EOF : 0);
 }

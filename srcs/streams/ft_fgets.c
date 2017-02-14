@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fclose.c                                        :+:      :+:    :+:   */
+/*   ft_fgets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 13:22:57 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/13 21:42:46 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 22:02:40 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
-#include "ft_memory.h"
 
-int		ft_fclose(t_stream *stm)
+char	*ft_fgets(char *s, int size, t_stream *stm)
 {
-	int		res;
+	int		c;
+	int		i;
 
-	if (!(stm) || !(stm->flags))
-		return (FT_EOF);
-	res = 0;
-	if (ft_fflush(stm) == FT_EOF)
-		res = FT_EOF;
-	if ((stm->flags & FT_IOUSRBF) == 0)
-		ft_memdel((void **)&(stm->buff));
-	if (stm->close
-		&& stm->close(stm->fd < 0 ? stm->cookie : &(stm->fd)) == FT_EOF)
-		res = FT_EOF;
-	stm->flags = 0;
-	return (res);
+	i = 0;
+	while (i < size - 1)
+	{
+		if ((c = ft_fgetc(stm)) == FT_EOF)
+			break ;
+		if ((s[i++] = (char)c) == '\n')
+			break ;
+	}
+	if (i < size)
+		s[i] = '\0';
+	if (ft_ferror(stm) || (i == 0 && ft_feof(stm)))
+		return (NULL);
+	return (s);
 }

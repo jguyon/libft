@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_setbuffer.c                                     :+:      :+:    :+:   */
+/*   ft_fgetc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/09 17:24:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 14:34:33 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/13 21:34:58 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 21:37:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
 
-int		ft_setbuffer(t_stream *stream, char *buff, size_t size)
+int		ft_fgetc(t_stream *stm)
 {
-	if (!stream || stream->buff || (!buff && size > 0) || (buff && size == 0))
-		return (-1);
-	stream->buff = buff;
-	stream->size = size;
-	stream->curr = stream->buff;
-	return (0);
+	unsigned char	c;
+
+	if (ft_fread(&c, 1, 1, stm) != 1)
+		return (FT_EOF);
+	return ((int)c);
 }
