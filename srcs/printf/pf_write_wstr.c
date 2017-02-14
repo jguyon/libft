@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 20:25:01 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 22:07:36 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/08 20:21:17 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	pf_write_wstr(t_stream *stream, const wchar_t *wstr, size_t len)
 	while (i < len)
 	{
 		l = ft_wcconv(buf, *wstr);
-		ft_fwrite(buf, l, stream);
+		ft_fwrite(buf, 1, l, stream);
 		i += l;
 		++wstr;
 	}

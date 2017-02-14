@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:31:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 16:01:00 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 00:22:19 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,6 @@ int		ft_printf(const char *format, ...);
 ** ft_vprintf - va_list variant of ft_printf
 */
 int		ft_vprintf(const char *format, va_list args);
-
-/*
-** ft_dprintf - print formatted string to a file
-** @fd: file descriptor
-** @format: format to print
-** @rest: arguments referenced by @format
-*/
-int		ft_dprintf(int fd, const char *format, ...);
-
-/*
-** ft_vdprintf - va_list variant of ft_dprintf
-*/
-int		ft_vdprintf(int fd, const char *format, va_list args);
-
-/*
-** ft_sprintf - print formatted string to a string
-** @str: string to print to
-** @format: format to print
-** @rest: arguments referenced by @format
-*/
-int		ft_sprintf(char *str, const char *format, ...);
-
-/*
-** ft_vsprintf - va_list variant of ft_sprintf
-*/
-int		ft_vsprintf(char *str, const char *format, va_list args);
 
 /*
 ** ft_snprintf - print formatted string to a string

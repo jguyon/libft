@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/08 03:49:53 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/14 12:25:35 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -51,6 +51,7 @@ MODULES = \
 	dlists \
 	streams \
 	printf \
+	program \
 	tap \
 
 # Sources names to include in the library
@@ -132,23 +133,26 @@ SOURCES = \
 	dlists/ft_dlst_foreachr_from \
 	dlists/ft_dlst_sort \
 	\
-	streams/ft_std \
 	streams/ft_fopencookie \
-	streams/ft_setbuffer \
+	streams/ft_fmemopen \
+	streams/ft_open_memstream \
+	streams/ft_fdopen \
+	streams/ft_setvbuf \
 	streams/ft_fwrite \
+	streams/ft_fread \
 	streams/ft_fputc \
+	streams/ft_fgetc \
 	streams/ft_fputs \
+	streams/ft_fgets \
 	streams/ft_ferror \
+	streams/ft_feof \
 	streams/ft_clearerr \
-	streams/ft_fclose \
 	streams/ft_fflush \
+	streams/ft_fclose \
+	streams/ft_fcloseall \
 	\
 	printf/ft_printf \
 	printf/ft_vprintf \
-	printf/ft_dprintf \
-	printf/ft_vdprintf \
-	printf/ft_sprintf \
-	printf/ft_vsprintf \
 	printf/ft_snprintf \
 	printf/ft_vsnprintf \
 	printf/ft_fprintf \
@@ -182,6 +186,12 @@ SOURCES = \
 	tap/ft_tap_seq \
 	tap/ft_tap_notseq \
 	tap/ft_tap_quote \
+	\
+	program/ft_onexit \
+	program/ft_cleanup \
+	program/ft_exit \
+	program/ft_setprogname \
+	program/ft_getprogname \
 
 # Wildcard for test files, it makes experimentation easier
 TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))

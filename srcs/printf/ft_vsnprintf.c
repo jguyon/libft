@@ -6,63 +6,38 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 16:02:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/15 16:45:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:27:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_memory.h"
 
-static size_t	str_write(void *strp, const char *buff, size_t count)
+static t_stream_funs	g_noop_funs;
+
+int						ft_vsnprintf(char *str, size_t size,
+							const char *format, va_list args)
 {
-	char	**range;
+	t_stream	*stm;
+	int			count;
+	va_list		cpy;
 
-	if (!strp)
+	if (!str && size > 0)
+		return (-1);
+	if (!(stm = ft_fopencookie(NULL, "w", g_noop_funs)))
+		return (-1);
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	va_copy(cpy, args);
+	count = ft_vfprintf(stm, format, cpy);
+	va_end(cpy);
+	if (ft_fclose(stm) || count < 0)
+		return (-1);
+	if (!str)
 		return (count);
-	range = (char **)strp;
-	if ((size_t)(range[1] - range[0]) > count)
-	{
-		ft_memcpy(range[0], buff, count);
-		range[0] += count;
-	}
-	else if (range[1] < range[0])
-	{
-		ft_memcpy(range[0], buff, range[1] - range[0]);
-		range[0] = range[1];
-	}
+	if (!(stm = ft_fmemopen(str, size, "w")))
+		return (-1);
+	ft_setvbuf(stm, NULL, FT_IONBF, 0);
+	ft_vfprintf(stm, format, args);
+	ft_fclose(stm);
+	str[(size_t)count >= size ? size - 1 : count] = '\0';
 	return (count);
-}
-
-static t_stream	g_stream = {
-	.funs = {
-		.write = &str_write
-	},
-	.size = 0
-};
-
-int				ft_vsnprintf(char *str, size_t size,
-								const char *format, va_list args)
-{
-	char	*range[2];
-	int		res;
-
-	if (size > 0 && !str)
-		return (-1);
-	if (str)
-	{
-		range[0] = str;
-		range[1] = str + size;
-		g_stream.cookie = range;
-	}
-	else
-		g_stream.cookie = NULL;
-	res = ft_vfprintf(&g_stream, format, args);
-	if (res < 0)
-	{
-		ft_clearerr(&g_stream);
-		return (-1);
-	}
-	if (str)
-		str[(size_t)res > size ? size : (size_t)res] = '\0';
-	return (res);
 }

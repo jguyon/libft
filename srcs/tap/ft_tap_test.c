@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 23:30:58 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/02 16:06:41 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:43:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
+#include <stdio.h>
 
 int		ft_tap_test(t_tap *t, void (*test)(t_tap *s), const char *msg)
 {
@@ -18,7 +19,7 @@ int		ft_tap_test(t_tap *t, void (*test)(t_tap *s), const char *msg)
 
 	if (!msg)
 		msg = "passes";
-	g_ft_tprintf("%*s# Subtest: %s\n", (int)t->nesting, "", msg);
+	printf("%*s# Subtest: %s\n", (int)t->nesting, "", msg);
 	sub.nesting = t->nesting + 4;
 	sub.plan = 0;
 	sub.run = 0;

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fclose.c                                        :+:      :+:    :+:   */
+/*   ft_setprogname.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 13:22:57 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/07 19:58:39 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/14 12:19:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_streams.h"
-#include "ft_memory.h"
+#include "ft_program.h"
+#include "ft_strings.h"
 
-int		ft_fclose(t_stream *stm)
+char	g_program_name[NAME_MAX + 1];
+
+void	ft_setprogname(const char *progname)
 {
-	int		res;
+	const char	*name;
 
-	if (!(stm) || !(stm->flags))
-		return (FT_EOF);
-	res = 0;
-	if (ft_fflush(stm) == FT_EOF)
-		res = FT_EOF;
-	if ((stm->flags & FT_IOUSRBF) == 0)
-		ft_memdel((void **)&(stm->buff));
-	if (stm->close
-		&& stm->close(stm->fd < 0 ? stm->cookie : &(stm->fd)) == FT_EOF)
-		res = FT_EOF;
-	stm->flags = 0;
-	return (res);
+	if ((name = ft_strrchr(progname, '/')))
+		++name;
+	else
+		name = progname;
+	ft_strncpy(g_program_name, name, NAME_MAX);
 }

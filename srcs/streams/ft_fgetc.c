@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fclose.c                                        :+:      :+:    :+:   */
+/*   ft_fgetc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/09 20:07:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 13:22:57 by jguyon           ###   ########.fr       */
+/*   Created: 2017/02/13 21:34:58 by jguyon            #+#    #+#             */
+/*   Updated: 2017/02/13 21:37:25 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_streams.h"
-#include "ft_memory.h"
 
-int		ft_fclose(t_stream *stm)
+int		ft_fgetc(t_stream *stm)
 {
-	int		res;
+	unsigned char	c;
 
-	if (!(stm) || !(stm->flags))
+	if (ft_fread(&c, 1, 1, stm) != 1)
 		return (FT_EOF);
-	res = 0;
-	if (ft_fflush(stm) == FT_EOF)
-		res = FT_EOF;
-	if ((stm->flags & FT_IOUSRBF) == 0)
-		ft_memdel((void **)&(stm->buff));
-	if (stm->close
-		&& stm->close(stm->fd < 0 ? stm->cookie : &(stm->fd)) == FT_EOF)
-		res = FT_EOF;
-	stm->flags = 0;
-	return (res);
+	return ((int)c);
 }

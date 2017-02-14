@@ -6,12 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:54:17 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/03 15:41:27 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/13 22:44:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tap.h"
 #include <stdlib.h>
+#include <string.h>
 
 int		ft_tap_notseq(t_tap *t, const char *a, const char *b,
 			const char *msg, ...)
@@ -23,7 +24,7 @@ int		ft_tap_notseq(t_tap *t, const char *a, const char *b,
 
 	if (!msg)
 		msg = "are equal";
-	if ((res = g_ft_tstrcmp(a, b) != 0))
+	if ((res = strcmp(a, b) != 0))
 		ft_tap_pass(t, msg);
 	else
 	{
