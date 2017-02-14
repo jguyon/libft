@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/06 17:31:18 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/08 03:28:44 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -55,8 +55,13 @@ test: $(TST_EXE)
 # As a consequence, running for example make fclean && make -j release check
 # will test the release version even if check is configured to default
 # to the debug version.
+ifeq ($(strip $(TST_EXE)),)
+check:
+	@echo "Could not find any tests"
+else
 check: $(CHECK_BUILD) test
 	$(PROVE) $(TST_EXE)
+endif
 
 # Remove intermediate files
 clean:

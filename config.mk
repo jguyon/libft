@@ -193,15 +193,11 @@ SOURCES = \
 	program/ft_setprogname \
 	program/ft_getprogname \
 
+# Wildcard for test files, it makes experimentation easier
+TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
+
 # Source names to execute as tests
-TESTS = \
-	test_memory \
-	test_strings \
-	test_dlists \
-	test_streams \
-	test_printf \
-	test_program \
+TESTS = $(filter test_%,$(TEST_FILES))
 
 # Source names to compile with every test executable
-TESTS_COMMON = \
-	common_main \
+TESTS_COMMON = $(filter-out $(TESTS),$(TEST_FILES))
