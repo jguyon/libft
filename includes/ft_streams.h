@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 03:17:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 21:44:12 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:04:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include <stdlib.h>
+# include <unistd.h>
 
 /*
 ** FT_BUFSIZ - default size of buffers
