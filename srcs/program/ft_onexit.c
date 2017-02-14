@@ -6,16 +6,16 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:52:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 18:20:32 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:19:07 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_program.h"
 #include "ft_memory.h"
 
-t_exit_cb	g_exit_cb[FT_ONEXIT_MAX] = {};
+t_exit_cb	g_exit_cb[FT_ONEXIT_MAX];
 
-int			ft_onexit(void (*fn)(int , void *), void *arg)
+int			ft_onexit(void (*fn)(int, void *), void *arg)
 {
 	if (g_exit_cb[FT_ONEXIT_MAX - 1].fn)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:18:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 20:13:38 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/14 12:17:42 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 **
 ** Returns 0 if successful, some non-zero value otherwise.
 */
-int				ft_onexit(void (*fn)(int , void *), void *arg);
+int				ft_onexit(void (*fn)(int, void *), void *arg);
 
 /*
 ** ft_cleanup - execute all exit callbacks
