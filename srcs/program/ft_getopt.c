@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 16:57:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/19 20:26:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 22:48:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "ft_strings.h"
 #include "ft_chars.h"
 
-#define OPTERR(p, c) "%s: illegal option -- %c\n", p, c
-#define ARGERR(p, c) "%s: option requires an argument -- %c\n", p, c
+#define OPTERR(c) "illegal option -- %c", c
+#define ARGERR(c) "option requires an argument -- %c", c
 #define IS_OPT_START(str) (str && str[0] == '-' && str[1] && str[1] != '-')
 #define IS_OPT_END(str) (str && str[0] == '-' && str[1] == '-' && str[2])
 #define MISSING_OPT '?'
@@ -69,12 +69,10 @@ static int	missing(enum e_opt_err err, char opt, const char *optstring)
 	}
 	if (g_ft_opterr)
 	{
-		ft_fflush(FT_STDOUT);
 		if (err == ERR_OPT)
-			ft_fprintf(FT_STDERR, OPTERR(ft_getprogname(), opt));
+			ft_error(0, 0, OPTERR(opt));
 		else if (err == ERR_ARG)
-			ft_fprintf(FT_STDERR, ARGERR(ft_getprogname(), opt));
-		ft_fflush(FT_STDERR);
+			ft_error(0, 0, ARGERR(opt));
 	}
 	return (MISSING_OPT);
 }
