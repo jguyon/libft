@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:18:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/19 20:26:07 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 22:02:41 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,22 @@ int				g_ft_optind;
 ** g_ft_optopt - last parsed option, even if invalid
 */
 int				g_ft_optopt;
+
+/*
+** ft_error - general error reporting function
+** @status - if non zero, the program will exit with this status
+** @errnum - if non zero, the corresponding error will be printed
+** @format - printf format string
+*/
+void			ft_error(int status, int errnum, const char *format, ...);
+
+/*
+** g_ft_strerror - strerror type of function
+**
+** Assign this to be able to use the errnum parameter in @error.
+** Will be called with 0 when the previous call returned null to get
+** a default "unkown error" message.
+*/
+char			*(*g_ft_strerror)(int errnum);
 
 #endif
