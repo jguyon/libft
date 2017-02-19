@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 18:02:25 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/14 12:46:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 20:23:53 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,76 @@ static void	test_progname(t_tap *t)
 	FT_TAP_SEQ(t, ft_getprogname(), "world");
 }
 
+static void	test_getopt(t_tap *t)
+{
+	char	*argv1[] = {"prog", "-a", "-bc", "arg1", "--" "-abc", NULL};
+
+	g_ft_opterr = 0;
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc"), 'a');
+	FT_TAP_IEQ(t, g_ft_optopt, 'a');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc"), 'b');
+	FT_TAP_IEQ(t, g_ft_optopt, 'b');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc"), 'c');
+	FT_TAP_IEQ(t, g_ft_optopt, 'c');
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc"), -1);
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+	g_ft_optind = 1;
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "ab"), 'a');
+	FT_TAP_IEQ(t, g_ft_optopt, 'a');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "ab"), 'b');
+	FT_TAP_IEQ(t, g_ft_optopt, 'b');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "ab"), '?');
+	FT_TAP_IEQ(t, g_ft_optopt, 'c');
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "ab"), -1);
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+	g_ft_optind = 1;
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc:"), 'a');
+	FT_TAP_IEQ(t, g_ft_optopt, 'a');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc:"), 'b');
+	FT_TAP_IEQ(t, g_ft_optopt, 'b');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc:"), 'c');
+	FT_TAP_IEQ(t, g_ft_optopt, 'c');
+	FT_TAP_IEQ(t, g_ft_optind, 4);
+	FT_TAP_SEQ(t, g_ft_optarg, "arg1");
+	FT_TAP_IEQ(t, ft_getopt(6, argv1, "abc:"), -1);
+	FT_TAP_IEQ(t, g_ft_optind, 5);
+	g_ft_optind = 1;
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, ":abc:"), 'a');
+	FT_TAP_IEQ(t, g_ft_optopt, 'a');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, ":abc:"), 'b');
+	FT_TAP_IEQ(t, g_ft_optopt, 'b');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, ":abc:"), ':');
+	FT_TAP_IEQ(t, g_ft_optopt, 'c');
+	FT_TAP_IEQ(t, g_ft_optind, 4);
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, ":abc:"), -1);
+	FT_TAP_IEQ(t, g_ft_optind, 4);
+	g_ft_optind = 1;
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, "ab:c"), 'a');
+	FT_TAP_IEQ(t, g_ft_optopt, 'a');
+	FT_TAP_IEQ(t, g_ft_optind, 2);
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, "ab:c"), 'b');
+	FT_TAP_IEQ(t, g_ft_optopt, 'b');
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+	FT_TAP_SEQ(t, g_ft_optarg, "c");
+	FT_TAP_IEQ(t, ft_getopt(3, argv1, "ab:c"), -1);
+	FT_TAP_IEQ(t, g_ft_optind, 3);
+}
+
 void		run_tests(t_tap *t)
 {
 	FT_TAP_TEST(t, test_cleanup_std);
 	FT_TAP_TEST(t, test_cleanup_failure);
 	FT_TAP_TEST(t, test_cleanup_success);
 	FT_TAP_TEST(t, test_progname);
+	FT_TAP_TEST(t, test_getopt);
 }

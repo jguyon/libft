@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/14 12:25:35 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/19 18:16:55 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -192,6 +192,7 @@ SOURCES = \
 	program/ft_exit \
 	program/ft_setprogname \
 	program/ft_getprogname \
+	program/ft_getopt \
 
 # Wildcard for test files, it makes experimentation easier
 TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))

@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:16:23 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 22:11:36 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 18:31:04 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "ft_strings.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/stat.h>
 
 static char		g_output[4096] = {0};
 
@@ -265,12 +266,14 @@ static void		test_fdopen(t_tap *t)
 
 	FT_TAP_NOTOK(t,
 		(fd = open("/tmp/libft_testfile", O_WRONLY | O_CREAT | O_TRUNC)) < 0);
+	fchmod(fd, S_IRWXU);
 	FT_TAP_OK(t, (int)(stm = ft_fdopen(fd, "w")));
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
 	FT_TAP_IEQ(t, ft_fputs("hello, world\n", stm), 0);
 	FT_TAP_IEQ(t, ft_fclose(stm), 0);
 	FT_TAP_NOTOK(t,
 				 (fd = open("/tmp/libft_testfile", O_RDONLY)) < 0);
+	fchmod(fd, S_IRWXU);
 	FT_TAP_OK(t, (int)(stm = ft_fdopen(fd, "r")));
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
 	FT_TAP_UEQ(t, ft_fread(buff, 1, sizeof(buff), stm), 13);
