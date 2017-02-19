@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:49:44 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 18:39:35 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 15:08:30 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int		ft_cleanup(int status)
 	size_t	i;
 
 	i = 0;
-	while (i < FT_ONEXIT_MAX && g_exit_cb[i].fn)
+	while (i < FT_ONEXIT_MAX && g_ft_exit_cb[i].fn)
 	{
-		g_exit_cb[i].fn(status, g_exit_cb[i].arg);
-		ft_bzero(&g_exit_cb[i], sizeof(g_exit_cb[i]));
+		g_ft_exit_cb[i].fn(status, g_ft_exit_cb[i].arg);
+		ft_bzero(&g_ft_exit_cb[i], sizeof(g_ft_exit_cb[i]));
 		++i;
 	}
 	return (status);

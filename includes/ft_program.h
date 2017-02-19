@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:18:15 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/14 12:17:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 15:06:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_exit_cb {
 	void	(*fn)(int status, void *arg);
 }				t_exit_cb;
 
-t_exit_cb		g_exit_cb[FT_ONEXIT_MAX];
+t_exit_cb		g_ft_exit_cb[FT_ONEXIT_MAX];
 
 /*
 ** ft_setprogname - set the program name to the last part of @progname
@@ -82,6 +82,6 @@ const char		*ft_getprogname(void);
 /*
 ** Private string holding the program name
 */
-char			g_program_name[NAME_MAX + 1];
+char			g_ft_program_name[NAME_MAX + 1];
 
 #endif

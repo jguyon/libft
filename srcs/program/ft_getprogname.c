@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 20:06:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/07 20:06:48 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 15:09:15 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 const char	*ft_getprogname(void)
 {
-	return (g_program_name);
+	return (g_ft_program_name);
 }
