@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:52:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/14 12:39:23 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/19 15:07:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static void	close_streams(int status, void *arg)
 	ft_fcloseall();
 }
 
-t_exit_cb	g_exit_cb[FT_ONEXIT_MAX] = {
+t_exit_cb	g_ft_exit_cb[FT_ONEXIT_MAX] = {
 	{ .fn = &close_streams },
 };
 
 int			ft_onexit(void (*fn)(int, void *), void *arg)
 {
-	if (g_exit_cb[FT_ONEXIT_MAX - 1].fn)
+	if (g_ft_exit_cb[FT_ONEXIT_MAX - 1].fn)
 		return (-1);
-	ft_memmove(&g_exit_cb[1], &g_exit_cb[0],
-		sizeof(g_exit_cb) - sizeof(g_exit_cb[0]));
-	g_exit_cb[0].arg = arg;
-	g_exit_cb[0].fn = fn;
+	ft_memmove(&g_ft_exit_cb[1], &g_ft_exit_cb[0],
+		sizeof(g_ft_exit_cb) - sizeof(g_ft_exit_cb[0]));
+	g_ft_exit_cb[0].arg = arg;
+	g_ft_exit_cb[0].fn = fn;
 	return (0);
 }
