@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_darray.h                                        :+:      :+:    :+:   */
+/*   ft_darrays.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 23:14:03 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/20 00:00:47 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/20 02:02:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_DARRAY_H
-# define FT_DARRAY_H
+#ifndef FT_DARRAYS_H
+# define FT_DARRAYS_H
 
 # include <stddef.h>
+# include <stdint.h>
 
 /*
 ** t_darray - dynamic array implementation
 ** @item_size: size in bytes of an item in the array
 ** @size: current allocated size of the array, in items
 ** @array: the array, can be NULL if initialized with a size of 0
-** @deflt: pointer to a default value
+** @deflt: default for new values
 **
 ** Note that @size will often be much greater than needed to store
 ** the value with the biggest index that you set.
@@ -34,35 +35,24 @@
 ** and not what it points to.
 */
 typedef struct	s_darray {
-	size_t		item_size;
-	size_t		size;
-	void		*array;
-	void		*deflt;
+	size_t			item_size;
+	size_t			size;
+	void			*array;
+	unsigned char	deflt[sizeof(uintmax_t)];
 }				t_darray;
 
 /*
 ** ft_darr_init - initialize a darray
 ** @arr: array to initialize
-** @src: array to copy values from
+** @deflt: pointer to a value to initialize empty items with
 ** @item_size: size in bytes of an item in the array
 ** @size: full size of the array to create, in items
 **
 ** Returns 0 if successful, -1 otherwise.
-** @src can be NULL, in which case the array will be filled with 0,
-** but if not it should be at lease @size items long.
+** If @deflt is NULL, new or non-existing values will be filled with zeros.
 */
-int				ft_darr_init(t_darray *arr, const void *src,
+int				ft_darr_init(t_darray *arr, const void *deflt,
 					size_t item_size, size_t size);
-
-/*
-** ft_darr_default - set the default for new or non-existent values
-** @arr: array to set a default to
-** @deflt: pointer to the default value
-**
-** If this function is not called or if @deflt is reset to NULL,
-** new or non-existing values will simply be filled with zeros.
-*/
-void			ft_darr_default(t_darray *arr, void *deflt);
 
 /*
 ** ft_darr_set - set a value in the array, growing it if necessary
@@ -71,26 +61,29 @@ void			ft_darr_default(t_darray *arr, void *deflt);
 ** @val: pointer to the value to set
 **
 ** Returns 0 if successful, -1 otherwise.
+** If @val is NULL, the value will be initialized with the default.
 ** Note that if reallocation wasn't successful, the array stays intact,
 ** you can still use it as before.
 */
-int				ft_darr_set(t_darray *arr, size_t i, void *val);
+int				ft_darr_set(t_darray *arr, size_t i, const void *val);
 
 /*
 ** ft_darr_get - get a value in the array if it exists
 ** @arr - array to get a value from
 ** @i - index of the value to get
+** @val - pointer to store the value in
 **
-** Returns a pointer to the value if it exists, or the default value otherwise.
+** If @i has not been set or is out of bounds, it will be populated
+** with the chosen default.
 */
-void			*ft_darr_get(t_darray *arr, size_t i);
+void			ft_darr_get(t_darray *arr, size_t i, void *val);
 
 /*
 ** ft_darr_clear - clear memory and reset size to 0
 ** @arr: array to clear
 **
 ** If the values stored are pointers, this will not free them,
-** only the array itself is freed.
+** only the array in the struct itself is freed.
 */
 void			ft_darr_clear(t_darray *arr);
 
