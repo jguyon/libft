@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 23:14:03 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/20 02:02:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/20 02:35:58 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ int				ft_darr_init(t_darray *arr, const void *deflt,
 					size_t item_size, size_t size);
 
 /*
+** ft_darr_copy - copy a c array into a darray
+** @arr: array to copy into
+** @carr: c array to copy from
+** @i: index where to begin the copy
+** @size: size of @carr in items
+**
+** Returns 0 if successful, -1 otherwise.
+*/
+int				ft_darr_copy(t_darray *arr, const void *carr,
+					size_t i, size_t size);
+
+/*
 ** ft_darr_set - set a value in the array, growing it if necessary
 ** @arr: array to set the value in
 ** @i: index of the value to set
@@ -62,8 +74,6 @@ int				ft_darr_init(t_darray *arr, const void *deflt,
 **
 ** Returns 0 if successful, -1 otherwise.
 ** If @val is NULL, the value will be initialized with the default.
-** Note that if reallocation wasn't successful, the array stays intact,
-** you can still use it as before.
 */
 int				ft_darr_set(t_darray *arr, size_t i, const void *val);
 

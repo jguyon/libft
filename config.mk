@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/20 01:25:20 by jguyon           ###   ########.fr        #
+#    Updated: 2017/02/20 02:14:48 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -135,6 +135,7 @@ SOURCES = \
 	dlists/ft_dlst_sort \
 	\
 	darrays/ft_darr_init \
+	darrays/ft_darr_copy \
 	darrays/ft_darr_set \
 	darrays/ft_darr_get \
 	darrays/ft_darr_clear \
