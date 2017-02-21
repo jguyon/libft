@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 16:57:55 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/19 22:48:26 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/02/21 15:15:06 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@
 #define MISSING_OPT '?'
 #define ARG_INDICATOR ':'
 #define IS_VALID_OPT(c) ft_isalnum(c)
-
-enum		e_opt_err {
-	ERR_OPT,
-	ERR_ARG,
-};
+#define ERR_OPT 1
+#define ERR_ARG 2
 
 char		*g_ft_optarg = NULL;
 
@@ -58,7 +55,7 @@ static char	*next_option(int argc, char *const argv[])
 	return (curr_char);
 }
 
-static int	missing(enum e_opt_err err, char opt, const char *optstring)
+static int	missing(int err, char opt, const char *optstring)
 {
 	if (optstring[0] == ARG_INDICATOR)
 	{
