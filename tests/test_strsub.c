@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   test_strsub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:43:04 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:22:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/03/18 20:19:55 by jguyon            #+#    #+#             */
+/*   Updated: 2017/03/18 20:22:38 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include "test_libft.h"
 #include "ft_strings.h"
+#include <stdlib.h>
 
-char	*ft_strncat(char *dst, const char *src, size_t len)
+static void	test_sub(t_tap *t)
 {
-	char	*ret;
-	size_t	dlen;
+	char	str[] = "hello world";
+	char	*res;
 
-	ret = dst;
-	dlen = ft_strlen(dst);
-	dst += dlen;
-	if (!ft_memccpy(dst, src, '\0', len))
-		dst[len] = '\0';
-	return (ret);
+	res = ft_strsub(str, 3, 5);
+	FT_TAP_SEQ(t, res, "lo wo");
+	free(res);
+}
+
+void		run_tests(t_tap *t)
+{
+	FT_TAP_TEST(t, test_sub);
 }

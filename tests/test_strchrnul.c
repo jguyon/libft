@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   test_strchrnul.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:43:04 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:22:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/03/18 19:32:00 by jguyon            #+#    #+#             */
+/*   Updated: 2017/03/18 19:35:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include "test_libft.h"
 #include "ft_strings.h"
+#include <string.h>
 
-char	*ft_strncat(char *dst, const char *src, size_t len)
+static void	test_found(t_tap *t)
 {
-	char	*ret;
-	size_t	dlen;
+	char	src[] = "hello world";
 
-	ret = dst;
-	dlen = ft_strlen(dst);
-	dst += dlen;
-	if (!ft_memccpy(dst, src, '\0', len))
-		dst[len] = '\0';
-	return (ret);
+	FT_TAP_IEQ(t, ft_strchrnul(src, 'l') - src, 2);
+}
+
+static void	test_not_found(t_tap *t)
+{
+	char	src[] = "hello world";
+
+	FT_TAP_IEQ(t, ft_strchrnul(src, 'a') - src, 11);
+}
+
+void		run_tests(t_tap *t)
+{
+	FT_TAP_TEST(t, test_found);
+	FT_TAP_TEST(t, test_not_found);
 }
