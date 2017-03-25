@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   test_prog_name.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:43:04 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:22:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/03/18 23:42:48 by jguyon            #+#    #+#             */
+/*   Updated: 2017/03/18 23:46:10 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_strings.h"
+#include "test_libft.h"
+#include "ft_program.h"
 
-char	*ft_strncat(char *dst, const char *src, size_t len)
+static void	test_no_slash(t_tap *t)
 {
-	char	*ret;
-	size_t	dlen;
+	ft_setprogname("hello");
+	FT_TAP_SEQ(t, ft_getprogname(), "hello");
+}
 
-	ret = dst;
-	dlen = ft_strlen(dst);
-	dst += dlen;
-	if (!ft_memccpy(dst, src, '\0', len))
-		dst[len] = '\0';
-	return (ret);
+static void	test_with_slash(t_tap *t)
+{
+	ft_setprogname("/hello/world");
+	FT_TAP_SEQ(t, ft_getprogname(), "world");
+}
+
+void		run_tests(t_tap *t)
+{
+	FT_TAP_TEST(t, test_no_slash);
+	FT_TAP_TEST(t, test_with_slash);
 }

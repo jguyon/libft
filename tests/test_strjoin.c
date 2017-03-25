@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   test_strjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:43:04 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:22:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/03/18 20:15:03 by jguyon            #+#    #+#             */
+/*   Updated: 2017/03/18 20:19:29 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include "test_libft.h"
 #include "ft_strings.h"
+#include <stdlib.h>
 
-char	*ft_strncat(char *dst, const char *src, size_t len)
+static void	test_join(t_tap *t)
 {
-	char	*ret;
-	size_t	dlen;
+	char	*res;
 
-	ret = dst;
-	dlen = ft_strlen(dst);
-	dst += dlen;
-	if (!ft_memccpy(dst, src, '\0', len))
-		dst[len] = '\0';
-	return (ret);
+	res = ft_strjoin("hello", " world");
+	FT_TAP_SEQ(t, res, "hello world");
+	free(res);
+}
+
+void		run_tests(t_tap *t)
+{
+	FT_TAP_TEST(t, test_join);
 }

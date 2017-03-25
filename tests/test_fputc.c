@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   test_fputc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/04 19:43:04 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:22:06 by jguyon           ###   ########.fr       */
+/*   Created: 2017/03/22 22:25:59 by jguyon            #+#    #+#             */
+/*   Updated: 2017/03/22 22:29:54 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_strings.h"
+#include "test_libft.h"
+#include "ft_streams.h"
 
-char	*ft_strncat(char *dst, const char *src, size_t len)
+static void	test_byte(t_tap *t)
 {
-	char	*ret;
-	size_t	dlen;
+	t_stream	*stm;
+	char		buf[256] = "";
 
-	ret = dst;
-	dlen = ft_strlen(dst);
-	dst += dlen;
-	if (!ft_memccpy(dst, src, '\0', len))
-		dst[len] = '\0';
-	return (ret);
+	stm = ft_fmemopen(buf, sizeof(buf), "w");
+	FT_TAP_IEQ(t, ft_fputc('a', stm), 'a');
+	ft_fclose(stm);
+	FT_TAP_SEQ(t, buf, "a");
+}
+
+void		run_tests(t_tap *t)
+{
+	FT_TAP_TEST(t, test_byte);
 }
