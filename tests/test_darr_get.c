@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 16:39:21 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/28 16:32:14 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/28 16:57:20 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	test_in_bounds(t_tap *t)
 
 	FT_TAP_IEQ(t, ft_darr_init(&darr, sizeof(int), 0), 0);
 	FT_TAP_IEQ(t, ft_darr_set(&darr, 3, &val), 0);
-	ft_darr_get(&darr, 3, &actual);
+	FT_TAP_IEQ(t, ft_darr_get(&darr, 3, &actual), 0);
 	FT_TAP_IEQ(t, actual, val);
 	free(darr.array);
 }
@@ -33,7 +33,7 @@ static void	test_out_bounds(t_tap *t)
 	int			actual = 1;
 
 	FT_TAP_IEQ(t, ft_darr_init(&darr, sizeof(int), 0), 0);
-	ft_darr_get(&darr, darr.size, &actual);
+	FT_TAP_IEQ(t, ft_darr_get(&darr, darr.size, &actual), -1);
 	FT_TAP_IEQ(t, actual, 0);
 	free(darr.array);
 }

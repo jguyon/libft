@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 23:14:03 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/28 16:25:07 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/28 16:53:58 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ int				ft_darr_set(t_darray *arr, size_t i, const void *val);
 ** @i - index of the value to get
 ** @val - pointer to store the value in
 **
-** If @i has not been set or is out of bounds, @val will be zeroed.
+** Returns -1 if @i is out of bounds, 0 otherwise.
+** If @i has not yet been set (or is out of bounds), @val will be zeroed.
 */
-void			ft_darr_get(t_darray *arr, size_t i, void *val);
+int				ft_darr_get(t_darray *arr, size_t i, void *val);
 
 /*
 ** ft_darr_clear - reset size to 0
