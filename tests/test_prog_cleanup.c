@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 23:34:57 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 23:41:11 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/28 19:02:09 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	test_success(t_tap *t)
 {
 	size_t	i;
 
+	ft_cleanup(FT_EXIT_SUCCESS);
 	i = 0;
 	while (i < FT_ONEXIT_MAX)
 	{
@@ -63,6 +64,7 @@ static void	test_failure(t_tap *t)
 {
 	size_t		i;
 
+	ft_cleanup(FT_EXIT_SUCCESS);
 	i = 0;
 	while (i < FT_ONEXIT_MAX)
 	{
