@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 16:53:56 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/21 17:08:11 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/28 16:31:27 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	test_fill(t_tap *t)
 	int			src[] = {0, 1, 2, 3, 4};
 	size_t		i;
 
-	FT_TAP_IEQ(t, ft_darr_init(&darr, NULL, sizeof(int), 0), 0);
+	FT_TAP_IEQ(t, ft_darr_init(&darr, sizeof(int), 0), 0);
 	FT_TAP_IEQ(t, ft_darr_copy(&darr, src, 0, sizeof(src) / sizeof(int)), 0);
 	FT_TAP_OK(t, darr.size >= sizeof(src) / sizeof(int));
 	i = 0;
@@ -42,7 +42,7 @@ static void	test_append(t_tap *t)
 	size_t		i;
 	int			val = 42;
 
-	FT_TAP_IEQ(t, ft_darr_init(&darr, NULL, sizeof(int), 0), 0);
+	FT_TAP_IEQ(t, ft_darr_init(&darr, sizeof(int), 0), 0);
 	FT_TAP_IEQ(t, ft_darr_set(&darr, 0, &val), 0);
 	FT_TAP_IEQ(t, ft_darr_copy(&darr, src, 1, sizeof(src) / sizeof(int)), 0);
 	i = 0;
