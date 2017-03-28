@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 16:47:19 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/21 16:52:44 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/28 16:30:50 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	test_before_set(t_tap *t)
 	t_darray	darr;
 	int			val = 42;
 
-	FT_TAP_IEQ(t, ft_darr_init(&darr, NULL, sizeof(int), 8), 0);
+	FT_TAP_IEQ(t, ft_darr_init(&darr, sizeof(int), 8), 0);
 	FT_TAP_OK(t, darr.array != NULL);
 	FT_TAP_OK(t, darr.size >= 8);
 	ft_darr_clear(&darr);
