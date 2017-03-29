@@ -6,11 +6,12 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 00:57:12 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/22 18:43:09 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/29 18:18:45 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dlists.h"
+#include "ft_debug.h"
 
 static void	swap_adjacent(t_dlist_node *prev, t_dlist_node *next)
 {
@@ -41,6 +42,10 @@ static void	swap_separated(t_dlist_node *n1, t_dlist_node *n2)
 
 void		ft_dlst_swap(t_dlist_node *n1, t_dlist_node *n2)
 {
+	FT_ASSERT(n1 != NULL);
+	FT_ASSERT(n1->prev && n1->next);
+	FT_ASSERT(n2 != NULL);
+	FT_ASSERT(n2->prev && n2->next);
 	if (n1->next == n2)
 		swap_adjacent(n1, n2);
 	else if (n1->prev == n2)
