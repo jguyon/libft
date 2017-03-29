@@ -53,6 +53,7 @@ MODULES = \
 	streams \
 	printf \
 	program \
+	debug \
 	tap \
 
 # Sources names to include in the library
@@ -176,6 +177,9 @@ SOURCES = \
 	printf/pf_write_str \
 	printf/pf_write_wstr \
 	printf/pf_write_uint \
+	\
+	debug/ft_debug \
+	debug/ft_assert \
 	\
 	tap/ft_tap_start \
 	tap/ft_tap_end \
