@@ -6,12 +6,13 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 00:37:11 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/28 16:37:57 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/03/29 17:44:12 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_darrays.h"
 #include "ft_memory.h"
+#include "ft_debug.h"
 #include <stdlib.h>
 
 #define MIN_ARRAY_SIZE(old) (old == 0 ? 8 : old)
@@ -54,6 +55,7 @@ static int	grow_array(t_darray *arr, size_t wanted_size)
 
 int			ft_darr_set(t_darray *arr, size_t i, const void *val)
 {
+	FT_ASSERT(arr != NULL);
 	if (i >= arr->size && grow_array(arr, i + 1))
 		return (-1);
 	memset_array(arr->array + (i * arr->item_size), val, arr->item_size, 1);
