@@ -23,7 +23,7 @@ PROVE = prove -f
 
 # Flags for release and debug versions, and test executables
 RLSFLAGS =
-DBGFLAGS = -g
+DBGFLAGS = -g -DFT_FEATURE_DEBUG
 TSTFLAGS = $(DBGFLAGS)
 
 # Default targets for building or testing (debug or release)
