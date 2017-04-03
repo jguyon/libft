@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 11:42:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 15:27:09 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/03 11:34:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,25 @@
 ** The easiest way to do that is to compile the lib with
 ** `make CPPFLAGS=-DFT_FEATURE_DEBUG` and compile your program
 ** with `clang -DFT_FEATURE_DEBUG`.
+** Change the log file by defining FT_DEBUG_FILE to a path string
+** (for example: `-DFT_FEATURE_FILE=\\\"/tmp/debug.log\\\"`).
 */
 
-/*
-** FT_DEBUG_FD - file descriptor for debug messages
-*/
-# define FT_DEBUG_FD 2
+# include <stddef.h>
 
 /*
-** FT_DEBUG_FMT - printf debug format and args
-** @fl: file name
-** @ln: line number
-** @msg: debug message
+** FT_DEBUG_FD - file descriptor for debug messages on the command line
 */
-# define FT_DEBUG_FMT(fl, ln, msg) "debug: %s (%s:%d)\n", msg, fl, ln
+# ifndef FT_DEBUG_FD
+#  define FT_DEBUG_FD 2
+# endif
+
+/*
+** FT_DEBUG_FILE - path to write debug messages to
+*/
+# ifndef FT_DEBUG_FILE
+#  define FT_DEBUG_FILE "/tmp/libftdebug.log"
+# endif
 
 /*
 ** FT_ASSERT_EXIT - exit status of the program for failed assertions
