@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 00:20:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/18 00:10:38 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 16:42:26 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@
 /*
 ** Utilities to traverse memory using several bytes long words
 ** instead of one byte by one byte
+**
+** Use the -DFT_FEATURE_MEMOPT compilation flag to activate them.
 */
 
 /*
 ** FT_MEM_OPT - if defined, optimize memory traversal
 */
-# ifdef __APPLE__
-#  define FT_MEM_OPT
-# elif linux
-#  define FT_MEM_OPT
+# ifdef FT_FEATURE_MEMOPT
+#  ifdef __APPLE__
+#   define FT_MEM_OPT
+#  elif linux
+#   define FT_MEM_OPT
+#  endif
 # endif
 
 /*
