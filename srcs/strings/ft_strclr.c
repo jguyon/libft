@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 15:22:59 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 17:22:11 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 21:36:03 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 #include "ft_strings.h"
 #include "ft_debug.h"
 
+static void	do_strclr(char *str)
+{
+	while (*str)
+	{
+		*str = 0;
+		++str;
+	}
+}
+
 #ifndef FT_MEM_OPT
 
-void	ft_strclr(char *str)
+void		ft_strclr(char *str)
 {
 	FT_ASSERT(str != NULL);
-	while (*str)
-		*(str++) = 0;
+	do_strclr(str);
 }
 
 #else
@@ -32,15 +40,15 @@ void	ft_strclr(char *str)
 	{
 		if (!(*str))
 			return ;
-		*(str++) = 0;
+		*str = 0;
+		++str;
 	}
 	while (!FT_MEM_HASZERO(*((t_mem_word *)str)))
 	{
 		*((t_mem_word *)str) = 0;
 		str += FT_MEM_WORDLEN;
 	}
-	while (*str)
-		*(str++) = 0;
+	do_strclr(str);
 }
 
 #endif

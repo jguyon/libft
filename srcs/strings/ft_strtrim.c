@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 16:46:27 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 16:58:29 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 22:12:58 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ char		*ft_strtrim(char const *str)
 	size_t			len;
 
 	FT_ASSERT(str != NULL);
-	if (!str)
-		return (NULL);
 	start = 0;
 	while (is_space(str[start]))
 		++start;

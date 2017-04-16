@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 17:47:54 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 22:11:42 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -78,8 +78,6 @@ SOURCES = \
 	strings/ft_strnstr \
 	strings/ft_strcmp \
 	strings/ft_strncmp \
-	strings/ft_strequ \
-	strings/ft_strnequ \
 	strings/ft_strclr \
 	strings/ft_strcpy \
 	strings/ft_strncpy \
