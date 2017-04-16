@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 14:46:18 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 15:33:11 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,14 +21,8 @@ AR = ar
 ARFLAGS = rcs
 PROVE = prove -f
 
-# Flags for release and debug versions, and test executables
-RLSFLAGS =
+# Flags to add for debugging
 DBGFLAGS = -g -DFT_FEATURE_DEBUG
-TSTFLAGS = $(DBGFLAGS)
-
-# Default targets for building or testing (debug or release)
-DEFAULT_BUILD = release
-CHECK_BUILD = debug
 
 # Paths to find sources and headers in
 SOURCE_PATH = srcs
@@ -38,7 +32,7 @@ INCLUDE_PATH = includes
 # Path to put intermediate files in
 BUILD_PATH = build
 
-# Release and debug name of the library
+# Archive name of the library
 NAME = libft.a
 
 # Modules to include in the build
@@ -213,4 +207,4 @@ TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
 TESTS = $(filter test_%,$(TEST_FILES))
 
 # Source names to compile with every test executable
-TESTS_COMMON = $(filter-out $(TESTS),$(TEST_FILES))
+TESTS_COMMON = $(filter-out test_%,$(TEST_FILES))
