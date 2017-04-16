@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#*   Updated: 2017/03/28 18:55:11 by jguyon           ###   ########.fr       *#
+#    Updated: 2017/04/16 15:18:48 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -32,27 +32,22 @@ TST_DEP := $(TST_EXE:%.t=%.d)
 
 PATHS := $(sort $(dir $(OBJ) $(TST_EXE)))
 
-# Default target
-all: $(DEFAULT_BUILD)
-
-# Compile library with release flags
-release: CPPFLAGS := $(strip $(CPPFLAGS) $(RLSFLAGS))
-release: $(NAME)
+# Release target (default)
+all: $(NAME)
 
 # Compile library with debug flags
 debug: CPPFLAGS := $(strip $(CPPFLAGS) $(DBGFLAGS))
 debug: $(NAME)
 
 # Compile tests
-# If the library needs to be updated, test flags will be used.
-# Use the check target to avoid that.
-test: CPPFLAGS := $(strip $(CPPFLAGS) $(TSTFLAGS))
+# If the library needs to be updated, debug flags will be used.
+test: CPPFLAGS := $(strip $(CPPFLAGS) $(DBGFLAGS))
 test: $(TST_EXE)
 
 # Compile the library and execute its tests
 # If a version of the library is already compiled and does not need updating,
 # it will not be recompiled.
-# As a consequence, running for example make fclean && make -j release check
+# As a consequence, running for example make fclean && make -j all check
 # will test the release version even if check is configured to default
 # to the debug version.
 ifeq ($(strip $(TST_EXE)),)
@@ -74,7 +69,7 @@ fclean: clean
 # Recompile library
 re: fclean all
 
-.PHONY: all release debug test check clean fclean re
+.PHONY: all debug test check clean fclean re
 
 $(NAME): $(OBJ)
 	@rm -f $@
