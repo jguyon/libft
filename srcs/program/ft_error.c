@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 21:48:53 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/19 22:44:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 14:52:49 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ static char	*errnoop(int errnum)
 	return (NULL);
 }
 
+static void	reliable_print_error(void)
+{
+	if (write(
+			STDERR_FILENO,
+			FERROR_DIAGNOSTIC,
+			ft_strlen(FERROR_DIAGNOSTIC)
+		) <= 0)
+	{
+		ft_exit(2);
+	}
+}
+
 void		ft_error(int status, int errnum, const char *format, ...)
 {
 	const char	*progname;
@@ -64,7 +76,7 @@ void		ft_error(int status, int errnum, const char *format, ...)
 	print_error(progname, error, format, args);
 	va_end(args);
 	if (ft_ferror(FT_STDERR))
-		write(STDERR_FILENO, FERROR_DIAGNOSTIC, ft_strlen(FERROR_DIAGNOSTIC));
+		reliable_print_error();
 	if (status)
 		ft_exit(status);
 }
