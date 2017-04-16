@@ -20,8 +20,9 @@ git clone https://github.com/jguyon/libft.git && cd libft
 make # Compile the library
 make fclean debug # Recompile with debug flags
 make check # Compile and run the tests
-make fclean && make release check # Test the release version of the library
-echo "DEFAULT_BUILD = debug" > local.mk # Compile the debug version by default on your local machine
+make TESTS="test_strlen test_strcpy" check # Run only a subset of tests
+make fclean && make all check # Test the release version of the library
+echo ".DEFAULT_GOAL := debug" > local.mk # Compile the debug version by default on your local machine
 npm install -g node-tap && echo "PROVE = tap" > local.mk # Change the tap output processor for tests
 cd /some/neat/new/project \
     && git subtree add --prefix=libft https://github.com/jguyon/libft.git \
