@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 19:51:54 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 19:56:53 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 14:57:57 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	test_greater(t_tap *t)
 	char	s1[32] = "hello world";
 	char	s2[32] = "hello world";
 
-	s1[4] = 255;
-	FT_TAP_IEQ(t, ft_strncmp(s1, s2, sizeof(s1)), 255 - 'o');
+	s1[4] = 127;
+	FT_TAP_IEQ(t, ft_strncmp(s1, s2, sizeof(s1)), 127 - 'o');
 }
 
 static void	test_lower(t_tap *t)

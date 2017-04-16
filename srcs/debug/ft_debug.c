@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 11:48:19 by jguyon            #+#    #+#             */
-/*   Updated: 2017/04/03 11:29:53 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 14:53:39 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		ft_debug(const char *file, int line, const char *fmt, ...)
 		|| dprintf(fd, " (%s:%d)\n", file, line) < 0)
 	{
 		err = "debug: could not open " FT_DEBUG_FILE "\n";
-		write(FT_DEBUG_FD, err, strlen(err));
+		(void)write(FT_DEBUG_FD, err, strlen(err));
 	}
 	va_end(args);
 }

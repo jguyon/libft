@@ -6,14 +6,14 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/02/20 02:14:48 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 14:46:18 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 # Programs and their flags
 SHELL = /bin/sh
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Wextra -Werror -std=gnu11
 CPPFLAGS =
 LDFLAGS =
 LDLIBS =

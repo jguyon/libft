@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:01:35 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/18 18:11:42 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 14:57:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	test_greater(t_tap *t)
 	int		res;
 
 	memcpy(cmp, mem, sizeof(mem));
-	cmp[7] = 255;
+	cmp[7] = 127;
 	res = ft_memcmp(cmp, mem, sizeof(mem));
-	FT_TAP_IEQ(t, res, 255 - mem[7]);
+	FT_TAP_IEQ(t, res, 127 - mem[7]);
 }
 
 static void	test_lower(t_tap *t)
