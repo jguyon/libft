@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 00:20:48 by jguyon            #+#    #+#             */
-/*   Updated: 2017/04/16 16:42:26 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 19:52:16 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef unsigned long	t_mem_word;
 ** FT_MEM_WORD - word filled with a given byte
 ** @c: byte to repeat
 */
-#  define FT_MEM_WORD(c)		((c) * FT_MEM_LOBITS)
+#  define FT_MEM_WORD(c) ((c) * FT_MEM_LOBITS)
 
 /*
 ** FT_MEM_ALIGN - give the alignment offset of an address
@@ -91,13 +91,13 @@ typedef unsigned long	t_mem_word;
 ** permit to read words without risking to try accessing memory not
 ** owned by the program.
 */
-#  define FT_MEM_ALIGN(p)	((uintptr_t)(p) & (FT_MEM_WORDLEN - 1))
+#  define FT_MEM_ALIGN(p) ((uintptr_t)(p) & (FT_MEM_WORDLEN - 1))
 
 /*
 ** FT_MEM_HASZERO - check if a word contains any zero byte
 ** @w: word to test
 */
-#  define FT_MEM_HASZERO(w)	(((w) - FT_MEM_LOBITS) & ~(w) & FT_MEM_HIBITS)
+#  define FT_MEM_HASZERO(w) (((w) - FT_MEM_LOBITS) & ~(w) & FT_MEM_HIBITS)
 
 # endif
 

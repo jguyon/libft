@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 17:24:14 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 16:24:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 19:51:02 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,39 @@
 
 #ifndef FT_MEM_OPT
 
-static void	*cpy_left(void *dst, const void *src, size_t n)
+static void	cpy_left(void *dst, const void *src, size_t n)
 {
-	void	*ret;
-
-	ret = dst;
-	while (n--)
-		*((unsigned char *)dst++) = *((unsigned char *)src++);
-	return (ret);
+	while (n)
+	{
+		*((unsigned char *)dst) = *((unsigned char *)src);
+		++dst;
+		++src;
+		--n;
+	}
 }
 
-static void	*cpy_right(void *dst, const void *src, size_t n)
+static void	cpy_right(void *dst, const void *src, size_t n)
 {
-	dst += n;
-	src += n;
-	while (n--)
-		*((unsigned char *)--dst) = *((unsigned char *)--src);
-	return (dst);
+	while (n)
+	{
+		--dst;
+		--src;
+		*((unsigned char *)dst) = *((unsigned char *)src);
+		--n;
+	}
 }
 
 #else
 
-static void	*cpy_left(void *dst, const void *src, size_t n)
+static void	cpy_left(void *dst, const void *src, size_t n)
 {
-	void	*ret;
-
-	ret = dst;
 	if (FT_MEM_ALIGN(dst) == FT_MEM_ALIGN(src))
 	{
 		while (FT_MEM_ALIGN(dst) && n)
 		{
-			*((unsigned char *)dst++) = *((unsigned char *)src++);
+			*((unsigned char *)dst) = *((unsigned char *)src);
+			++dst;
+			++src;
 			--n;
 		}
 		while (n >= FT_MEM_WORDLEN)
@@ -56,20 +58,24 @@ static void	*cpy_left(void *dst, const void *src, size_t n)
 			n -= FT_MEM_WORDLEN;
 		}
 	}
-	while (n--)
-		*((unsigned char *)dst++) = *((unsigned char *)src++);
-	return (ret);
+	while (n)
+	{
+		*((unsigned char *)dst) = *((unsigned char *)src);
+		++dst;
+		++src;
+		--n;
+	}
 }
 
-static void	*cpy_right(void *dst, const void *src, size_t n)
+static void	cpy_right(void *dst, const void *src, size_t n)
 {
-	dst += n;
-	src += n;
 	if (FT_MEM_ALIGN(dst) == FT_MEM_ALIGN(src))
 	{
 		while (FT_MEM_ALIGN(dst) && n)
 		{
-			*((unsigned char *)--dst) = *((unsigned char *)--src);
+			--dst;
+			--src;
+			*((unsigned char *)dst) = *((unsigned char *)src);
 			--n;
 		}
 		while (n >= FT_MEM_WORDLEN)
@@ -80,19 +86,27 @@ static void	*cpy_right(void *dst, const void *src, size_t n)
 			n -= FT_MEM_WORDLEN;
 		}
 	}
-	while (n--)
-		*((unsigned char *)--dst) = *((unsigned char *)--src);
-	return (dst);
+	while (n)
+	{
+		--dst;
+		--src;
+		*((unsigned char *)dst) = *((unsigned char *)src);
+		--n;
+	}
 }
 
 #endif
 
 void		*ft_memmove(void *dst, const void *src, size_t len)
 {
+	void	*ret;
+
 	FT_ASSERT(dst != NULL || len == 0);
 	FT_ASSERT(src != NULL || len == 0);
+	ret = dst;
 	if (dst > src)
-		return (cpy_right(dst, src, len));
+		cpy_right(dst + len, src + len, len);
 	else
-		return (cpy_left(dst, src, len));
+		cpy_left(dst, src, len);
+	return (ret);
 }
