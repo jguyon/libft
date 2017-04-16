@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 15:33:11 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 17:47:54 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -200,11 +200,10 @@ SOURCES = \
 	program/ft_getopt \
 	program/ft_error \
 
-# Wildcard for test files, it makes experimentation easier
 TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
 
 # Source names to execute as tests
-TESTS = $(filter test_%,$(TEST_FILES))
+TESTS = $(patsubst $(TEST_PATH)/%.c,%,$(wildcard $(TEST_PATH)/*/*.c))
 
 # Source names to compile with every test executable
-TESTS_COMMON = $(filter-out test_%,$(TEST_FILES))
+TESTS_COMMON = $(patsubst $(TEST_PATH)/%.c,%,$(wildcard $(TEST_PATH)/*.c))

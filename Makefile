@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/17 15:12:56 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 15:18:48 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 17:51:36 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -41,7 +41,7 @@ debug: $(NAME)
 
 # Compile tests
 # If the library needs to be updated, debug flags will be used.
-test: CPPFLAGS := $(strip $(CPPFLAGS) $(DBGFLAGS))
+test: CPPFLAGS := $(strip -I$(TEST_PATH) $(CPPFLAGS) $(DBGFLAGS))
 test: $(TST_EXE)
 
 # Compile the library and execute its tests
