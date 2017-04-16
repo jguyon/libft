@@ -1,5 +1,5 @@
 -Iincludes
 -Wall
--Werror
 -Wextra
+-std=gnu11
 -Wno-format
