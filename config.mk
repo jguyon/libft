@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 15:08:31 by jguyon           ###   ########.fr        #
+#    Updated: 2017/04/16 15:33:11 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -207,4 +207,4 @@ TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
 TESTS = $(filter test_%,$(TEST_FILES))
 
 # Source names to compile with every test executable
-TESTS_COMMON = $(filter-out $(TESTS),$(TEST_FILES))
+TESTS_COMMON = $(filter-out test_%,$(TEST_FILES))
