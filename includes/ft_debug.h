@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 11:42:02 by jguyon            #+#    #+#             */
-/*   Updated: 2017/04/03 11:34:16 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/22 16:04:08 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,24 @@
 ** `make CPPFLAGS=-DFT_FEATURE_DEBUG` and compile your program
 ** with `clang -DFT_FEATURE_DEBUG`.
 ** Change the log file by defining FT_DEBUG_FILE to a path string
-** (for example: `-DFT_FEATURE_FILE=\\\"/tmp/debug.log\\\"`).
+** (for example: `-DFT_FEATURE_FILE=\\\"/tmp/debug.log\\\"`) when
+** compiling the lib.
 */
 
 # include <stddef.h>
 
 /*
-** FT_DEBUG_FD - file descriptor for debug messages on the command line
-*/
-# ifndef FT_DEBUG_FD
-#  define FT_DEBUG_FD 2
-# endif
-
-/*
 ** FT_DEBUG_FILE - path to write debug messages to
 */
 # ifndef FT_DEBUG_FILE
-#  define FT_DEBUG_FILE "/tmp/libftdebug.log"
+#  define FT_DEBUG_FILE "debug.log"
+# endif
+
+/*
+** FT_DEBUG_FD - file descriptor to write to if writing fails
+*/
+# ifndef FT_DEBUG_FD
+#  define FT_DEBUG_FD 2
 # endif
 
 /*
