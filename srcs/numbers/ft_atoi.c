@@ -6,19 +6,18 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 21:36:50 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 18:45:54 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/22 14:58:48 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_chars.h"
 #include "ft_numbers.h"
+#include "ft_chars.h"
 #include "ft_debug.h"
-#include <stddef.h>
 
 static int	is_space(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n'
-			|| c == '\v' || c == '\f' || c == '\r');
+		|| c == '\v' || c == '\f' || c == '\r');
 }
 
 static int	strtoi(const char *str)
@@ -36,7 +35,7 @@ static int	strtoi(const char *str)
 
 int			ft_atoi(const char *str)
 {
-	int				sign;
+	int		sign;
 
 	FT_ASSERT(str != NULL);
 	while (is_space(*str))
