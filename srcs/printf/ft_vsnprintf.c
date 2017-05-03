@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 16:02:31 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 18:49:37 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/05/03 20:47:59 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 
 static t_stream_funs	g_noop_funs;
 
-int						ft_vsnprintf(char *str, size_t size,
-							const char *format, va_list args)
+static int	count_chars(const char *format, va_list args)
 {
 	t_stream	*stm;
 	int			count;
 	va_list		cpy;
 
-	FT_ASSERT(format != NULL);
-	if (!str && size > 0)
-		return (-1);
 	if (!(stm = ft_fopencookie(NULL, "w", g_noop_funs)))
 		return (-1);
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
@@ -33,13 +29,26 @@ int						ft_vsnprintf(char *str, size_t size,
 	va_end(cpy);
 	if (ft_fclose(stm) || count < 0)
 		return (-1);
-	if (!str)
+	return (count);
+}
+
+int			ft_vsnprintf(char *str, size_t size,
+				const char *format, va_list args)
+{
+	t_stream	*stm;
+	int			count;
+
+	FT_ASSERT(format != NULL);
+	FT_ASSERT(str != NULL || size == 0);
+	count = count_chars(format, args);
+	if (!str || count < 0)
 		return (count);
 	if (!(stm = ft_fmemopen(str, size, "w")))
 		return (-1);
 	ft_setvbuf(stm, NULL, FT_IONBF, 0);
 	ft_vfprintf(stm, format, args);
-	ft_fclose(stm);
+	if (ft_fclose(stm))
+		return (-1);
 	str[(size_t)count >= size ? size - 1 : count] = '\0';
 	return (count);
 }
