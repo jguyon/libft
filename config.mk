@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/05/03 18:21:52 by jguyon           ###   ########.fr        #
+#    Updated: 2017/05/03 19:45:37 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -96,10 +96,6 @@ SOURCES = \
 	numbers/ft_atoi \
 	numbers/ft_itoa \
 	\
-	unicode/ft_wcconv \
-	unicode/ft_wclen \
-	unicode/ft_wstrlen \
-	\
 	dlists/ft_dlst_init \
 	dlists/ft_dlst_insertl \
 	dlists/ft_dlst_insertr \
@@ -167,7 +163,6 @@ SOURCES = \
 	printf/pf_uintmax_len \
 	printf/pf_write_pad \
 	printf/pf_write_str \
-	printf/pf_write_wstr \
 	printf/pf_write_uint \
 	\
 	debug/ft_debug \

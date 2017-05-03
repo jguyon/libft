@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 21:38:49 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/05 00:35:15 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/05/03 19:51:28 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,13 @@ static void	test_err(t_tap *t)
 
 static void	test_strs(t_tap *t)
 {
-	setlocale(LC_ALL, "");
-
 	printf_cmp(t, "%s // %s", "Hello, world!", NULL);
 	printf_cmp(t, "%10s // %10s // %10s", "hello", "hellohello", "hellohellohello");
 	printf_cmp(t, "%.s // %.10s // %.10s // %.10s", "hello", "hello", "hellohello", "hellohellohello");
 	printf_cmp(t, "%10.5s // %10.5s", "hello", "hellohello");
 	printf_cmp(t, "%-s // %-10s", "hello", "hello");
-	printf_cmp(t, "%ls // %10ls // %.5ls", L"$¢€", L"$¢€", L"$¢€");
 	printf_cmp(t, "%c // %c", 'h', '\0');
 	printf_cmp(t, "%10c // %1c", 'h', 'a');
-	printf_cmp(t, "%10lc // %10lc", L'€', L'h');
 }
 
 static void	test_ints(t_tap *t)
