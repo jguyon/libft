@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 23:14:03 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/28 16:53:58 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/05/03 18:57:47 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,15 @@
 
 /*
 ** t_darray - dynamic array implementation
-** @item_size: size in bytes of an item in the array
-** @size: current allocated size of the array, in items
-** @array: the array, can be NULL if size is 0
-**
-** Note that @size will often be much greater than needed to store
-** the value with the biggest index that you set.
-** If you want to track that size, you should use it as a null-terminated
-** array or wrap this implementation by your own struct and functions
-** (the latter would be smart anyway, void pointers are easy to mess up).
 **
 ** /!\ If your array is an array of pointers, parameters indicated as
 ** pointer to a value should be the *address* of a pointer variable,
 ** not the pointer itself, since the value to store is the pointer
 ** and not what it points to.
 **
-** /!\ You are responsible for freeing the created @array.
+** /!\ You need to keep track of the size of your array yourself
+** (e.g. by keeping a count or leaving a null at the end), only the
+** total capacity is kept internally.
 */
 typedef struct	s_darray {
 	size_t			item_size;
@@ -86,9 +79,12 @@ int				ft_darr_set(t_darray *arr, size_t i, const void *val);
 int				ft_darr_get(t_darray *arr, size_t i, void *val);
 
 /*
-** ft_darr_clear - reset size to 0
-** @arr: array to clear
+** ft_darr_extract - extract its array from a darray
+** @arr: darray to extract from
+**
+** Can return NULL if no item was set in @arr.
+** /!\ The resulting array is allocated and therefore needs to be freed.
 */
-void			ft_darr_clear(t_darray *arr);
+void			*ft_darr_extract(t_darray *arr);
 
 #endif

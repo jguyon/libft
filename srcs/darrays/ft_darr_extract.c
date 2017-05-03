@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_darr_clear.c                                    :+:      :+:    :+:   */
+/*   ft_darr_extract.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 00:35:40 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 17:43:36 by jguyon           ###   ########.fr       */
+/*   Created: 2017/04/22 21:14:10 by jguyon            #+#    #+#             */
+/*   Updated: 2017/04/22 21:16:32 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_darrays.h"
 #include "ft_debug.h"
-#include <stdlib.h>
 
-void	ft_darr_clear(t_darray *arr)
+void	*ft_darr_extract(t_darray *arr)
 {
+	void	*array;
+
 	FT_ASSERT(arr != NULL);
-	free(arr->array);
-	arr->array = NULL;
+	array = arr->array;
 	arr->size = 0;
+	arr->array = NULL;
+	return (array);
 }
