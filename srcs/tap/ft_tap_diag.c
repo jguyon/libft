@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 19:36:07 by jguyon            #+#    #+#             */
-/*   Updated: 2017/02/13 22:43:04 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/22 22:02:36 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void		ft_tap_diag(t_tap *t, va_list parent, ...)
 		while (key && val)
 		{
 			print_key(t, key, val, parent);
-			key = va_arg(parent, const char *);
-			val = va_arg(parent, const char *);
+			if ((key = va_arg(parent, const char *)))
+				val = va_arg(parent, const char *);
 		}
 		va_start(own, parent);
 		while ((key = va_arg(own, const char *))
