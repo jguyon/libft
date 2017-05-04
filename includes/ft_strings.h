@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 01:15:52 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/17 17:51:20 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 22:10:46 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,21 +135,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 ** @n: maximum number of characters to compare
 */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
-/*
-** ft_strequ - test equality of two strings
-** @s1: first string
-** @s2: second string
-*/
-int		ft_strequ(char const *s1, char const *s2);
-
-/*
-** ft_strnequ - test equality of a given number of characters in two strings
-** @s1: first string
-** @s2: second string
-** @n: maximum number of characters to compare
-*/
-int		ft_strnequ(char const *s1, char const *s2, size_t n);
 
 /*
 ** ft_strclr - fill a string with null-characters

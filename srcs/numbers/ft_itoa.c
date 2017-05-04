@@ -6,35 +6,45 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 20:58:22 by jguyon            #+#    #+#             */
-/*   Updated: 2017/01/08 13:52:02 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/22 15:02:10 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_strings.h"
 #include "ft_numbers.h"
+#include "ft_strings.h"
 
-char	*ft_itoa(int n)
+static size_t	num_len(unsigned int n)
 {
-	char			*str;
-	unsigned int	m;
-	size_t			i;
+	size_t	len;
 
-	m = n < 0 ? -n : n;
-	i = n < 0 ? 1 : 0;
-	while (m /= 10)
-		++i;
-	if (!(str = ft_strnew(i + 1)))
-		return (NULL);
-	m = n < 0 ? -n : n;
-	while (m)
+	len = 1;
+	while (n /= 10)
+		++len;
+	return (len);
+}
+
+static void		num_cpy(unsigned int n, char *str, size_t len)
+{
+	while (len)
 	{
-		str[i] = m % 10 + '0';
-		m /= 10;
-		--i;
+		--len;
+		str[len] = n % 10 + '0';
+		n /= 10;
 	}
+}
+
+char			*ft_itoa(int n)
+{
+	char	*str;
+	size_t	len;
+
+	len = num_len(FT_ABS(n));
+	if (n < 0)
+		++len;
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	num_cpy(FT_ABS(n), str, len);
 	if (n < 0)
 		str[0] = '-';
-	else if (n == 0)
-		str[0] = '0';
 	return (str);
 }

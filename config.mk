@@ -6,7 +6,7 @@
 #    By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/05 15:28:18 by jguyon            #+#    #+#              #
-#    Updated: 2017/04/16 15:33:11 by jguyon           ###   ########.fr        #
+#    Updated: 2017/05/03 19:45:37 by jguyon           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -78,8 +78,6 @@ SOURCES = \
 	strings/ft_strnstr \
 	strings/ft_strcmp \
 	strings/ft_strncmp \
-	strings/ft_strequ \
-	strings/ft_strnequ \
 	strings/ft_strclr \
 	strings/ft_strcpy \
 	strings/ft_strncpy \
@@ -97,10 +95,6 @@ SOURCES = \
 	\
 	numbers/ft_atoi \
 	numbers/ft_itoa \
-	\
-	unicode/ft_wcconv \
-	unicode/ft_wclen \
-	unicode/ft_wstrlen \
 	\
 	dlists/ft_dlst_init \
 	dlists/ft_dlst_insertl \
@@ -133,7 +127,7 @@ SOURCES = \
 	darrays/ft_darr_copy \
 	darrays/ft_darr_set \
 	darrays/ft_darr_get \
-	darrays/ft_darr_clear \
+	darrays/ft_darr_extract \
 	\
 	streams/ft_fopencookie \
 	streams/ft_fmemopen \
@@ -169,7 +163,6 @@ SOURCES = \
 	printf/pf_uintmax_len \
 	printf/pf_write_pad \
 	printf/pf_write_str \
-	printf/pf_write_wstr \
 	printf/pf_write_uint \
 	\
 	debug/ft_debug \
@@ -200,11 +193,10 @@ SOURCES = \
 	program/ft_getopt \
 	program/ft_error \
 
-# Wildcard for test files, it makes experimentation easier
 TEST_FILES := $(basename $(notdir $(wildcard $(TEST_PATH)/*.c)))
 
 # Source names to execute as tests
-TESTS = $(filter test_%,$(TEST_FILES))
+TESTS = $(patsubst $(TEST_PATH)/%.c,%,$(wildcard $(TEST_PATH)/*/*.c))
 
 # Source names to compile with every test executable
-TESTS_COMMON = $(filter-out test_%,$(TEST_FILES))
+TESTS_COMMON = $(patsubst $(TEST_PATH)/%.c,%,$(wildcard $(TEST_PATH)/*.c))

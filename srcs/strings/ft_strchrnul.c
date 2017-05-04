@@ -6,7 +6,7 @@
 /*   By: jguyon <jguyon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 19:40:29 by jguyon            #+#    #+#             */
-/*   Updated: 2017/03/29 17:05:17 by jguyon           ###   ########.fr       */
+/*   Updated: 2017/04/16 20:54:37 by jguyon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 #include "ft_strings.h"
 #include "ft_debug.h"
 
-#ifndef FT_MEM_OPT
-
-char	*ft_strchrnul(const char *str, int c)
+static char	*do_strchrnul(const char *str, char c)
 {
-	FT_ASSERT(str != NULL);
-	c = (char)c;
 	while (*str && *str != c)
 		++str;
 	return ((char *)str);
 }
 
+#ifndef FT_MEM_OPT
+
+char		*ft_strchrnul(const char *str, int c)
+{
+	FT_ASSERT(str != NULL);
+	return (do_strchrnul(str, (char)c));
+}
+
 #else
 
-char	*ft_strchrnul(const char *str, int c)
+char		*ft_strchrnul(const char *str, int c)
 {
 	t_mem_word	word;
 
@@ -40,12 +44,11 @@ char	*ft_strchrnul(const char *str, int c)
 		++str;
 	}
 	word = FT_MEM_WORD(c);
-	while (!FT_MEM_HASZERO(*((t_mem_word *)str)
-							& (*((t_mem_word *)str) ^ word)))
+	while (
+		!FT_MEM_HASZERO(*((t_mem_word *)str) & (*((t_mem_word *)str) ^ word))
+	)
 		str += FT_MEM_WORDLEN;
-	while (*str && *str != c)
-		++str;
-	return ((char *)str);
+	return (do_strchrnul(str, c));
 }
 
 #endif
