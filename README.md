@@ -1,17 +1,6 @@
 # libft
 
-Static library to use in [42 school](https://en.wikipedia.org/wiki/42_(school)) C projects.  
-It has only been tested on the 64-bit versions of linux and osx, but should work on 32-bit
-or other similar \*NIX systems without major changes, I think.
-
-## Required reading
-
-[Don't Reinvent The Wheel, Unless You Plan on Learning More About Wheels](https://blog.codinghorror.com/dont-reinvent-the-wheel-unless-you-plan-on-learning-more-about-wheels/)
-
-## Disclaimer
-
-I'm a student. I'm learning and experimenting and stuff.  
-Bad code and bad practices are going to appear here, I hope not too often though.
+Static library used in my [42 school](<https://en.wikipedia.org/wiki/42_(school)>) C projects.
 
 ## Usage
 
